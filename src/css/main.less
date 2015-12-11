@@ -1,0 +1,38 @@
+@import "../../node_modules/bootstrap/less/bootstrap";
+@import "../../node_modules/react-select/less/default";
+@import (inline) "../../node_modules/leaflet/dist/leaflet.css";
+
+@import (inline) "../../node_modules/font-awesome/css/font-awesome.css";
+
+// general
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+h4 {
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+// common
+#main-wrapper {
+    position: absolute;
+    top: 50px;
+    height: calc(100% ~"-" 50px);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    > div {
+        height: 100%;
+        overflow: auto;
+    }
+}
+#map {
+    height: 100%;
+    width: 100%;
+}
