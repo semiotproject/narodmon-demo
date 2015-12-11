@@ -70,7 +70,30 @@ export function createPolygons(map, points) {
                     return Math.abs(d.intensity) + 0.1;
                 }
             });
-    }
+
+            svg.selectAll("text").remove();
+            svg.append("g")
+                .attr("class", "label")
+              .selectAll("text")
+                .data(polygons.map(d3.geom.polygon))
+              .enter().append("text")
+                .attr("class", function(d) {
+                    console.log(d);
+                    var centroid = d.centroid(),
+                        point = d.point,
+                        angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
+                    return "label--" + (d.orient = angle === 0 ? "right"
+                      : angle === -1 ? "top"
+                      : angle === 1 ? "bottom"
+                      : "left");
+                })
+                .attr("transform", function(d) { return "translate(" + d.point.x + "," + d.point.y + ")"; })
+                .attr("dy", function(d) { return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null; })
+                .attr("x", function(d) { return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null; })
+                .attr("y", function(d) { return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null; })
+                .text(function(d, i) { return "4.4"; });
+
+        }
 
     map.on("viewreset moveend", update);
 
