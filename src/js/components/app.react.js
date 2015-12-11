@@ -40,12 +40,7 @@ export default class App extends React.Component {
     }
 
     initMap() {
-        this._map = L.map("map").setView([55.754247, 37.621856], 16).fitBounds(
-            [
-                [60.408719, 28.743264],
-                [59.601677, 32.304525]
-            ]
-        );
+        this._map = L.map("map").setView([55.754247, 37.621856], 16);
 
         L.tileLayer(CONFIG.URLS.tiles, {
             attribution: '',
