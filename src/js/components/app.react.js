@@ -71,7 +71,7 @@ export default class App extends React.Component {
             <div>
                 <nav className="navbar navbar-inverse navbar-fixed-top">
                     <div className="navbar-collapse collapse">
-                        <a href="" className="navbar-brand">Narodmon demo</a>
+                        <a href="" className="navbar-brand">Unequal Temperature Changes (Demo)</a>
                     </div>
                 </nav>
                 <div id="map">
