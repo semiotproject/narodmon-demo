@@ -7,7 +7,7 @@ export function loadLastObservations() {
     $.ajax({
         url: CONFIG.URLS.obs_snapshot,
         success(data) {
-            promise.resolve(data.events[0][0].events);
+            promise.resolve(data.events[0].reverse().[0].events);
         },
         error() {
             console.error(`failed to load observation snapshot`);
