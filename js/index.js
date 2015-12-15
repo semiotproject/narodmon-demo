@@ -69299,7 +69299,7 @@ function loadLastObservations() {
     _jquery2['default'].ajax({
         url: _config2['default'].URLS.obs_snapshot,
         success: function success(data) {
-            promise.resolve(data.events[0][0].events);
+            promise.resolve(data.events[0][data.events[0].length - 1].events);
         },
         error: function error() {
             console.error('failed to load observation snapshot');
