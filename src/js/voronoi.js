@@ -28,26 +28,11 @@ export function createPolygons(map, points) {
             v.cell = v;
             v.group = points[index].group;
             v.intensity = points[index].intensity;
+            if (!v) {
+                console.error(`ONE OV POINTS IS ILLEGAL!!`);
+            }
+            // console.log(v);
         });
-
-        console.log(`polygons: `, polygons);
-        console.log(`svg: `, svg);
-
-/*
-        d3.selectAll('.AEDpoint').remove();
-        //サークル要素を追加
-        const circle = g.selectAll("circle")
-            .data(positions)
-            .enter()
-            .append("circle")
-            .attr("class", "AEDpoint")
-            .attr({
-                "cx":function(d, i) { return d.x; },
-                "cy":function(d, i) { return d.y; },
-                "r":20,
-                fill:"red"
-            });
-*/
         svg.selectAll(".volonoi").remove();
         svg.selectAll("path")
             .data(polygons)
@@ -55,45 +40,52 @@ export function createPolygons(map, points) {
             .append("svg:path")
             .attr("class", "volonoi")
             .attr({
-                d: function(d) {
+                d(d) {
                     if(!d) {
                         return null;
                     }
-                    console.log(d);
                     return "M" + d.cell.join("L") + "Z";
                 },
                 stroke:"transparent",
-                fill: (d) => {
+                fill(d) {
+                    if (!d) {
+                        console.warn(`why y no d?`);
+                        return "red";
+                    }
                     return d.group === 1 ? "red" : "blue";
                 },
-                opacity: (d) => {
-                    return Math.abs(d.intensity) + 0.1;
+                opacity(d) {
+                    if (!d) {
+                        console.warn(`why y no d?`);
+                        return 0;
+                    }
+                    // console.log(Math.abs(d.intensity) + 0.01);
+                    return Math.abs(d.intensity) + 0.01;
                 }
             });
-
-            svg.selectAll("text").remove();
-            svg.append("g")
-                .attr("class", "label")
-              .selectAll("text")
-                .data(polygons.map(d3.geom.polygon))
-              .enter().append("text")
-                .attr("class", function(d) {
-                    console.log(d);
-                    var centroid = d.centroid(),
-                        point = d.point,
-                        angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
-                    return "label--" + (d.orient = angle === 0 ? "right"
-                      : angle === -1 ? "top"
-                      : angle === 1 ? "bottom"
-                      : "left");
-                })
-                .attr("transform", function(d) { return "translate(" + d.point.x + "," + d.point.y + ")"; })
-                .attr("dy", function(d) { return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null; })
-                .attr("x", function(d) { return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null; })
-                .attr("y", function(d) { return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null; })
-                .text(function(d, i) { return "4.4"; });
-
-        }
+/*
+        svg.selectAll("text").remove();
+        svg.append("g")
+            .attr("class", "label")
+          .selectAll("text")
+            .data(polygons.map(d3.geom.polygon))
+          .enter().append("text")
+            .attr("class", function(d) {
+                const centroid = d.centroid(),
+                    point = d.point,
+                    angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
+                return "label--" + (d.orient = angle === 0 ? "right"
+                  : angle === -1 ? "top"
+                  : angle === 1 ? "bottom"
+                  : "left");
+            })
+            .attr("transform", function(d) { return "translate(" + d.point.x + "," + d.point.y + ")"; })
+            .attr("dy", function(d) { return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null; })
+            .attr("x", function(d) { return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null; })
+            .attr("y", function(d) { return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null; })
+            .text(function(d, i) { return "4.4"; });
+*/
+    }
 
     map.on("viewreset moveend", update);
 

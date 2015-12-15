@@ -1,7 +1,7 @@
 @import "../../node_modules/bootstrap/less/bootstrap";
-@import "../../node_modules/react-select/less/default";
-@import (inline) "../../node_modules/leaflet/dist/leaflet.css";
 
+@import (inline) "../../node_modules/leaflet/dist/leaflet.css";
+@import (inline) "../../node_modules/vis/dist/vis.css";
 @import (inline) "../../node_modules/font-awesome/css/font-awesome.css";
 
 // general
@@ -37,6 +37,13 @@ h4 {
     width: 100%;
 }
 
+.content {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
 .cell-border {
   fill: none;
   stroke: #ccc;
@@ -65,4 +72,41 @@ h4 {
 
 .label--left {
   text-anchor: end;
+}
+
+#timeline {
+    position: absolute;
+    bottom: 10px;
+    width: 40%;
+    background: rgba(255, 255, 255, 0.68);
+    margin: 0 30%;
+    cursor: pointer;
+}
+
+#legend {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  background: rgba(0,0,0,.2);
+  box-shadow: 2px 2px 2px rgba(0,0,0,.3);
+  padding: 20px;
+  border-radius: 4px;
+  .legend-body * {
+    color: black;
+  }
+}
+
+.preloader {
+  background: url("../img/preloader.gif") center no-repeat;
+  height: 300px;
+  background-size: 6%;
+  * {
+      display: none;
+  }
+}
+
+#play-button {
+  width: 100%;
+  height: 40px;
+  font-size: 14px;
 }

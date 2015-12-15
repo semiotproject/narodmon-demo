@@ -58,8 +58,6 @@ export function parseObservations(ttl) {
                 console.error(`unexpected error while constructing sensor info: `, e);
             }
         });
-        console.log(`observations snapshot: `, observations);
-
         promise.resolve(observations);
     });
 

@@ -20,11 +20,19 @@ class ObservationStore extends EventEmitter {
         const promise = $.Deferred();
         this.loadSensors().done(() => {
             loadLastObservations().done((observations) => {
-                parseObservations(observations).done((obs) => {
-                    this.observations = this.mergeObservations(obs);
-                    console.log(`data after merge: `, this.observations);
+                const promises = [];
+                observations.map((observation) => {
+                    const localPromise = $.Deferred();
+                    parseObservations(observation.events).done((result) => {
+                        this.observations[observation.created] = this.mergeObservations(result).map(this.normalizeObservation);
+                        // console.log(`data after merge for timestamp ${observation.created}: `, this.observations[observation.created]);
+                        localPromise.resolve();
+                    });
+                    promises.push(localPromise);
+                });
+                $.when(...promises).done(() => {
+                    // finally, resolve basic promise
                     promise.resolve(this.observations);
-                    // this.subscribe();
                 });
             });
         });
@@ -38,6 +46,12 @@ class ObservationStore extends EventEmitter {
             }
             return $.extend({}, this.sensors[o.sensor], o);
         }).filter((o) => { return o; });
+    }
+
+    // set correct `intensity` value
+    normalizeObservation(obs) {
+        // TODO
+        return obs;
     }
     loadSensors() {
         const promise = $.Deferred();
@@ -56,6 +70,24 @@ class ObservationStore extends EventEmitter {
             promise.resolve();
         });
         return promise;
+    }
+    getSnapshotForTimestamp(timestamp) {
+        console.info(`finding snapshot for ${new Date(timestamp)}`);
+        let result = null;
+        Object.keys(this.observations).map((key, index) => {
+            if (!result && parseInt(key) > timestamp) {
+                result = key;
+            }
+        });
+        if (result === null) {
+            // setting last snapshot
+            result = Object.keys(this.observations)[Object.keys(this.observations).length - 1];
+        }
+        console.log(`result is ${new Date(parseInt(result))}`);
+        return result;
+    }
+    getObservationsForSnapshot(snapshot) {
+        return this.observations[snapshot];
     }
     subscribe() {
         wamp.subscribe(CONFIG.TOPICS.observations, (message) => {

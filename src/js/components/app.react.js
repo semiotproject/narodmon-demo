@@ -1,11 +1,13 @@
-
-const HEAT_RADIUS = 25;
-
 import ObservationStore from '../stores/observations-store';
 import React from 'react';
 import CONFIG from '../config';
+import Timeline from './timeline.react';
 import L from 'leaflet';
 import { createPolygons } from '../voronoi.js';
+import AppStateStore from '../stores/app-state-store';
+import Legend from './legend.react';
+
+const HEAT_RADIUS = 25;
 
 export default class App extends React.Component {
 
@@ -14,24 +16,39 @@ export default class App extends React.Component {
 
         // instead of getInitialState in new React notation
         this.state = {
-            observations: {}
+            currentSnapshot: null,
+            isLoading: true
         };
-        this.handleStoreUpdate = () => {
+        this.handleObservationStoreChange = () => {
             this.setObservations();
+        };
+        this.handleAppStateChange = () => {
+            if (this.state.currentSnapshot !== AppStateStore.currentSnapshot) {
+                this.setObservations();
+            }
         };
     }
 
     componentDidMount() {
-        this.initMap();
-        ObservationStore.on('update', this.handleStoreUpdate);
+        ObservationStore.on('update', this.handleObservationStoreChange);
+        AppStateStore.on('update', this.handleAppStateChange);
         ObservationStore.load().done((obs) => {
-            this.setObservations();
-            this.setHeatMap();
+            AppStateStore.checkSnapshot();
+            this.setState({
+                currentSnapshot: AppStateStore.currentSnapshot,
+                isLoading: false
+            }, () => {
+                this.initMap();
+                this.setObservations();
+            });
         });
     }
-    setObservations(obs) {
+    setObservations() {
+        console.info(`setting new observations..`);
         this.setState({
-            observations: ObservationStore.get()
+            observations: ObservationStore.getObservationsForSnapshot(AppStateStore.currentSnapshot)
+        }, () => {
+            this.setHeatMap();
         });
     }
 
@@ -62,11 +79,22 @@ export default class App extends React.Component {
                 intensity: obs[key].diff - obs[key].avg
             };
         });
-        console.log(`found ${points.length} points: `, points);
         createPolygons(this._map, points);
     }
 
     render() {
+        let content;
+        if (this.state.isLoading) {
+            content = <div className="preloader"></div>;
+        } else {
+            content = (
+                <div className="content">
+                    <div id="map"></div>
+                    <Legend />
+                    <Timeline />
+                </div>
+            );
+        }
         return (
             <div>
                 <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -74,9 +102,7 @@ export default class App extends React.Component {
                         <a href="" className="navbar-brand">Unequal Temperature Changes (Demo)</a>
                     </div>
                 </nav>
-                <div id="map">
-
-                </div>
+                {content}
             </div>
         );
     }
