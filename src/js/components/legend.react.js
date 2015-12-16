@@ -1,5 +1,6 @@
 import React from 'react';
 import AppStateStore from '../stores/app-state-store';
+import ObservationStore from '../stores/observations-store';
 import PlayButton from './play-button.react';
 import vis from 'vis';
 import moment from 'moment';
@@ -31,11 +32,13 @@ export default class Legend extends React.Component {
     }
 
     render() {
+        const avg = ObservationStore.getAvgForSnapshot(AppStateStore.currentSnapshot);
         return (
             <div id="legend">
                 <div className="legend-body">
                     <p>Red is warmer</p>
                     <p>Blue is colder</p>
+                    <p>Average difference: {avg}</p>
                     <p>Current&nbsp;viewing&nbsp;time:&nbsp;{moment(this.state.currentTime).format('DD/MM/YY, hh:mm:ss')}</p>
                 </div>
                 <PlayButton />

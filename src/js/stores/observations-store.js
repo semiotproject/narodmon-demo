@@ -77,15 +77,24 @@ class ObservationStore extends EventEmitter {
         obs.forEach((o, index) => {
             let intensity;
             if (o.lead) {
-                intensity = Math.abs((o.diff * (MAX_INTENSITY - MID_INTENSITY) / maxDiff['lead']) + MID_INTENSITY);
+                if (maxDiff['lead'] === 0) {
+                    intensity = 0;
+                } else {
+                    intensity = Math.abs((o.diff * (MAX_INTENSITY - MID_INTENSITY) / maxDiff['lead']) + MID_INTENSITY);
+                }
             } else {
-                intensity = Math.abs((o.diff * (MID_INTENSITY - MIN_INTENSITY) / maxDiff['rest']) + MIN_INTENSITY);
+                if (maxDiff['rest'] === 0) {
+                    intensity = 0;
+                } else {
+                    intensity = Math.abs((o.diff * (MID_INTENSITY - MIN_INTENSITY) / maxDiff['rest']) + MIN_INTENSITY);
+                }
             }
             obs[index] = {
                 x: o.location.lat,
                 y: o.location.lng,
                 color: o.avg > 0 ? "red" : "blue",
                 group: o.group,
+                avg: o.avg,
                 intensity
             };
         });
@@ -126,6 +135,12 @@ class ObservationStore extends EventEmitter {
     }
     getObservationsForSnapshot(snapshot) {
         return this.observations[snapshot];
+    }
+    getAvgForSnapshot(snapshot) {
+        if (!this.observations[snapshot] || this.observations[snapshot].length === 0) {
+            return null;
+        }
+        return this.observations[snapshot][0].avg;
     }
     subscribe() {
         wamp.subscribe(CONFIG.TOPICS.observations, (message) => {
