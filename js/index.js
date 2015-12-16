@@ -72875,7 +72875,8 @@ var _jquery = require('jquery');
 var _jquery2 = _interopRequireDefault(_jquery);
 
 var MAX_INTENSITY = 0.5;
-var MIN_INTENSITY = 0;
+var MID_INTENSITY = 0.25;
+var MIN_INTENSITY = 0.1;
 
 var ObservationStore = (function (_EventEmitter) {
     _inherits(ObservationStore, _EventEmitter);
@@ -72941,22 +72942,36 @@ var ObservationStore = (function (_EventEmitter) {
 
             // find max diff module
             var maxDiff = {
-                1: 0,
-                2: 0
+                lead: 0,
+                rest: 0
             };
             obs.map(function (o) {
-                if (Math.abs(o.diff) > maxDiff[o.group]) {
-                    maxDiff[o.group] = Math.abs(o.diff);
+                if (o.group === 1 && o.avg > 0 || o.group === 2 && o.avg < 0) {
+                    o.lead = true;
+                    if (Math.abs(o.diff) > maxDiff['lead']) {
+                        maxDiff['lead'] = Math.abs(o.diff);
+                    }
+                } else {
+                    if (Math.abs(o.diff) > maxDiff['rest']) {
+                        maxDiff['rest'] = Math.abs(o.diff);
+                    }
                 }
             });
 
             // normalize observations
             obs.forEach(function (o, index) {
+                var intensity = undefined;
+                if (o.lead) {
+                    intensity = Math.abs(o.diff * (MAX_INTENSITY - MID_INTENSITY) / maxDiff['lead'] + MID_INTENSITY);
+                } else {
+                    intensity = Math.abs(o.diff * (MID_INTENSITY - MIN_INTENSITY) / maxDiff['rest'] + MIN_INTENSITY);
+                }
                 obs[index] = {
                     x: o.location.lat,
                     y: o.location.lng,
+                    color: o.avg > 0 ? "red" : "blue",
                     group: o.group,
-                    intensity: o.diff * MAX_INTENSITY / maxDiff[o.group] + MIN_INTENSITY
+                    intensity: intensity
                 };
             });
             return obs;
@@ -73257,7 +73272,7 @@ function createPolygons(map, points) {
         var polygons = voronoi(positions);
         polygons.forEach(function (v, index) {
             v.cell = v;
-            v.group = points[index].group;
+            v.color = points[index].color;
             v.intensity = points[index].intensity;
             if (!v) {
                 console.error("ONE OV POINTS IS ILLEGAL!!");
@@ -73278,7 +73293,7 @@ function createPolygons(map, points) {
                     console.warn("why y no d?");
                     return "red";
                 }
-                return d.group === 1 ? "red" : "blue";
+                return d.color;
             },
             opacity: function opacity(d) {
                 if (!d) {
