@@ -51,6 +51,7 @@ export function parseObservations(ttl) {
             try {
                 $.extend(observations[index], {
                     avg: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#hasAvg", null, '')[0].object),
+                    temp: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#hasAbsTemp", null, '')[0].object),
                     diff: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#hasDiff", null, '')[0].object),
                     group: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#InGroup", null, '')[0].object)
                 });

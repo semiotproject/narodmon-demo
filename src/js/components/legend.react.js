@@ -32,13 +32,15 @@ export default class Legend extends React.Component {
     }
 
     render() {
-        const avg = ObservationStore.getAvgForSnapshot(AppStateStore.currentSnapshot);
+        const temp = ObservationStore.getTempForSnapshot(AppStateStore.currentSnapshot).toFixed(3);
+        const avgDiff = ObservationStore.getAvgForSnapshot(AppStateStore.currentSnapshot).toFixed(3);
+        const icon = avgDiff > 0 ? <i className="glyphicon glyphicon-arrow-up"></i> : <i className="glyphicon glyphicon-arrow-down"></i>;
         return (
             <div id="legend">
                 <div className="legend-body">
                     <p>Red is warmer</p>
                     <p>Blue is colder</p>
-                    <p>Average difference: {avg}</p>
+                    <p>Average temperature: {temp} {icon} ({avgDiff})</p>
                     <p>Current&nbsp;viewing&nbsp;time:&nbsp;{moment(this.state.currentTime).format('DD/MM/YY, hh:mm:ss')}</p>
                 </div>
                 <PlayButton />

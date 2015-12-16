@@ -43,8 +43,10 @@ export default class Timeline extends React.Component {
 
     initTimeline() {
         const container = this.refs.root;
+        const bounds = AppStateStore.timeBounds;
         const options = {
-            end: Date.now(),
+            min: bounds[0],
+            max: bounds[1],
             showCurrentTime: false
         };
         this._timeline = new vis.Timeline(container, [], options);

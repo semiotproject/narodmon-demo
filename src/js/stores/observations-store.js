@@ -95,6 +95,8 @@ class ObservationStore extends EventEmitter {
                 color: o.avg > 0 ? "red" : "blue",
                 group: o.group,
                 avg: o.avg,
+                temp: o.temp,
+                diff: o.diff,
                 intensity
             };
         });
@@ -141,6 +143,14 @@ class ObservationStore extends EventEmitter {
             return null;
         }
         return this.observations[snapshot][0].avg;
+    }
+    getTempForSnapshot(snapshot) {
+        if (!this.observations[snapshot] || this.observations[snapshot].length === 0) {
+            return null;
+        }
+        return this.observations[snapshot].reduce((a, b) => {
+            return a + b.temp;
+        }, 0) / this.observations[snapshot].length;
     }
     subscribe() {
         wamp.subscribe(CONFIG.TOPICS.observations, (message) => {

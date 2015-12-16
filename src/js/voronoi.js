@@ -28,6 +28,8 @@ export function createPolygons(map, points) {
             v.cell = v;
             v.color = points[index].color;
             v.intensity = points[index].intensity;
+            v.diff = points[index].diff.toFixed(2);
+            v.temp = points[index].temp;
             if (!v) {
                 console.error(`ONE OV POINTS IS ILLEGAL!!`);
             }
@@ -63,7 +65,7 @@ export function createPolygons(map, points) {
                     return Math.abs(d.intensity) + 0.01;
                 }
             });
-/*
+
         svg.selectAll("text").remove();
         svg.append("g")
             .attr("class", "label")
@@ -83,8 +85,8 @@ export function createPolygons(map, points) {
             .attr("dy", function(d) { return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null; })
             .attr("x", function(d) { return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null; })
             .attr("y", function(d) { return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null; })
-            .text(function(d, i) { return "4.4"; });
-*/
+            .text(function(d, i) { return `${d.temp} (${d.diff})`; });
+
     }
 
     map.on("viewreset moveend", update);
