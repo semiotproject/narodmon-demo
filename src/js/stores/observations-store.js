@@ -8,6 +8,8 @@ import CONFIG from '../config';
 import { loadLocations } from '../utils/sparql';
 import $ from 'jquery';
 
+const MAX_INTENSITY = 0.5;
+
 class ObservationStore extends EventEmitter {
     constructor() {
         super();
@@ -24,7 +26,7 @@ class ObservationStore extends EventEmitter {
                 observations.map((observation) => {
                     const localPromise = $.Deferred();
                     parseObservations(observation.events).done((result) => {
-                        this.observations[observation.created] = this.mergeObservations(result).map(this.normalizeObservation);
+                        this.observations[observation.created] = this.normalizeObservations(this.mergeObservations(result));
                         // console.log(`data after merge for timestamp ${observation.created}: `, this.observations[observation.created]);
                         localPromise.resolve();
                     });
@@ -49,8 +51,25 @@ class ObservationStore extends EventEmitter {
     }
 
     // set correct `intensity` value
-    normalizeObservation(obs) {
-        // TODO
+    normalizeObservations(obs) {
+
+        // find max diff module
+        let maxDiff = 0;
+        obs.map((o) => {
+            if (Math.abs(o.diff) > maxDiff) {
+                maxDiff = Math.abs(o.diff);
+            }
+        });
+
+        // normalize observations
+        obs.forEach((o, index) => {
+            obs[index] = {
+                x: o.location.lat,
+                y: o.location.lng,
+                group: o.group,
+                intensity: o.diff * MAX_INTENSITY / maxDiff
+            };
+        });
         return obs;
     }
     loadSensors() {

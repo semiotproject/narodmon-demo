@@ -72,12 +72,7 @@ export default class App extends React.Component {
     setHeatMap() {
         const obs = this.state.observations;
         const points = Object.keys(obs).map((key) => {
-            return {
-                x: obs[key].location.lat,
-                y: obs[key].location.lng,
-                group: obs[key].group,
-                intensity: obs[key].diff - obs[key].avg
-            };
+            return obs[key];
         });
         createPolygons(this._map, points);
     }
