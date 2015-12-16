@@ -72875,6 +72875,7 @@ var _jquery = require('jquery');
 var _jquery2 = _interopRequireDefault(_jquery);
 
 var MAX_INTENSITY = 0.5;
+var MIN_INTENSITY = 0;
 
 var ObservationStore = (function (_EventEmitter) {
     _inherits(ObservationStore, _EventEmitter);
@@ -72939,10 +72940,13 @@ var ObservationStore = (function (_EventEmitter) {
         value: function normalizeObservations(obs) {
 
             // find max diff module
-            var maxDiff = 0;
+            var maxDiff = {
+                1: 0,
+                2: 0
+            };
             obs.map(function (o) {
-                if (Math.abs(o.diff) > maxDiff) {
-                    maxDiff = Math.abs(o.diff);
+                if (Math.abs(o.diff) > maxDiff[o.group]) {
+                    maxDiff[o.group] = Math.abs(o.diff);
                 }
             });
 
@@ -72952,7 +72956,7 @@ var ObservationStore = (function (_EventEmitter) {
                     x: o.location.lat,
                     y: o.location.lng,
                     group: o.group,
-                    intensity: o.diff * MAX_INTENSITY / maxDiff
+                    intensity: o.diff * MAX_INTENSITY / maxDiff[o.group] + MIN_INTENSITY
                 };
             });
             return obs;
