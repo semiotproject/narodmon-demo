@@ -72339,12 +72339,7 @@ var App = (function (_React$Component) {
         value: function setHeatMap() {
             var obs = this.state.observations;
             var points = Object.keys(obs).map(function (key) {
-                return {
-                    x: obs[key].location.lat,
-                    y: obs[key].location.lng,
-                    group: obs[key].group,
-                    intensity: obs[key].diff - obs[key].avg
-                };
+                return obs[key];
             });
             (0, _voronoiJs.createPolygons)(this._map, points);
         }
@@ -72879,6 +72874,8 @@ var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var MAX_INTENSITY = 0.5;
+
 var ObservationStore = (function (_EventEmitter) {
     _inherits(ObservationStore, _EventEmitter);
 
@@ -72906,7 +72903,7 @@ var ObservationStore = (function (_EventEmitter) {
                     observations.map(function (observation) {
                         var localPromise = _jquery2['default'].Deferred();
                         (0, _utilsTurtle.parseObservations)(observation.events).done(function (result) {
-                            _this.observations[observation.created] = _this.mergeObservations(result).map(_this.normalizeObservation);
+                            _this.observations[observation.created] = _this.normalizeObservations(_this.mergeObservations(result));
                             // console.log(`data after merge for timestamp ${observation.created}: `, this.observations[observation.created]);
                             localPromise.resolve();
                         });
@@ -72938,9 +72935,26 @@ var ObservationStore = (function (_EventEmitter) {
 
         // set correct `intensity` value
     }, {
-        key: 'normalizeObservation',
-        value: function normalizeObservation(obs) {
-            // TODO
+        key: 'normalizeObservations',
+        value: function normalizeObservations(obs) {
+
+            // find max diff module
+            var maxDiff = 0;
+            obs.map(function (o) {
+                if (Math.abs(o.diff) > maxDiff) {
+                    maxDiff = Math.abs(o.diff);
+                }
+            });
+
+            // normalize observations
+            obs.forEach(function (o, index) {
+                obs[index] = {
+                    x: o.location.lat,
+                    y: o.location.lng,
+                    group: o.group,
+                    intensity: o.diff * MAX_INTENSITY / maxDiff
+                };
+            });
             return obs;
         }
     }, {
