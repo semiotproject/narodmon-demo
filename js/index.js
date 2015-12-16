@@ -72462,7 +72462,9 @@ var Legend = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var avg = _storesObservationsStore2['default'].getAvgForSnapshot(_storesAppStateStore2['default'].currentSnapshot);
+            var temp = _storesObservationsStore2['default'].getTempForSnapshot(_storesAppStateStore2['default'].currentSnapshot).toFixed(3);
+            var avgDiff = _storesObservationsStore2['default'].getAvgForSnapshot(_storesAppStateStore2['default'].currentSnapshot).toFixed(3);
+            var icon = avgDiff > 0 ? _react2['default'].createElement('i', { className: 'glyphicon glyphicon-arrow-up' }) : _react2['default'].createElement('i', { className: 'glyphicon glyphicon-arrow-down' });
             return _react2['default'].createElement(
                 'div',
                 { id: 'legend' },
@@ -72482,8 +72484,13 @@ var Legend = (function (_React$Component) {
                     _react2['default'].createElement(
                         'p',
                         null,
-                        'Average difference: ',
-                        avg
+                        'Average temperature: ',
+                        temp,
+                        ' ',
+                        icon,
+                        ' (',
+                        avgDiff,
+                        ')'
                     ),
                     _react2['default'].createElement(
                         'p',
@@ -72673,8 +72680,10 @@ var Timeline = (function (_React$Component) {
         key: 'initTimeline',
         value: function initTimeline() {
             var container = this.refs.root;
+            var bounds = _storesAppStateStore2['default'].timeBounds;
             var options = {
-                end: Date.now(),
+                min: bounds[0],
+                max: bounds[1],
                 showCurrentTime: false
             };
             this._timeline = new _vis2['default'].Timeline(container, [], options);
@@ -72766,6 +72775,8 @@ var state = {
     isPlaying: false
 };
 
+var TIME_BOUNDS = [Date.now() - 12 * 3600 * 1000, Date.now()];
+
 // every ten minutes
 var PLAY_UPDATE_INTERVAL = 1000 * 60 * 10;
 
@@ -72808,14 +72819,24 @@ var AppStateStore = (function (_EventEmitter) {
             PLAY_TIMER = null;
         }
     }, {
+        key: 'isInBounds',
+        value: function isInBounds(timestamp) {
+            return TIME_BOUNDS[0] < timestamp && TIME_BOUNDS[1] > timestamp;
+        }
+    }, {
         key: 'currentTime',
         get: function get() {
             return state.currentTime;
         },
         set: function set(timestamp) {
-            state.currentTime = timestamp;
-            this.checkSnapshot(timestamp);
-            this.emit('update');
+            if (this.isInBounds(timestamp)) {
+                state.currentTime = timestamp;
+                this.checkSnapshot(timestamp);
+                this.emit('update');
+            } else {
+                console.warn('new timestamp is out of bounds; stopping play');
+                this.isPlaying = false;
+            }
         }
     }, {
         key: 'isPlaying',
@@ -72839,6 +72860,11 @@ var AppStateStore = (function (_EventEmitter) {
         set: function set(timestamp) {
             state.currentSnapshot = timestamp;
             this.emit('update');
+        }
+    }, {
+        key: 'timeBounds',
+        get: function get() {
+            return TIME_BOUNDS;
         }
     }]);
 
@@ -72991,6 +73017,8 @@ var ObservationStore = (function (_EventEmitter) {
                     color: o.avg > 0 ? "red" : "blue",
                     group: o.group,
                     avg: o.avg,
+                    temp: o.temp,
+                    diff: o.diff,
                     intensity: intensity
                 };
             });
@@ -73047,6 +73075,16 @@ var ObservationStore = (function (_EventEmitter) {
                 return null;
             }
             return this.observations[snapshot][0].avg;
+        }
+    }, {
+        key: 'getTempForSnapshot',
+        value: function getTempForSnapshot(snapshot) {
+            if (!this.observations[snapshot] || this.observations[snapshot].length === 0) {
+                return null;
+            }
+            return this.observations[snapshot].reduce(function (a, b) {
+                return a + b.temp;
+            }, 0) / this.observations[snapshot].length;
         }
     }, {
         key: 'subscribe',
@@ -73218,6 +73256,7 @@ function parseObservations(ttl) {
             try {
                 _jquery2['default'].extend(observations[index], {
                     avg: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#hasAvg", null, '')[0].object),
+                    temp: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#hasAbsTemp", null, '')[0].object),
                     diff: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#hasDiff", null, '')[0].object),
                     group: parseFloatFromLiteral(store.find(s.sensor, "http://example.com/#InGroup", null, '')[0].object)
                 });
@@ -73302,6 +73341,8 @@ function createPolygons(map, points) {
             v.cell = v;
             v.color = points[index].color;
             v.intensity = points[index].intensity;
+            v.diff = points[index].diff.toFixed(2);
+            v.temp = points[index].temp;
             if (!v) {
                 console.error("ONE OV POINTS IS ILLEGAL!!");
             }
@@ -73332,28 +73373,24 @@ function createPolygons(map, points) {
                 return Math.abs(d.intensity) + 0.01;
             }
         });
-        /*
-                svg.selectAll("text").remove();
-                svg.append("g")
-                    .attr("class", "label")
-                  .selectAll("text")
-                    .data(polygons.map(d3.geom.polygon))
-                  .enter().append("text")
-                    .attr("class", function(d) {
-                        const centroid = d.centroid(),
-                            point = d.point,
-                            angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
-                        return "label--" + (d.orient = angle === 0 ? "right"
-                          : angle === -1 ? "top"
-                          : angle === 1 ? "bottom"
-                          : "left");
-                    })
-                    .attr("transform", function(d) { return "translate(" + d.point.x + "," + d.point.y + ")"; })
-                    .attr("dy", function(d) { return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null; })
-                    .attr("x", function(d) { return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null; })
-                    .attr("y", function(d) { return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null; })
-                    .text(function(d, i) { return "4.4"; });
-        */
+
+        svg.selectAll("text").remove();
+        svg.append("g").attr("class", "label").selectAll("text").data(polygons.map(_d32["default"].geom.polygon)).enter().append("text").attr("class", function (d) {
+            var centroid = d.centroid(),
+                point = d.point,
+                angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
+            return "label--" + (d.orient = angle === 0 ? "right" : angle === -1 ? "top" : angle === 1 ? "bottom" : "left");
+        }).attr("transform", function (d) {
+            return "translate(" + d.point.x + "," + d.point.y + ")";
+        }).attr("dy", function (d) {
+            return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null;
+        }).attr("x", function (d) {
+            return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null;
+        }).attr("y", function (d) {
+            return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null;
+        }).text(function (d, i) {
+            return d.temp + " (" + d.diff + ")";
+        });
     }
 
     map.on("viewreset moveend", update);
