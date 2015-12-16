@@ -72410,6 +72410,10 @@ var _storesAppStateStore = require('../stores/app-state-store');
 
 var _storesAppStateStore2 = _interopRequireDefault(_storesAppStateStore);
 
+var _storesObservationsStore = require('../stores/observations-store');
+
+var _storesObservationsStore2 = _interopRequireDefault(_storesObservationsStore);
+
 var _playButtonReact = require('./play-button.react');
 
 var _playButtonReact2 = _interopRequireDefault(_playButtonReact);
@@ -72458,6 +72462,7 @@ var Legend = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
+            var avg = _storesObservationsStore2['default'].getAvgForSnapshot(_storesAppStateStore2['default'].currentSnapshot);
             return _react2['default'].createElement(
                 'div',
                 { id: 'legend' },
@@ -72477,6 +72482,12 @@ var Legend = (function (_React$Component) {
                     _react2['default'].createElement(
                         'p',
                         null,
+                        'Average difference: ',
+                        avg
+                    ),
+                    _react2['default'].createElement(
+                        'p',
+                        null,
                         'Current viewing time: ',
                         (0, _moment2['default'])(this.state.currentTime).format('DD/MM/YY, hh:mm:ss')
                     )
@@ -72492,7 +72503,7 @@ var Legend = (function (_React$Component) {
 exports['default'] = Legend;
 module.exports = exports['default'];
 
-},{"../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","./play-button.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js","moment":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/moment/moment.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js","vis":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/vis/dist/vis.min.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js":[function(require,module,exports){
+},{"../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","../stores/observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","./play-button.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js","moment":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/moment/moment.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js","vis":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/vis/dist/vis.min.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -72962,15 +72973,24 @@ var ObservationStore = (function (_EventEmitter) {
             obs.forEach(function (o, index) {
                 var intensity = undefined;
                 if (o.lead) {
-                    intensity = Math.abs(o.diff * (MAX_INTENSITY - MID_INTENSITY) / maxDiff['lead'] + MID_INTENSITY);
+                    if (maxDiff['lead'] === 0) {
+                        intensity = 0;
+                    } else {
+                        intensity = Math.abs(o.diff * (MAX_INTENSITY - MID_INTENSITY) / maxDiff['lead'] + MID_INTENSITY);
+                    }
                 } else {
-                    intensity = Math.abs(o.diff * (MID_INTENSITY - MIN_INTENSITY) / maxDiff['rest'] + MIN_INTENSITY);
+                    if (maxDiff['rest'] === 0) {
+                        intensity = 0;
+                    } else {
+                        intensity = Math.abs(o.diff * (MID_INTENSITY - MIN_INTENSITY) / maxDiff['rest'] + MIN_INTENSITY);
+                    }
                 }
                 obs[index] = {
                     x: o.location.lat,
                     y: o.location.lng,
                     color: o.avg > 0 ? "red" : "blue",
                     group: o.group,
+                    avg: o.avg,
                     intensity: intensity
                 };
             });
@@ -73019,6 +73039,14 @@ var ObservationStore = (function (_EventEmitter) {
         key: 'getObservationsForSnapshot',
         value: function getObservationsForSnapshot(snapshot) {
             return this.observations[snapshot];
+        }
+    }, {
+        key: 'getAvgForSnapshot',
+        value: function getAvgForSnapshot(snapshot) {
+            if (!this.observations[snapshot] || this.observations[snapshot].length === 0) {
+                return null;
+            }
+            return this.observations[snapshot][0].avg;
         }
     }, {
         key: 'subscribe',
