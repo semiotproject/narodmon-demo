@@ -9,6 +9,7 @@ import { loadLocations } from '../utils/sparql';
 import $ from 'jquery';
 
 const MAX_INTENSITY = 0.5;
+const MIN_INTENSITY = 0;
 
 class ObservationStore extends EventEmitter {
     constructor() {
@@ -54,10 +55,13 @@ class ObservationStore extends EventEmitter {
     normalizeObservations(obs) {
 
         // find max diff module
-        let maxDiff = 0;
+        const maxDiff = {
+            1: 0,
+            2: 0
+        };
         obs.map((o) => {
-            if (Math.abs(o.diff) > maxDiff) {
-                maxDiff = Math.abs(o.diff);
+            if (Math.abs(o.diff) > maxDiff[o.group]) {
+                maxDiff[o.group] = Math.abs(o.diff);
             }
         });
 
@@ -67,7 +71,7 @@ class ObservationStore extends EventEmitter {
                 x: o.location.lat,
                 y: o.location.lng,
                 group: o.group,
-                intensity: o.diff * MAX_INTENSITY / maxDiff
+                intensity: (o.diff * MAX_INTENSITY / maxDiff[o.group]) + MIN_INTENSITY
             };
         });
         return obs;
