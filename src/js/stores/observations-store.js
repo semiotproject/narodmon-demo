@@ -9,7 +9,8 @@ import { loadLocations } from '../utils/sparql';
 import $ from 'jquery';
 
 const MAX_INTENSITY = 0.5;
-const MIN_INTENSITY = 0;
+const MID_INTENSITY = 0.25;
+const MIN_INTENSITY = 0.1;
 
 class ObservationStore extends EventEmitter {
     constructor() {
@@ -56,22 +57,36 @@ class ObservationStore extends EventEmitter {
 
         // find max diff module
         const maxDiff = {
-            1: 0,
-            2: 0
+            lead: 0,
+            rest: 0
         };
         obs.map((o) => {
-            if (Math.abs(o.diff) > maxDiff[o.group]) {
-                maxDiff[o.group] = Math.abs(o.diff);
+            if ((o.group === 1 && o.avg > 0) || (o.group === 2 && o.avg < 0)) {
+                o.lead = true;
+                if (Math.abs(o.diff) > maxDiff['lead']) {
+                    maxDiff['lead'] = Math.abs(o.diff);
+                }
+            } else {
+                if (Math.abs(o.diff) > maxDiff['rest']) {
+                    maxDiff['rest'] = Math.abs(o.diff);
+                }
             }
         });
 
         // normalize observations
         obs.forEach((o, index) => {
+            let intensity;
+            if (o.lead) {
+                intensity = Math.abs((o.diff * (MAX_INTENSITY - MID_INTENSITY) / maxDiff['lead']) + MID_INTENSITY);
+            } else {
+                intensity = Math.abs((o.diff * (MID_INTENSITY - MIN_INTENSITY) / maxDiff['rest']) + MIN_INTENSITY);
+            }
             obs[index] = {
                 x: o.location.lat,
                 y: o.location.lng,
+                color: o.avg > 0 ? "red" : "blue",
                 group: o.group,
-                intensity: (o.diff * MAX_INTENSITY / maxDiff[o.group]) + MIN_INTENSITY
+                intensity
             };
         });
         return obs;

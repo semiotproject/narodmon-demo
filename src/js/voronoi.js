@@ -26,7 +26,7 @@ export function createPolygons(map, points) {
         const polygons = voronoi(positions);
         polygons.forEach(function(v, index) {
             v.cell = v;
-            v.group = points[index].group;
+            v.color = points[index].color;
             v.intensity = points[index].intensity;
             if (!v) {
                 console.error(`ONE OV POINTS IS ILLEGAL!!`);
@@ -52,7 +52,7 @@ export function createPolygons(map, points) {
                         console.warn(`why y no d?`);
                         return "red";
                     }
-                    return d.group === 1 ? "red" : "blue";
+                    return d.color;
                 },
                 opacity(d) {
                     if (!d) {
