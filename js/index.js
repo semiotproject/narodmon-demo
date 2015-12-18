@@ -73356,7 +73356,7 @@ function createPolygons(map, points) {
                 }
                 return "M" + _d.cell.join("L") + "Z";
             },
-            stroke: "transparent",
+            stroke: "black",
             fill: function fill(d) {
                 if (!d) {
                     console.warn("why y no d?");
