@@ -48,7 +48,7 @@ export function createPolygons(map, points) {
                     }
                     return "M" + d.cell.join("L") + "Z";
                 },
-                stroke:"transparent",
+                stroke:"black",
                 fill(d) {
                     if (!d) {
                         console.warn(`why y no d?`);
