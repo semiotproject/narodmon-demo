@@ -72685,6 +72685,8 @@ var Timeline = (function (_React$Component) {
         value: function initTimeline() {
             var container = this.refs.root;
             this._timeline = new _vis2['default'].Timeline(container, [], {
+                min: this.state.timeBounds[0],
+                max: this.state.timeBounds[1],
                 showCurrentTime: false
             });
             this._timeline.addCustomTime(this.state.currentTime, CUSTOM_TIME_ID);
@@ -72696,6 +72698,7 @@ var Timeline = (function (_React$Component) {
         value: function updateBounds() {
             var timeBounds = this.state.timeBounds;
 
+            console.log('time bounds are [' + new Date(timeBounds[0]) + ' ' + new Date(timeBounds[1]) + ']');
             var options = {
                 min: timeBounds[0],
                 max: timeBounds[1],
@@ -72785,7 +72788,7 @@ var _observationsStore2 = _interopRequireDefault(_observationsStore);
 var state = {
     currentTime: Date.now(),
     currentSnapshot: null,
-    timeBounds: [Date.now() - 12 * 3600 * 1000, Date.now()],
+    timeBounds: [Date.now() - 12 * 3600 * 1000, Date.now() + 10 * 1000],
     isPlaying: false
 };
 
@@ -72834,7 +72837,7 @@ var AppStateStore = (function (_EventEmitter) {
     }, {
         key: 'updateTimeBounds',
         value: function updateTimeBounds() {
-            state.timeBounds = [Date.now() - 12 * 3600 * 1000, Date.now()];
+            state.timeBounds = [Date.now() - 12 * 3600 * 1000, Date.now() + 1000 * 10];
             state.currentTime = Date.now();
             this.emit('update');
         }
@@ -73113,9 +73116,9 @@ var ObservationStore = (function (_EventEmitter) {
             var _this4 = this;
 
             _utilsWamp2['default'].subscribe(_config2['default'].TOPICS.observations, function (message) {
-                console.info('received message: ' + JSON.stringify(message));
-                (0, _utilsTurtle.parseObservations)(message).done(function (result) {
+                (0, _utilsTurtle.parseObservations)(message[0]).done(function (result) {
                     _this4.observations[Date.now()] = _this4.normalizeObservations(_this4.mergeObservations(result));
+                    console.log('new observation is registered on ' + new Date() + '; now observations map is: ', _this4.observations);
                     _this4.emit('newObservation');
                 });
             });
