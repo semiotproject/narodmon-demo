@@ -51,14 +51,12 @@ export function createPolygons(map, points) {
                 stroke:"black",
                 fill(d) {
                     if (!d) {
-                        console.warn(`why y no d?`);
                         return "red";
                     }
                     return d.color;
                 },
                 opacity(d) {
                     if (!d) {
-                        console.warn(`why y no d?`);
                         return 0;
                     }
                     // console.log(Math.abs(d.intensity) + 0.01);
@@ -73,6 +71,9 @@ export function createPolygons(map, points) {
             .data(polygons.map(d3.geom.polygon))
           .enter().append("text")
             .attr("class", function(d) {
+                if (!d) {
+                    return;
+                }
                 const centroid = d.centroid(),
                     point = d.point,
                     angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
@@ -81,14 +82,38 @@ export function createPolygons(map, points) {
                   : angle === 1 ? "bottom"
                   : "left");
             })
-            .attr("transform", function(d) { return "translate(" + d.point.x + "," + d.point.y + ")"; })
-            .attr("dy", function(d) { return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null; })
-            .attr("x", function(d) { return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null; })
-            .attr("y", function(d) { return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null; })
-            .text(function(d, i) { return `${d.temp} (${d.diff})`; });
+            .attr("transform", function(d) {
+                if (!d) {
+                    return;
+                }
+                return "translate(" + d.point.x + "," + d.point.y + ")";
+            })
+            .attr("dy", function(d) {
+                if (!d) {
+                    return;
+                }
+                return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null;
+            })
+            .attr("x", function(d) {
+                if (!d) {
+                    return;
+                }
+                return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null;
+            })
+            .attr("y", function(d) {
+                if (!d) {
+                    return;
+                }
+                return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null;
+            })
+            .text(function(d, i) {
+                if (!d) {
+                    return;
+                }
+                return `${d.temp} (${d.diff})`;
+            });
 
     }
-
     map.on("viewreset moveend", update);
 
     update();

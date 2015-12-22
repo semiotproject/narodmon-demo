@@ -4,13 +4,12 @@ import ObservationStore from './observations-store';
 const state = {
     currentTime: Date.now(),
     currentSnapshot: null,
+    timeBounds: [
+        Date.now() - 12 * 3600 * 1000,
+        Date.now()
+    ],
     isPlaying: false
 };
-
-const TIME_BOUNDS = [
-    Date.now() - 12 * 3600 * 1000,
-    Date.now()
-];
 
 // every ten minutes
 const PLAY_UPDATE_INTERVAL = 1000 * 60 * 10;
@@ -22,6 +21,7 @@ let PLAY_TIMER = null;
 class AppStateStore extends EventEmitter {
     constructor() {
         super();
+        ObservationStore.on('newObservation', this.updateTimeBounds.bind(this));
     }
 
     get currentTime() {
@@ -77,10 +77,18 @@ class AppStateStore extends EventEmitter {
     }
 
     get timeBounds() {
-        return TIME_BOUNDS;
+        return state.timeBounds;
+    }
+    updateTimeBounds() {
+        state.timeBounds = [
+            Date.now() - 12 * 3600 * 1000,
+            Date.now()
+        ];
+        state.currentTime = Date.now();
+        this.emit('update');
     }
     isInBounds(timestamp) {
-        return TIME_BOUNDS[0] < timestamp && TIME_BOUNDS[1] > timestamp;
+        return state.timeBounds[0] < timestamp && state.timeBounds[1] > timestamp;
     }
 }
 

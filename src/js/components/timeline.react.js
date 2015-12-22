@@ -27,6 +27,7 @@ export default class Timeline extends React.Component {
     getState() {
         return {
             currentTime: AppStateStore.currentTime,
+            timeBounds: AppStateStore.timeBounds,
             isPlaying: AppStateStore.isPlaying
         };
     }
@@ -39,19 +40,29 @@ export default class Timeline extends React.Component {
         if (prevState.currentTime !== this.state.currentTime) {
             this.setTime(this.state.currentTime);
         }
+        if (prevState.timeBounds !== this.state.timeBounds) {
+            this.updateBounds();
+        }
     }
 
     initTimeline() {
         const container = this.refs.root;
-        const bounds = AppStateStore.timeBounds;
-        const options = {
-            min: bounds[0],
-            max: bounds[1],
+        this._timeline = new vis.Timeline(container, [], {
             showCurrentTime: false
-        };
-        this._timeline = new vis.Timeline(container, [], options);
+        });
         this._timeline.addCustomTime(this.state.currentTime, CUSTOM_TIME_ID);
         this._timeline.on('click', this.handleTimelineClick);
+        this.updateBounds();
+    }
+
+    updateBounds() {
+        const { timeBounds } = this.state;
+        const options = {
+            min: timeBounds[0],
+            max: timeBounds[1],
+            showCurrentTime: false
+        };
+        this._timeline.setOptions(options);
     }
     setTime(timestamp) {
         this._timeline.setCustomTime(timestamp, CUSTOM_TIME_ID);
@@ -59,8 +70,7 @@ export default class Timeline extends React.Component {
 
     render() {
         return (
-            <div id="timeline" ref="root">
-            </div>
+            <div id="timeline" ref="root" />
         );
     }
 }

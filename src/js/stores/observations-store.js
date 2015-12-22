@@ -37,6 +37,7 @@ class ObservationStore extends EventEmitter {
                 $.when(...promises).done(() => {
                     // finally, resolve basic promise
                     promise.resolve(this.observations);
+                    this.subscribe();
                 });
             });
         });
@@ -155,10 +156,9 @@ class ObservationStore extends EventEmitter {
     subscribe() {
         wamp.subscribe(CONFIG.TOPICS.observations, (message) => {
             console.info(`received message: ${JSON.stringify(message)}`);
-            parseObservations(message).done((obs) => {
-                console.info(`parsed observations: ` + obs);
-                this.observations = obs;
-                this.emit('update');
+            parseObservations(message).done((result) => {
+                this.observations[Date.now()] = this.normalizeObservations(this.mergeObservations(result));
+                this.emit('newObservation');
             });
         });
     }
