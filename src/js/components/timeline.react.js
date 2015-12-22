@@ -48,6 +48,8 @@ export default class Timeline extends React.Component {
     initTimeline() {
         const container = this.refs.root;
         this._timeline = new vis.Timeline(container, [], {
+            min: this.state.timeBounds[0],
+            max: this.state.timeBounds[1],
             showCurrentTime: false
         });
         this._timeline.addCustomTime(this.state.currentTime, CUSTOM_TIME_ID);
@@ -57,6 +59,7 @@ export default class Timeline extends React.Component {
 
     updateBounds() {
         const { timeBounds } = this.state;
+        console.log(`time bounds are [${new Date(timeBounds[0])} ${new Date(timeBounds[1])}]`);
         const options = {
             min: timeBounds[0],
             max: timeBounds[1],

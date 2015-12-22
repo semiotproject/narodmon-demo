@@ -6,7 +6,7 @@ const state = {
     currentSnapshot: null,
     timeBounds: [
         Date.now() - 12 * 3600 * 1000,
-        Date.now()
+        Date.now() + 10 * 1000
     ],
     isPlaying: false
 };
@@ -82,7 +82,7 @@ class AppStateStore extends EventEmitter {
     updateTimeBounds() {
         state.timeBounds = [
             Date.now() - 12 * 3600 * 1000,
-            Date.now()
+            Date.now() + 1000 * 10
         ];
         state.currentTime = Date.now();
         this.emit('update');

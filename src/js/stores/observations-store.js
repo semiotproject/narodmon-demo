@@ -155,9 +155,9 @@ class ObservationStore extends EventEmitter {
     }
     subscribe() {
         wamp.subscribe(CONFIG.TOPICS.observations, (message) => {
-            console.info(`received message: ${JSON.stringify(message)}`);
-            parseObservations(message).done((result) => {
+            parseObservations(message[0]).done((result) => {
                 this.observations[Date.now()] = this.normalizeObservations(this.mergeObservations(result));
+                console.log(`new observation is registered on ${new Date()}; now observations map is: `, this.observations);
                 this.emit('newObservation');
             });
         });
