@@ -72793,7 +72793,7 @@ var state = {
 };
 
 // every ten minutes
-var PLAY_UPDATE_INTERVAL = 1000 * 60 * 10;
+var PLAY_UPDATE_INTERVAL = 1000 * 60 * 5;
 
 var PLAY_UPDATE_PERIOD = 1000;
 
@@ -72852,8 +72852,8 @@ var AppStateStore = (function (_EventEmitter) {
             return state.currentTime;
         },
         set: function set(timestamp) {
+            state.currentTime = timestamp;
             if (this.isInBounds(timestamp)) {
-                state.currentTime = timestamp;
                 this.checkSnapshot(timestamp);
                 this.emit('update');
             } else {
