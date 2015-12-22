@@ -2,7 +2,7 @@
 
 import d3 from 'd3';
 
-export function createPolygons(map, points) {
+export function createPolygons(map, points, showLabels) {
 
     map._initPathRoot();
 
@@ -65,55 +65,57 @@ export function createPolygons(map, points) {
             });
 
         svg.selectAll("text").remove();
-        svg.append("g")
-            .attr("class", "label")
-          .selectAll("text")
-            .data(polygons.map(d3.geom.polygon))
-          .enter().append("text")
-            .attr("class", function(d) {
-                if (!d) {
-                    return;
-                }
-                const centroid = d.centroid(),
-                    point = d.point,
-                    angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
-                return "label--" + (d.orient = angle === 0 ? "right"
-                  : angle === -1 ? "top"
-                  : angle === 1 ? "bottom"
-                  : "left");
-            })
-            .attr("transform", function(d) {
-                if (!d) {
-                    return;
-                }
-                return "translate(" + d.point.x + "," + d.point.y + ")";
-            })
-            .attr("dy", function(d) {
-                if (!d) {
-                    return;
-                }
-                return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null;
-            })
-            .attr("x", function(d) {
-                if (!d) {
-                    return;
-                }
-                return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null;
-            })
-            .attr("y", function(d) {
-                if (!d) {
-                    return;
-                }
-                return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null;
-            })
-            .text(function(d, i) {
-                if (!d) {
-                    return;
-                }
-                return `${d.temp} (${d.diff})`;
-            });
-
+        if (showLabels) {
+            svg.append("g")
+                .attr("class", "label")
+              .selectAll("text")
+                .data(polygons.map(d3.geom.polygon))
+              .enter().append("text")
+                .attr("class", function(d) {
+                    if (!d) {
+                        return;
+                    }
+                    const centroid = d.centroid(),
+                        point = d.point,
+                        angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
+                    return "label--" + (d.orient = angle === 0 ? "right"
+                      : angle === -1 ? "top"
+                      : angle === 1 ? "bottom"
+                      : "left");
+                })
+                .attr("transform", function(d) {
+                    if (!d) {
+                        return;
+                    }
+                    return "translate(" + d.point.x + "," + d.point.y + ")";
+                })
+                .attr("dy", function(d) {
+                    if (!d) {
+                        return;
+                    }
+                    return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null;
+                })
+                .attr("x", function(d) {
+                    if (!d) {
+                        return;
+                    }
+                    return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null;
+                })
+                .attr("y", function(d) {
+                    if (!d) {
+                        return;
+                    }
+                    return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null;
+                })
+                .text(function(d, i) {
+                    if (!d) {
+                        return;
+                    }
+                    return `${d.temp} (${d.diff})`;
+                });
+        }
     }
+
     map.on("viewreset moveend", update);
 
     update();

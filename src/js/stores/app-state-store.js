@@ -8,6 +8,7 @@ const state = {
         Date.now() - 12 * 3600 * 1000,
         Date.now() + 10 * 1000
     ],
+    showMapLabels: false,
     isPlaying: false
 };
 
@@ -89,6 +90,14 @@ class AppStateStore extends EventEmitter {
     }
     isInBounds(timestamp) {
         return state.timeBounds[0] < timestamp && state.timeBounds[1] > timestamp;
+    }
+
+    get showMapLabels() {
+        return state.showMapLabels;
+    }
+    set showMapLabels(flag) {
+        state.showMapLabels = flag;
+        this.emit('update');
     }
 }
 

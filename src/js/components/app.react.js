@@ -17,6 +17,7 @@ export default class App extends React.Component {
         // instead of getInitialState in new React notation
         this.state = {
             currentSnapshot: null,
+            showMapLabels: AppStateStore.showMapLabels,
             isLoading: true
         };
         this.handleObservationStoreChange = () => {
@@ -25,6 +26,11 @@ export default class App extends React.Component {
         this.handleAppStateChange = () => {
             if (this.state.currentSnapshot !== AppStateStore.currentSnapshot) {
                 this.setObservations();
+            }
+            if (this.state.showMapLabels !== AppStateStore.showMapLabels) {
+                this.setState({
+                    showMapLabels: AppStateStore.showMapLabels
+                }, this.setHeatMap.bind(this));
             }
         };
     }
@@ -74,7 +80,7 @@ export default class App extends React.Component {
         const points = Object.keys(obs).map((key) => {
             return obs[key];
         });
-        createPolygons(this._map, points);
+        createPolygons(this._map, points, this.state.showMapLabels);
     }
 
     render() {
