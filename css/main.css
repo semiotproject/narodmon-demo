@@ -10663,6 +10663,15 @@ h4 {
 #legend .legend-body * {
   color: black;
 }
+#legend input[type=checkbox] {
+  padding: 0;
+  margin: 0;
+  height: 18px;
+  width: 16px;
+  display: inline-block;
+  vertical-align: bottom;
+  cursor: pointer;
+}
 .preloader {
   background: url("../img/preloader.gif") center no-repeat;
   height: 300px;

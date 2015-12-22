@@ -72273,6 +72273,7 @@ var App = (function (_React$Component) {
         // instead of getInitialState in new React notation
         this.state = {
             currentSnapshot: null,
+            showMapLabels: _storesAppStateStore2['default'].showMapLabels,
             isLoading: true
         };
         this.handleObservationStoreChange = function () {
@@ -72281,6 +72282,11 @@ var App = (function (_React$Component) {
         this.handleAppStateChange = function () {
             if (_this.state.currentSnapshot !== _storesAppStateStore2['default'].currentSnapshot) {
                 _this.setObservations();
+            }
+            if (_this.state.showMapLabels !== _storesAppStateStore2['default'].showMapLabels) {
+                _this.setState({
+                    showMapLabels: _storesAppStateStore2['default'].showMapLabels
+                }, _this.setHeatMap.bind(_this));
             }
         };
     }
@@ -72341,7 +72347,7 @@ var App = (function (_React$Component) {
             var points = Object.keys(obs).map(function (key) {
                 return obs[key];
             });
-            (0, _voronoiJs.createPolygons)(this._map, points);
+            (0, _voronoiJs.createPolygons)(this._map, points, this.state.showMapLabels);
         }
     }, {
         key: 'render',
@@ -72445,6 +72451,9 @@ var Legend = (function (_React$Component) {
         this.handlePlayClick = function () {
             _storesAppStateStore2['default'].currentTime = !_storesAppStateStore2['default'].currentTime;
         };
+        this.handleShowLabelsChange = function () {
+            _storesAppStateStore2['default'].showMapLabels = !_storesAppStateStore2['default'].showMapLabels;
+        };
     }
 
     _createClass(Legend, [{
@@ -72464,7 +72473,14 @@ var Legend = (function (_React$Component) {
         value: function render() {
             var temp = _storesObservationsStore2['default'].getTempForSnapshot(_storesAppStateStore2['default'].currentSnapshot).toFixed(3);
             var avgDiff = _storesObservationsStore2['default'].getAvgForSnapshot(_storesAppStateStore2['default'].currentSnapshot).toFixed(3);
-            var icon = avgDiff > 0 ? _react2['default'].createElement('i', { className: 'glyphicon glyphicon-arrow-up' }) : _react2['default'].createElement('i', { className: 'glyphicon glyphicon-arrow-down' });
+            var icon = undefined;
+            if (avgDiff > 0) {
+                icon = _react2['default'].createElement('i', { className: 'glyphicon glyphicon-arrow-up' });
+            } else if (avgDiff < 0) {
+                icon = _react2['default'].createElement('i', { className: 'glyphicon glyphicon-arrow-down' });
+            } else {
+                icon = _react2['default'].createElement('i', { className: 'glyphicon glyphicon-minus' });
+            }
             return _react2['default'].createElement(
                 'div',
                 { id: 'legend' },
@@ -72491,6 +72507,12 @@ var Legend = (function (_React$Component) {
                         ' (',
                         avgDiff,
                         ')'
+                    ),
+                    _react2['default'].createElement(
+                        'p',
+                        null,
+                        'Show areas\' temperature: ',
+                        _react2['default'].createElement('input', { type: 'checkbox', onChange: this.handleShowLabelsChange, defaultChecked: _storesAppStateStore2['default'].showMapLabels })
                     ),
                     _react2['default'].createElement(
                         'p',
@@ -72789,6 +72811,7 @@ var state = {
     currentTime: Date.now(),
     currentSnapshot: null,
     timeBounds: [Date.now() - 12 * 3600 * 1000, Date.now() + 10 * 1000],
+    showMapLabels: false,
     isPlaying: false
 };
 
@@ -72888,6 +72911,15 @@ var AppStateStore = (function (_EventEmitter) {
         key: 'timeBounds',
         get: function get() {
             return state.timeBounds;
+        }
+    }, {
+        key: 'showMapLabels',
+        get: function get() {
+            return state.showMapLabels;
+        },
+        set: function set(flag) {
+            state.showMapLabels = flag;
+            this.emit('update');
         }
     }]);
 
@@ -73346,7 +73378,7 @@ var _d3 = require('d3');
 
 var _d32 = _interopRequireDefault(_d3);
 
-function createPolygons(map, points) {
+function createPolygons(map, points, showLabels) {
 
     map._initPathRoot();
 
@@ -73406,41 +73438,44 @@ function createPolygons(map, points) {
         });
 
         svg.selectAll("text").remove();
-        svg.append("g").attr("class", "label").selectAll("text").data(polygons.map(_d32["default"].geom.polygon)).enter().append("text").attr("class", function (d) {
-            if (!d) {
-                return;
-            }
-            var centroid = d.centroid(),
-                point = d.point,
-                angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
-            return "label--" + (d.orient = angle === 0 ? "right" : angle === -1 ? "top" : angle === 1 ? "bottom" : "left");
-        }).attr("transform", function (d) {
-            if (!d) {
-                return;
-            }
-            return "translate(" + d.point.x + "," + d.point.y + ")";
-        }).attr("dy", function (d) {
-            if (!d) {
-                return;
-            }
-            return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null;
-        }).attr("x", function (d) {
-            if (!d) {
-                return;
-            }
-            return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null;
-        }).attr("y", function (d) {
-            if (!d) {
-                return;
-            }
-            return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null;
-        }).text(function (d, i) {
-            if (!d) {
-                return;
-            }
-            return d.temp + " (" + d.diff + ")";
-        });
+        if (showLabels) {
+            svg.append("g").attr("class", "label").selectAll("text").data(polygons.map(_d32["default"].geom.polygon)).enter().append("text").attr("class", function (d) {
+                if (!d) {
+                    return;
+                }
+                var centroid = d.centroid(),
+                    point = d.point,
+                    angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
+                return "label--" + (d.orient = angle === 0 ? "right" : angle === -1 ? "top" : angle === 1 ? "bottom" : "left");
+            }).attr("transform", function (d) {
+                if (!d) {
+                    return;
+                }
+                return "translate(" + d.point.x + "," + d.point.y + ")";
+            }).attr("dy", function (d) {
+                if (!d) {
+                    return;
+                }
+                return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null;
+            }).attr("x", function (d) {
+                if (!d) {
+                    return;
+                }
+                return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null;
+            }).attr("y", function (d) {
+                if (!d) {
+                    return;
+                }
+                return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null;
+            }).text(function (d, i) {
+                if (!d) {
+                    return;
+                }
+                return d.temp + " (" + d.diff + ")";
+            });
+        }
     }
+
     map.on("viewreset moveend", update);
 
     update();
