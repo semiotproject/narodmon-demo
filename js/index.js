@@ -72660,6 +72660,7 @@ var Timeline = (function (_React$Component) {
         value: function getState() {
             return {
                 currentTime: _storesAppStateStore2['default'].currentTime,
+                timeBounds: _storesAppStateStore2['default'].timeBounds,
                 isPlaying: _storesAppStateStore2['default'].isPlaying
             };
         }
@@ -72675,20 +72676,32 @@ var Timeline = (function (_React$Component) {
             if (prevState.currentTime !== this.state.currentTime) {
                 this.setTime(this.state.currentTime);
             }
+            if (prevState.timeBounds !== this.state.timeBounds) {
+                this.updateBounds();
+            }
         }
     }, {
         key: 'initTimeline',
         value: function initTimeline() {
             var container = this.refs.root;
-            var bounds = _storesAppStateStore2['default'].timeBounds;
-            var options = {
-                min: bounds[0],
-                max: bounds[1],
+            this._timeline = new _vis2['default'].Timeline(container, [], {
                 showCurrentTime: false
-            };
-            this._timeline = new _vis2['default'].Timeline(container, [], options);
+            });
             this._timeline.addCustomTime(this.state.currentTime, CUSTOM_TIME_ID);
             this._timeline.on('click', this.handleTimelineClick);
+            this.updateBounds();
+        }
+    }, {
+        key: 'updateBounds',
+        value: function updateBounds() {
+            var timeBounds = this.state.timeBounds;
+
+            var options = {
+                min: timeBounds[0],
+                max: timeBounds[1],
+                showCurrentTime: false
+            };
+            this._timeline.setOptions(options);
         }
     }, {
         key: 'setTime',
@@ -72772,10 +72785,9 @@ var _observationsStore2 = _interopRequireDefault(_observationsStore);
 var state = {
     currentTime: Date.now(),
     currentSnapshot: null,
+    timeBounds: [Date.now() - 12 * 3600 * 1000, Date.now()],
     isPlaying: false
 };
-
-var TIME_BOUNDS = [Date.now() - 12 * 3600 * 1000, Date.now()];
 
 // every ten minutes
 var PLAY_UPDATE_INTERVAL = 1000 * 60 * 10;
@@ -72791,6 +72803,7 @@ var AppStateStore = (function (_EventEmitter) {
         _classCallCheck(this, AppStateStore);
 
         _get(Object.getPrototypeOf(AppStateStore.prototype), 'constructor', this).call(this);
+        _observationsStore2['default'].on('newObservation', this.updateTimeBounds.bind(this));
     }
 
     _createClass(AppStateStore, [{
@@ -72819,9 +72832,16 @@ var AppStateStore = (function (_EventEmitter) {
             PLAY_TIMER = null;
         }
     }, {
+        key: 'updateTimeBounds',
+        value: function updateTimeBounds() {
+            state.timeBounds = [Date.now() - 12 * 3600 * 1000, Date.now()];
+            state.currentTime = Date.now();
+            this.emit('update');
+        }
+    }, {
         key: 'isInBounds',
         value: function isInBounds(timestamp) {
-            return TIME_BOUNDS[0] < timestamp && TIME_BOUNDS[1] > timestamp;
+            return state.timeBounds[0] < timestamp && state.timeBounds[1] > timestamp;
         }
     }, {
         key: 'currentTime',
@@ -72864,7 +72884,7 @@ var AppStateStore = (function (_EventEmitter) {
     }, {
         key: 'timeBounds',
         get: function get() {
-            return TIME_BOUNDS;
+            return state.timeBounds;
         }
     }]);
 
@@ -72951,6 +72971,7 @@ var ObservationStore = (function (_EventEmitter) {
                     _jquery2['default'].when.apply(_jquery2['default'], promises).done(function () {
                         // finally, resolve basic promise
                         promise.resolve(_this.observations);
+                        _this.subscribe();
                     });
                 });
             });
@@ -73093,10 +73114,9 @@ var ObservationStore = (function (_EventEmitter) {
 
             _utilsWamp2['default'].subscribe(_config2['default'].TOPICS.observations, function (message) {
                 console.info('received message: ' + JSON.stringify(message));
-                (0, _utilsTurtle.parseObservations)(message).done(function (obs) {
-                    console.info('parsed observations: ' + obs);
-                    _this4.observations = obs;
-                    _this4.emit('update');
+                (0, _utilsTurtle.parseObservations)(message).done(function (result) {
+                    _this4.observations[Date.now()] = _this4.normalizeObservations(_this4.mergeObservations(result));
+                    _this4.emit('newObservation');
                 });
             });
         }
@@ -73132,7 +73152,7 @@ function loadLastObservations() {
     _jquery2['default'].ajax({
         url: _config2['default'].URLS.obs_snapshot,
         success: function success(data) {
-            promise.resolve(data.events[0]);
+            promise.resolve(data.events ? data.events[0] : []);
         },
         error: function error() {
             console.error('failed to load observation snapshot');
@@ -73283,13 +73303,23 @@ var _autobahn = require('autobahn');
 
 var _autobahn2 = _interopRequireDefault(_autobahn);
 
+var MESSAGE = '\n\n';
+
 exports['default'] = {
     subscribe: function subscribe(topic, callback) {
+        console.log('subscribing on WAMP topic ' + topic + '..');
         var connection = new _autobahn2['default'].Connection({
-            url: 'ws://localhost:8080/ws',
-            realm: 'tutorialpubsub' });
+            url: 'ws://demo-1.semiot.ru:8080/ws',
+            realm: 'realm1'
+        });
         connection.onopen = function (session) {
+            console.log('WAMP connecttion opened');
             session.subscribe(topic, callback);
+            /*
+            setInterval(() => {
+                callback(MESSAGE);
+            }, 2000);
+            */
         };
 
         connection.open();
@@ -73359,14 +73389,12 @@ function createPolygons(map, points) {
             stroke: "black",
             fill: function fill(d) {
                 if (!d) {
-                    console.warn("why y no d?");
                     return "red";
                 }
                 return d.color;
             },
             opacity: function opacity(d) {
                 if (!d) {
-                    console.warn("why y no d?");
                     return 0;
                 }
                 // console.log(Math.abs(d.intensity) + 0.01);
@@ -73376,23 +73404,40 @@ function createPolygons(map, points) {
 
         svg.selectAll("text").remove();
         svg.append("g").attr("class", "label").selectAll("text").data(polygons.map(_d32["default"].geom.polygon)).enter().append("text").attr("class", function (d) {
+            if (!d) {
+                return;
+            }
             var centroid = d.centroid(),
                 point = d.point,
                 angle = Math.round(Math.atan2(centroid.y - point.y, centroid.x - point[0]) / Math.PI * 2);
             return "label--" + (d.orient = angle === 0 ? "right" : angle === -1 ? "top" : angle === 1 ? "bottom" : "left");
         }).attr("transform", function (d) {
+            if (!d) {
+                return;
+            }
             return "translate(" + d.point.x + "," + d.point.y + ")";
         }).attr("dy", function (d) {
+            if (!d) {
+                return;
+            }
             return d.orient === "left" || d.orient === "right" ? ".35em" : d.orient === "bottom" ? ".71em" : null;
         }).attr("x", function (d) {
+            if (!d) {
+                return;
+            }
             return d.orient === "right" ? 6 : d.orient === "left" ? -6 : null;
         }).attr("y", function (d) {
+            if (!d) {
+                return;
+            }
             return d.orient === "bottom" ? 6 : d.orient === "top" ? -6 : null;
         }).text(function (d, i) {
+            if (!d) {
+                return;
+            }
             return d.temp + " (" + d.diff + ")";
         });
     }
-
     map.on("viewreset moveend", update);
 
     update();
