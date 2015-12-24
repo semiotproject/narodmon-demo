@@ -1,5 +1,7 @@
 import $ from 'jquery';
 import CONFIG from '../config';
+import { parseObservations as parseObservationsAsTurtle } from './turtle';
+import queryString from 'query-string';
 
 export function loadLastObservations(_from, to) {
 
@@ -22,18 +24,23 @@ export function loadLastObservations(_from, to) {
 }
 
 export function parseObservations(obs) {
-    const promise = $.Deferred();
+    const params = queryString.parse(location.search);
+    if (params.turtle === "true") {
+        return parseObservationsAsTurtle(obs);
+    } else {
+        const promise = $.Deferred();
 
-    // since we get JSON, no need to parseObservations explicitly; just parse numbers to float
-    promise.resolve(obs.map((o) => {
-        /*
-        o.avg = parseFloat(o.avg);
-        o.temp = parseFloat(o.temp);
-        o.diff = parseFloat(o.diff);
-        o.group = parseFloat(o.group);
-        */
-        return o;
-    }));
+        // since we get JSON, no need to parseObservations explicitly; just parse numbers to float
+        promise.resolve(obs.map((o) => {
+            /*
+            o.avg = parseFloat(o.avg);
+            o.temp = parseFloat(o.temp);
+            o.diff = parseFloat(o.diff);
+            o.group = parseFloat(o.group);
+            */
+            return o;
+        }));
 
-    return promise;
+        return promise;
+    }
 }
