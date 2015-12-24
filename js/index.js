@@ -73320,7 +73320,7 @@ function parseObservations(obs) {
         var promise = _jquery2['default'].Deferred();
 
         // since we get JSON, no need to parseObservations explicitly; just parse numbers to float
-        promise.resolve(obs.map(function (o) {
+        promise.resolve(JSON.parse(obs).map(function (o) {
             /*
             o.avg = parseFloat(o.avg);
             o.temp = parseFloat(o.temp);
