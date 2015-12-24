@@ -31,7 +31,7 @@ export function parseObservations(obs) {
         const promise = $.Deferred();
 
         // since we get JSON, no need to parseObservations explicitly; just parse numbers to float
-        promise.resolve(obs.map((o) => {
+        promise.resolve(JSON.parse(obs).map((o) => {
             /*
             o.avg = parseFloat(o.avg);
             o.temp = parseFloat(o.temp);
