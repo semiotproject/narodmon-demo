@@ -23,7 +23,8 @@ class ObservationStore extends EventEmitter {
     load() {
         const promise = $.Deferred();
         this.loadSensors().done(() => {
-            loadLastObservations().done((observations) => {
+            const { INITIAL_TIME_BOUNDS } = CONFIG;
+            loadLastObservations(INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done((observations) => {
                 const promises = [];
                 observations.map((observation) => {
                     const localPromise = $.Deferred();

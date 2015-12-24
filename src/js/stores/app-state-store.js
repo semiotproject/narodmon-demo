@@ -1,13 +1,11 @@
 import { EventEmitter } from 'events';
 import ObservationStore from './observations-store';
+import { INITIAL_TIME_BOUNDS } from '../config';
 
 const state = {
     currentTime: Date.now(),
     currentSnapshot: null,
-    timeBounds: [
-        Date.now() - 12 * 3600 * 1000,
-        Date.now() + 10 * 1000
-    ],
+    timeBounds: INITIAL_TIME_BOUNDS,
     showMapLabels: false,
     isPlaying: false
 };

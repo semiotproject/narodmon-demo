@@ -1,7 +1,7 @@
 {
-  "name": "wot-semdesc-helper",
+  "name": "unequal-temp-changes-demo",
   "version": "1.0.0",
-  "description": "Semi-automatic generation of semantic description for sensing devices",
+  "description": "",
   "main": "Gruntfile.js",
   "scripts": {
     "build": "grunt build",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/semiotproject/wot-semdesc-helper.git"
+    "url": "https://github.com/semiotproject/unequal-temp-changes-demo.git"
   },
   "author": "SemIoT Project",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/semiotproject/wot-semdesc-helper/issues"
+    "url": "https://github.com/semiotproject/unequal-temp-changes-demo/issues"
   },
-  "homepage": "https://github.com/semiotproject/wot-semdesc-helper",
+  "homepage": "https://github.com/semiotproject/unequal-temp-changes-demo",
   "devDependencies": {
     "babelify": "^6.1.2",
     "font-awesome": "^4.4.0",
@@ -35,15 +35,18 @@
     "yargs": "~3.30.0"
   },
   "dependencies": {
+    "autobahn": "^0.9.9",
     "bootstrap": "^3.3.5",
-    "jquery": "~2.1.4",
-    "lodash": "^3.10.0",
-    "react": "^0.14",
-    "n3": "~0.4.5",
-    "leaflet": "~0.7.7",
-    "autobahn": "~0.9.8",
     "d3": "~3.5.10",
+    "jquery": "~2.1.4",
+    "leaflet": "~0.7.7",
+    "lodash": "^3.10.0",
+    "moment": "~2.10.6",
+    "n3": "~0.4.5",
+    "query-string": "^3.0.0",
+    "react": "^0.14",
+    "react-dom": "^0.14.3",
     "vis": "~4.10.0",
-    "moment": "~2.10.6"
+    "when": "3.7.5"
   }
 }
