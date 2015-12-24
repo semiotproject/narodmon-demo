@@ -109,7 +109,7 @@ function auth(session, user, extra) {
 
 exports.auth = auth;
 
-},{"when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js","when/function":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/function.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/autobahn.js":[function(require,module,exports){
+},{"when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js","when/function":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/function.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/autobahn.js":[function(require,module,exports){
 (function (global){
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -173,7 +173,7 @@ exports.util = util;
 exports.log = log;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../package.json":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/package.json","./auth/cra.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/auth/cra.js","./auth/persona.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/auth/persona.js","./configure.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/configure.js","./connection.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/connection.js","./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","./polyfill.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/polyfill.js","./session.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/session.js","./util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js","when/monitor/console":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/console.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/configure.js":[function(require,module,exports){
+},{"../package.json":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/package.json","./auth/cra.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/auth/cra.js","./auth/persona.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/auth/persona.js","./configure.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/configure.js","./connection.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/connection.js","./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","./polyfill.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/polyfill.js","./session.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/session.js","./util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js","when/monitor/console":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/console.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/configure.js":[function(require,module,exports){
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  AutobahnJS - http://autobahn.ws, http://wamp.ws
@@ -725,7 +725,7 @@ Object.defineProperty(Connection.prototype, "isRetrying", {
 exports.Connection = Connection;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./autobahn.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/autobahn.js","./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","./session.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/session.js","./util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js":[function(require,module,exports){
+},{"./autobahn.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/autobahn.js","./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","./session.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/session.js","./util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js":[function(require,module,exports){
 (function (global){
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -2757,7 +2757,7 @@ Date.now = Date.now || function() { return +new Date; };
 
 // WAMP "Advanced Profile" support in AutobahnJS per role
 //
-WAMP_FEATURES = {
+var WAMP_FEATURES = {
    caller: {
       features: {
          caller_identification: true,
@@ -2993,6 +2993,7 @@ var Session = function (socket, defer, onchallenge) {
    self._publisher_disclose_me = false;
 
    self._send_wamp = function (msg) {
+      log.debug(msg);
       // forward WAMP message to be sent to WAMP transport
       self._socket.send(msg);
    };
@@ -3216,9 +3217,12 @@ var Session = function (socket, defer, onchallenge) {
          var args = msg[4] || [];
          var kwargs = msg[5] || {};
 
-         var ed = new Event(publication, details.publisher, details.topic);
-
          var subs = self._subscriptions[subscription];
+
+         // we want to provide the subscription topic to the handler, and may need to get this
+         // from one of the subscription handler objects attached to the subscription
+         // since for non-pattern subscriptions this is not sent over the wire
+         var ed = new Event(publication, details.publisher, details.topic || subs[0].topic);
 
          for (var i = 0; i < subs.length; ++i) {
             try {
@@ -4220,7 +4224,7 @@ exports.Registration = Registration;
 exports.Publication = Publication;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","./util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js","when/function":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/function.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/transport/longpoll.js":[function(require,module,exports){
+},{"./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","./util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js","when/function":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/function.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/transport/longpoll.js":[function(require,module,exports){
 ///////////////////////////////////////////////////////////////////////////////
 //
 //  AutobahnJS - http://autobahn.ws, http://wamp.ws
@@ -4426,7 +4430,7 @@ Factory.prototype.create = function () {
 
 exports.Factory = Factory;
 
-},{"../log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","../util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/transport/rawsocket.js":[function(require,module,exports){
+},{"../log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","../util.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/util.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/transport/rawsocket.js":[function(require,module,exports){
 (function (global,Buffer){
 ///////////////////////////////////////////////////////////////////////////////
 //
@@ -4593,7 +4597,7 @@ Factory.prototype.create = function () {
  * @param {Integer|False} [options.packet_timeout] The maximum amount of time to
  *        wait for a packet !!NOT IMPLEMENTED!! (default: 2000)
  *
- * @see https://github.com/tavendo/WAMP/blob/master/spec/advanced.md#rawsocket-transport
+ * @see https://github.com/wamp-proto/wamp-proto
  */
 function Protocol (stream, options) {
    this._options = {
@@ -5542,7 +5546,7 @@ exports.http_post = http_post;
 exports.defaults = defaults;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/crypto-js/aes.js":[function(require,module,exports){
+},{"./log.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/lib/log.js","when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/crypto-js/aes.js":[function(require,module,exports){
 ;(function (root, factory, undef) {
 	if (typeof exports === "object") {
 		// CommonJS
@@ -12114,2897 +12118,7 @@ exports.defaults = defaults;
 	return CryptoJS;
 
 }));
-},{"./core":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/crypto-js/core.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/function.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2013-2014 original author or authors */
-
-/**
- * Collection of helper functions for wrapping and executing 'traditional'
- * synchronous functions in a promise interface.
- *
- * @author Brian Cavalier
- * @contributor Renato Zannon
- */
-
-(function(define) {
-define(function(require) {
-
-	var when = require('./when');
-	var attempt = when['try'];
-	var _liftAll = require('./lib/liftAll');
-	var _apply = require('./lib/apply')(when.Promise);
-	var slice = Array.prototype.slice;
-
-	return {
-		lift: lift,
-		liftAll: liftAll,
-		call: attempt,
-		apply: apply,
-		compose: compose
-	};
-
-	/**
-	 * Takes a function and an optional array of arguments (that might be promises),
-	 * and calls the function. The return value is a promise whose resolution
-	 * depends on the value returned by the function.
-	 * @param {function} f function to be called
-	 * @param {Array} [args] array of arguments to func
-	 * @returns {Promise} promise for the return value of func
-	 */
-	function apply(f, args) {
-		// slice args just in case the caller passed an Arguments instance
-		return _apply(f, this, args == null ? [] : slice.call(args));
-	}
-
-	/**
-	 * Takes a 'regular' function and returns a version of that function that
-	 * returns a promise instead of a plain value, and handles thrown errors by
-	 * returning a rejected promise. Also accepts a list of arguments to be
-	 * prepended to the new function, as does Function.prototype.bind.
-	 *
-	 * The resulting function is promise-aware, in the sense that it accepts
-	 * promise arguments, and waits for their resolution.
-	 * @param {Function} f function to be bound
-	 * @param {...*} [args] arguments to be prepended for the new function @deprecated
-	 * @returns {Function} a promise-returning function
-	 */
-	function lift(f /*, args... */) {
-		var args = arguments.length > 1 ? slice.call(arguments, 1) : [];
-		return function() {
-			return _apply(f, this, args.concat(slice.call(arguments)));
-		};
-	}
-
-	/**
-	 * Lift all the functions/methods on src
-	 * @param {object|function} src source whose functions will be lifted
-	 * @param {function?} combine optional function for customizing the lifting
-	 *  process. It is passed dst, the lifted function, and the property name of
-	 *  the original function on src.
-	 * @param {(object|function)?} dst option destination host onto which to place lifted
-	 *  functions. If not provided, liftAll returns a new object.
-	 * @returns {*} If dst is provided, returns dst with lifted functions as
-	 *  properties.  If dst not provided, returns a new object with lifted functions.
-	 */
-	function liftAll(src, combine, dst) {
-		return _liftAll(lift, combine, dst, src);
-	}
-
-	/**
-	 * Composes multiple functions by piping their return values. It is
-	 * transparent to whether the functions return 'regular' values or promises:
-	 * the piped argument is always a resolved value. If one of the functions
-	 * throws or returns a rejected promise, the composed promise will be also
-	 * rejected.
-	 *
-	 * The arguments (or promises to arguments) given to the returned function (if
-	 * any), are passed directly to the first function on the 'pipeline'.
-	 * @param {Function} f the function to which the arguments will be passed
-	 * @param {...Function} [funcs] functions that will be composed, in order
-	 * @returns {Function} a promise-returning composition of the functions
-	 */
-	function compose(f /*, funcs... */) {
-		var funcs = slice.call(arguments, 1);
-
-		return function() {
-			var thisArg = this;
-			var args = slice.call(arguments);
-			var firstPromise = attempt.apply(thisArg, [f].concat(args));
-
-			return when.reduce(funcs, function(arg, func) {
-				return func.call(thisArg, arg);
-			}, firstPromise);
-		};
-	}
-});
-})(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
-
-
-
-},{"./lib/apply":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/apply.js","./lib/liftAll":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/liftAll.js","./when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/Promise.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function (require) {
-
-	var makePromise = require('./makePromise');
-	var Scheduler = require('./Scheduler');
-	var async = require('./env').asap;
-
-	return makePromise({
-		scheduler: new Scheduler(async)
-	});
-
-});
-})(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
-
-},{"./Scheduler":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/Scheduler.js","./env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/env.js","./makePromise":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/makePromise.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/Scheduler.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	// Credit to Twisol (https://github.com/Twisol) for suggesting
-	// this type of extensible queue + trampoline approach for next-tick conflation.
-
-	/**
-	 * Async task scheduler
-	 * @param {function} async function to schedule a single async function
-	 * @constructor
-	 */
-	function Scheduler(async) {
-		this._async = async;
-		this._running = false;
-
-		this._queue = this;
-		this._queueLen = 0;
-		this._afterQueue = {};
-		this._afterQueueLen = 0;
-
-		var self = this;
-		this.drain = function() {
-			self._drain();
-		};
-	}
-
-	/**
-	 * Enqueue a task
-	 * @param {{ run:function }} task
-	 */
-	Scheduler.prototype.enqueue = function(task) {
-		this._queue[this._queueLen++] = task;
-		this.run();
-	};
-
-	/**
-	 * Enqueue a task to run after the main task queue
-	 * @param {{ run:function }} task
-	 */
-	Scheduler.prototype.afterQueue = function(task) {
-		this._afterQueue[this._afterQueueLen++] = task;
-		this.run();
-	};
-
-	Scheduler.prototype.run = function() {
-		if (!this._running) {
-			this._running = true;
-			this._async(this.drain);
-		}
-	};
-
-	/**
-	 * Drain the handler queue entirely, and then the after queue
-	 */
-	Scheduler.prototype._drain = function() {
-		var i = 0;
-		for (; i < this._queueLen; ++i) {
-			this._queue[i].run();
-			this._queue[i] = void 0;
-		}
-
-		this._queueLen = 0;
-		this._running = false;
-
-		for (i = 0; i < this._afterQueueLen; ++i) {
-			this._afterQueue[i].run();
-			this._afterQueue[i] = void 0;
-		}
-
-		this._afterQueueLen = 0;
-	};
-
-	return Scheduler;
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/TimeoutError.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	/**
-	 * Custom error type for promises rejected by promise.timeout
-	 * @param {string} message
-	 * @constructor
-	 */
-	function TimeoutError (message) {
-		Error.call(this);
-		this.message = message;
-		this.name = TimeoutError.name;
-		if (typeof Error.captureStackTrace === 'function') {
-			Error.captureStackTrace(this, TimeoutError);
-		}
-	}
-
-	TimeoutError.prototype = Object.create(Error.prototype);
-	TimeoutError.prototype.constructor = TimeoutError;
-
-	return TimeoutError;
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/apply.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	makeApply.tryCatchResolve = tryCatchResolve;
-
-	return makeApply;
-
-	function makeApply(Promise, call) {
-		if(arguments.length < 2) {
-			call = tryCatchResolve;
-		}
-
-		return apply;
-
-		function apply(f, thisArg, args) {
-			var p = Promise._defer();
-			var l = args.length;
-			var params = new Array(l);
-			callAndResolve({ f:f, thisArg:thisArg, args:args, params:params, i:l-1, call:call }, p._handler);
-
-			return p;
-		}
-
-		function callAndResolve(c, h) {
-			if(c.i < 0) {
-				return call(c.f, c.thisArg, c.params, h);
-			}
-
-			var handler = Promise._handler(c.args[c.i]);
-			handler.fold(callAndResolveNext, c, void 0, h);
-		}
-
-		function callAndResolveNext(c, x, h) {
-			c.params[c.i] = x;
-			c.i -= 1;
-			callAndResolve(c, h);
-		}
-	}
-
-	function tryCatchResolve(f, thisArg, args, resolver) {
-		try {
-			resolver.resolve(f.apply(thisArg, args));
-		} catch(e) {
-			resolver.reject(e);
-		}
-	}
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/array.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var state = require('../state');
-	var applier = require('../apply');
-
-	return function array(Promise) {
-
-		var applyFold = applier(Promise);
-		var toPromise = Promise.resolve;
-		var all = Promise.all;
-
-		var ar = Array.prototype.reduce;
-		var arr = Array.prototype.reduceRight;
-		var slice = Array.prototype.slice;
-
-		// Additional array combinators
-
-		Promise.any = any;
-		Promise.some = some;
-		Promise.settle = settle;
-
-		Promise.map = map;
-		Promise.filter = filter;
-		Promise.reduce = reduce;
-		Promise.reduceRight = reduceRight;
-
-		/**
-		 * When this promise fulfills with an array, do
-		 * onFulfilled.apply(void 0, array)
-		 * @param {function} onFulfilled function to apply
-		 * @returns {Promise} promise for the result of applying onFulfilled
-		 */
-		Promise.prototype.spread = function(onFulfilled) {
-			return this.then(all).then(function(array) {
-				return onFulfilled.apply(this, array);
-			});
-		};
-
-		return Promise;
-
-		/**
-		 * One-winner competitive race.
-		 * Return a promise that will fulfill when one of the promises
-		 * in the input array fulfills, or will reject when all promises
-		 * have rejected.
-		 * @param {array} promises
-		 * @returns {Promise} promise for the first fulfilled value
-		 */
-		function any(promises) {
-			var p = Promise._defer();
-			var resolver = p._handler;
-			var l = promises.length>>>0;
-
-			var pending = l;
-			var errors = [];
-
-			for (var h, x, i = 0; i < l; ++i) {
-				x = promises[i];
-				if(x === void 0 && !(i in promises)) {
-					--pending;
-					continue;
-				}
-
-				h = Promise._handler(x);
-				if(h.state() > 0) {
-					resolver.become(h);
-					Promise._visitRemaining(promises, i, h);
-					break;
-				} else {
-					h.visit(resolver, handleFulfill, handleReject);
-				}
-			}
-
-			if(pending === 0) {
-				resolver.reject(new RangeError('any(): array must not be empty'));
-			}
-
-			return p;
-
-			function handleFulfill(x) {
-				/*jshint validthis:true*/
-				errors = null;
-				this.resolve(x); // this === resolver
-			}
-
-			function handleReject(e) {
-				/*jshint validthis:true*/
-				if(this.resolved) { // this === resolver
-					return;
-				}
-
-				errors.push(e);
-				if(--pending === 0) {
-					this.reject(errors);
-				}
-			}
-		}
-
-		/**
-		 * N-winner competitive race
-		 * Return a promise that will fulfill when n input promises have
-		 * fulfilled, or will reject when it becomes impossible for n
-		 * input promises to fulfill (ie when promises.length - n + 1
-		 * have rejected)
-		 * @param {array} promises
-		 * @param {number} n
-		 * @returns {Promise} promise for the earliest n fulfillment values
-		 *
-		 * @deprecated
-		 */
-		function some(promises, n) {
-			/*jshint maxcomplexity:7*/
-			var p = Promise._defer();
-			var resolver = p._handler;
-
-			var results = [];
-			var errors = [];
-
-			var l = promises.length>>>0;
-			var nFulfill = 0;
-			var nReject;
-			var x, i; // reused in both for() loops
-
-			// First pass: count actual array items
-			for(i=0; i<l; ++i) {
-				x = promises[i];
-				if(x === void 0 && !(i in promises)) {
-					continue;
-				}
-				++nFulfill;
-			}
-
-			// Compute actual goals
-			n = Math.max(n, 0);
-			nReject = (nFulfill - n + 1);
-			nFulfill = Math.min(n, nFulfill);
-
-			if(n > nFulfill) {
-				resolver.reject(new RangeError('some(): array must contain at least '
-				+ n + ' item(s), but had ' + nFulfill));
-			} else if(nFulfill === 0) {
-				resolver.resolve(results);
-			}
-
-			// Second pass: observe each array item, make progress toward goals
-			for(i=0; i<l; ++i) {
-				x = promises[i];
-				if(x === void 0 && !(i in promises)) {
-					continue;
-				}
-
-				Promise._handler(x).visit(resolver, fulfill, reject, resolver.notify);
-			}
-
-			return p;
-
-			function fulfill(x) {
-				/*jshint validthis:true*/
-				if(this.resolved) { // this === resolver
-					return;
-				}
-
-				results.push(x);
-				if(--nFulfill === 0) {
-					errors = null;
-					this.resolve(results);
-				}
-			}
-
-			function reject(e) {
-				/*jshint validthis:true*/
-				if(this.resolved) { // this === resolver
-					return;
-				}
-
-				errors.push(e);
-				if(--nReject === 0) {
-					results = null;
-					this.reject(errors);
-				}
-			}
-		}
-
-		/**
-		 * Apply f to the value of each promise in a list of promises
-		 * and return a new list containing the results.
-		 * @param {array} promises
-		 * @param {function(x:*, index:Number):*} f mapping function
-		 * @returns {Promise}
-		 */
-		function map(promises, f) {
-			return Promise._traverse(f, promises);
-		}
-
-		/**
-		 * Filter the provided array of promises using the provided predicate.  Input may
-		 * contain promises and values
-		 * @param {Array} promises array of promises and values
-		 * @param {function(x:*, index:Number):boolean} predicate filtering predicate.
-		 *  Must return truthy (or promise for truthy) for items to retain.
-		 * @returns {Promise} promise that will fulfill with an array containing all items
-		 *  for which predicate returned truthy.
-		 */
-		function filter(promises, predicate) {
-			var a = slice.call(promises);
-			return Promise._traverse(predicate, a).then(function(keep) {
-				return filterSync(a, keep);
-			});
-		}
-
-		function filterSync(promises, keep) {
-			// Safe because we know all promises have fulfilled if we've made it this far
-			var l = keep.length;
-			var filtered = new Array(l);
-			for(var i=0, j=0; i<l; ++i) {
-				if(keep[i]) {
-					filtered[j++] = Promise._handler(promises[i]).value;
-				}
-			}
-			filtered.length = j;
-			return filtered;
-
-		}
-
-		/**
-		 * Return a promise that will always fulfill with an array containing
-		 * the outcome states of all input promises.  The returned promise
-		 * will never reject.
-		 * @param {Array} promises
-		 * @returns {Promise} promise for array of settled state descriptors
-		 */
-		function settle(promises) {
-			return all(promises.map(settleOne));
-		}
-
-		function settleOne(p) {
-			var h = Promise._handler(p);
-			if(h.state() === 0) {
-				return toPromise(p).then(state.fulfilled, state.rejected);
-			}
-
-			h._unreport();
-			return state.inspect(h);
-		}
-
-		/**
-		 * Traditional reduce function, similar to `Array.prototype.reduce()`, but
-		 * input may contain promises and/or values, and reduceFunc
-		 * may return either a value or a promise, *and* initialValue may
-		 * be a promise for the starting value.
-		 * @param {Array|Promise} promises array or promise for an array of anything,
-		 *      may contain a mix of promises and values.
-		 * @param {function(accumulated:*, x:*, index:Number):*} f reduce function
-		 * @returns {Promise} that will resolve to the final reduced value
-		 */
-		function reduce(promises, f /*, initialValue */) {
-			return arguments.length > 2 ? ar.call(promises, liftCombine(f), arguments[2])
-					: ar.call(promises, liftCombine(f));
-		}
-
-		/**
-		 * Traditional reduce function, similar to `Array.prototype.reduceRight()`, but
-		 * input may contain promises and/or values, and reduceFunc
-		 * may return either a value or a promise, *and* initialValue may
-		 * be a promise for the starting value.
-		 * @param {Array|Promise} promises array or promise for an array of anything,
-		 *      may contain a mix of promises and values.
-		 * @param {function(accumulated:*, x:*, index:Number):*} f reduce function
-		 * @returns {Promise} that will resolve to the final reduced value
-		 */
-		function reduceRight(promises, f /*, initialValue */) {
-			return arguments.length > 2 ? arr.call(promises, liftCombine(f), arguments[2])
-					: arr.call(promises, liftCombine(f));
-		}
-
-		function liftCombine(f) {
-			return function(z, x, i) {
-				return applyFold(f, void 0, [z,x,i]);
-			};
-		}
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"../apply":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/apply.js","../state":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/state.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/flow.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return function flow(Promise) {
-
-		var resolve = Promise.resolve;
-		var reject = Promise.reject;
-		var origCatch = Promise.prototype['catch'];
-
-		/**
-		 * Handle the ultimate fulfillment value or rejection reason, and assume
-		 * responsibility for all errors.  If an error propagates out of result
-		 * or handleFatalError, it will be rethrown to the host, resulting in a
-		 * loud stack track on most platforms and a crash on some.
-		 * @param {function?} onResult
-		 * @param {function?} onError
-		 * @returns {undefined}
-		 */
-		Promise.prototype.done = function(onResult, onError) {
-			this._handler.visit(this._handler.receiver, onResult, onError);
-		};
-
-		/**
-		 * Add Error-type and predicate matching to catch.  Examples:
-		 * promise.catch(TypeError, handleTypeError)
-		 *   .catch(predicate, handleMatchedErrors)
-		 *   .catch(handleRemainingErrors)
-		 * @param onRejected
-		 * @returns {*}
-		 */
-		Promise.prototype['catch'] = Promise.prototype.otherwise = function(onRejected) {
-			if (arguments.length < 2) {
-				return origCatch.call(this, onRejected);
-			}
-
-			if(typeof onRejected !== 'function') {
-				return this.ensure(rejectInvalidPredicate);
-			}
-
-			return origCatch.call(this, createCatchFilter(arguments[1], onRejected));
-		};
-
-		/**
-		 * Wraps the provided catch handler, so that it will only be called
-		 * if the predicate evaluates truthy
-		 * @param {?function} handler
-		 * @param {function} predicate
-		 * @returns {function} conditional catch handler
-		 */
-		function createCatchFilter(handler, predicate) {
-			return function(e) {
-				return evaluatePredicate(e, predicate)
-					? handler.call(this, e)
-					: reject(e);
-			};
-		}
-
-		/**
-		 * Ensures that onFulfilledOrRejected will be called regardless of whether
-		 * this promise is fulfilled or rejected.  onFulfilledOrRejected WILL NOT
-		 * receive the promises' value or reason.  Any returned value will be disregarded.
-		 * onFulfilledOrRejected may throw or return a rejected promise to signal
-		 * an additional error.
-		 * @param {function} handler handler to be called regardless of
-		 *  fulfillment or rejection
-		 * @returns {Promise}
-		 */
-		Promise.prototype['finally'] = Promise.prototype.ensure = function(handler) {
-			if(typeof handler !== 'function') {
-				return this;
-			}
-
-			return this.then(function(x) {
-				return runSideEffect(handler, this, identity, x);
-			}, function(e) {
-				return runSideEffect(handler, this, reject, e);
-			});
-		};
-
-		function runSideEffect (handler, thisArg, propagate, value) {
-			var result = handler.call(thisArg);
-			return maybeThenable(result)
-				? propagateValue(result, propagate, value)
-				: propagate(value);
-		}
-
-		function propagateValue (result, propagate, x) {
-			return resolve(result).then(function () {
-				return propagate(x);
-			});
-		}
-
-		/**
-		 * Recover from a failure by returning a defaultValue.  If defaultValue
-		 * is a promise, it's fulfillment value will be used.  If defaultValue is
-		 * a promise that rejects, the returned promise will reject with the
-		 * same reason.
-		 * @param {*} defaultValue
-		 * @returns {Promise} new promise
-		 */
-		Promise.prototype['else'] = Promise.prototype.orElse = function(defaultValue) {
-			return this.then(void 0, function() {
-				return defaultValue;
-			});
-		};
-
-		/**
-		 * Shortcut for .then(function() { return value; })
-		 * @param  {*} value
-		 * @return {Promise} a promise that:
-		 *  - is fulfilled if value is not a promise, or
-		 *  - if value is a promise, will fulfill with its value, or reject
-		 *    with its reason.
-		 */
-		Promise.prototype['yield'] = function(value) {
-			return this.then(function() {
-				return value;
-			});
-		};
-
-		/**
-		 * Runs a side effect when this promise fulfills, without changing the
-		 * fulfillment value.
-		 * @param {function} onFulfilledSideEffect
-		 * @returns {Promise}
-		 */
-		Promise.prototype.tap = function(onFulfilledSideEffect) {
-			return this.then(onFulfilledSideEffect)['yield'](this);
-		};
-
-		return Promise;
-	};
-
-	function rejectInvalidPredicate() {
-		throw new TypeError('catch predicate must be a function');
-	}
-
-	function evaluatePredicate(e, predicate) {
-		return isError(predicate) ? e instanceof predicate : predicate(e);
-	}
-
-	function isError(predicate) {
-		return predicate === Error
-			|| (predicate != null && predicate.prototype instanceof Error);
-	}
-
-	function maybeThenable(x) {
-		return (typeof x === 'object' || typeof x === 'function') && x !== null;
-	}
-
-	function identity(x) {
-		return x;
-	}
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/fold.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-/** @author Jeff Escalante */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return function fold(Promise) {
-
-		Promise.prototype.fold = function(f, z) {
-			var promise = this._beget();
-
-			this._handler.fold(function(z, x, to) {
-				Promise._handler(z).fold(function(x, z, to) {
-					to.resolve(f.call(this, z, x));
-				}, x, this, to);
-			}, z, promise._handler.receiver, promise._handler);
-
-			return promise;
-		};
-
-		return Promise;
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/inspect.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var inspect = require('../state').inspect;
-
-	return function inspection(Promise) {
-
-		Promise.prototype.inspect = function() {
-			return inspect(Promise._handler(this));
-		};
-
-		return Promise;
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"../state":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/state.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/iterate.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return function generate(Promise) {
-
-		var resolve = Promise.resolve;
-
-		Promise.iterate = iterate;
-		Promise.unfold = unfold;
-
-		return Promise;
-
-		/**
-		 * @deprecated Use github.com/cujojs/most streams and most.iterate
-		 * Generate a (potentially infinite) stream of promised values:
-		 * x, f(x), f(f(x)), etc. until condition(x) returns true
-		 * @param {function} f function to generate a new x from the previous x
-		 * @param {function} condition function that, given the current x, returns
-		 *  truthy when the iterate should stop
-		 * @param {function} handler function to handle the value produced by f
-		 * @param {*|Promise} x starting value, may be a promise
-		 * @return {Promise} the result of the last call to f before
-		 *  condition returns true
-		 */
-		function iterate(f, condition, handler, x) {
-			return unfold(function(x) {
-				return [x, f(x)];
-			}, condition, handler, x);
-		}
-
-		/**
-		 * @deprecated Use github.com/cujojs/most streams and most.unfold
-		 * Generate a (potentially infinite) stream of promised values
-		 * by applying handler(generator(seed)) iteratively until
-		 * condition(seed) returns true.
-		 * @param {function} unspool function that generates a [value, newSeed]
-		 *  given a seed.
-		 * @param {function} condition function that, given the current seed, returns
-		 *  truthy when the unfold should stop
-		 * @param {function} handler function to handle the value produced by unspool
-		 * @param x {*|Promise} starting value, may be a promise
-		 * @return {Promise} the result of the last value produced by unspool before
-		 *  condition returns true
-		 */
-		function unfold(unspool, condition, handler, x) {
-			return resolve(x).then(function(seed) {
-				return resolve(condition(seed)).then(function(done) {
-					return done ? seed : resolve(unspool(seed)).spread(next);
-				});
-			});
-
-			function next(item, newSeed) {
-				return resolve(handler(item)).then(function() {
-					return unfold(unspool, condition, handler, newSeed);
-				});
-			}
-		}
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/progress.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return function progress(Promise) {
-
-		/**
-		 * @deprecated
-		 * Register a progress handler for this promise
-		 * @param {function} onProgress
-		 * @returns {Promise}
-		 */
-		Promise.prototype.progress = function(onProgress) {
-			return this.then(void 0, void 0, onProgress);
-		};
-
-		return Promise;
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/timed.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var env = require('../env');
-	var TimeoutError = require('../TimeoutError');
-
-	function setTimeout(f, ms, x, y) {
-		return env.setTimer(function() {
-			f(x, y, ms);
-		}, ms);
-	}
-
-	return function timed(Promise) {
-		/**
-		 * Return a new promise whose fulfillment value is revealed only
-		 * after ms milliseconds
-		 * @param {number} ms milliseconds
-		 * @returns {Promise}
-		 */
-		Promise.prototype.delay = function(ms) {
-			var p = this._beget();
-			this._handler.fold(handleDelay, ms, void 0, p._handler);
-			return p;
-		};
-
-		function handleDelay(ms, x, h) {
-			setTimeout(resolveDelay, ms, x, h);
-		}
-
-		function resolveDelay(x, h) {
-			h.resolve(x);
-		}
-
-		/**
-		 * Return a new promise that rejects after ms milliseconds unless
-		 * this promise fulfills earlier, in which case the returned promise
-		 * fulfills with the same value.
-		 * @param {number} ms milliseconds
-		 * @param {Error|*=} reason optional rejection reason to use, defaults
-		 *   to a TimeoutError if not provided
-		 * @returns {Promise}
-		 */
-		Promise.prototype.timeout = function(ms, reason) {
-			var p = this._beget();
-			var h = p._handler;
-
-			var t = setTimeout(onTimeout, ms, reason, p._handler);
-
-			this._handler.visit(h,
-				function onFulfill(x) {
-					env.clearTimer(t);
-					this.resolve(x); // this = h
-				},
-				function onReject(x) {
-					env.clearTimer(t);
-					this.reject(x); // this = h
-				},
-				h.notify);
-
-			return p;
-		};
-
-		function onTimeout(reason, h, ms) {
-			var e = typeof reason === 'undefined'
-				? new TimeoutError('timed out after ' + ms + 'ms')
-				: reason;
-			h.reject(e);
-		}
-
-		return Promise;
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"../TimeoutError":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/TimeoutError.js","../env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/env.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/unhandledRejection.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var setTimer = require('../env').setTimer;
-	var format = require('../format');
-
-	return function unhandledRejection(Promise) {
-
-		var logError = noop;
-		var logInfo = noop;
-		var localConsole;
-
-		if(typeof console !== 'undefined') {
-			// Alias console to prevent things like uglify's drop_console option from
-			// removing console.log/error. Unhandled rejections fall into the same
-			// category as uncaught exceptions, and build tools shouldn't silence them.
-			localConsole = console;
-			logError = typeof localConsole.error !== 'undefined'
-				? function (e) { localConsole.error(e); }
-				: function (e) { localConsole.log(e); };
-
-			logInfo = typeof localConsole.info !== 'undefined'
-				? function (e) { localConsole.info(e); }
-				: function (e) { localConsole.log(e); };
-		}
-
-		Promise.onPotentiallyUnhandledRejection = function(rejection) {
-			enqueue(report, rejection);
-		};
-
-		Promise.onPotentiallyUnhandledRejectionHandled = function(rejection) {
-			enqueue(unreport, rejection);
-		};
-
-		Promise.onFatalRejection = function(rejection) {
-			enqueue(throwit, rejection.value);
-		};
-
-		var tasks = [];
-		var reported = [];
-		var running = null;
-
-		function report(r) {
-			if(!r.handled) {
-				reported.push(r);
-				logError('Potentially unhandled rejection [' + r.id + '] ' + format.formatError(r.value));
-			}
-		}
-
-		function unreport(r) {
-			var i = reported.indexOf(r);
-			if(i >= 0) {
-				reported.splice(i, 1);
-				logInfo('Handled previous rejection [' + r.id + '] ' + format.formatObject(r.value));
-			}
-		}
-
-		function enqueue(f, x) {
-			tasks.push(f, x);
-			if(running === null) {
-				running = setTimer(flush, 0);
-			}
-		}
-
-		function flush() {
-			running = null;
-			while(tasks.length > 0) {
-				tasks.shift()(tasks.shift());
-			}
-		}
-
-		return Promise;
-	};
-
-	function throwit(e) {
-		throw e;
-	}
-
-	function noop() {}
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"../env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/env.js","../format":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/format.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/with.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return function addWith(Promise) {
-		/**
-		 * Returns a promise whose handlers will be called with `this` set to
-		 * the supplied receiver.  Subsequent promises derived from the
-		 * returned promise will also have their handlers called with receiver
-		 * as `this`. Calling `with` with undefined or no arguments will return
-		 * a promise whose handlers will again be called in the usual Promises/A+
-		 * way (no `this`) thus safely undoing any previous `with` in the
-		 * promise chain.
-		 *
-		 * WARNING: Promises returned from `with`/`withThis` are NOT Promises/A+
-		 * compliant, specifically violating 2.2.5 (http://promisesaplus.com/#point-41)
-		 *
-		 * @param {object} receiver `this` value for all handlers attached to
-		 *  the returned promise.
-		 * @returns {Promise}
-		 */
-		Promise.prototype['with'] = Promise.prototype.withThis = function(receiver) {
-			var p = this._beget();
-			var child = p._handler;
-			child.receiver = receiver;
-			this._handler.chain(child, receiver);
-			return p;
-		};
-
-		return Promise;
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/env.js":[function(require,module,exports){
-(function (process){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-/*global process,document,setTimeout,clearTimeout,MutationObserver,WebKitMutationObserver*/
-(function(define) { 'use strict';
-define(function(require) {
-	/*jshint maxcomplexity:6*/
-
-	// Sniff "best" async scheduling option
-	// Prefer process.nextTick or MutationObserver, then check for
-	// setTimeout, and finally vertx, since its the only env that doesn't
-	// have setTimeout
-
-	var MutationObs;
-	var capturedSetTimeout = typeof setTimeout !== 'undefined' && setTimeout;
-
-	// Default env
-	var setTimer = function(f, ms) { return setTimeout(f, ms); };
-	var clearTimer = function(t) { return clearTimeout(t); };
-	var asap = function (f) { return capturedSetTimeout(f, 0); };
-
-	// Detect specific env
-	if (isNode()) { // Node
-		asap = function (f) { return process.nextTick(f); };
-
-	} else if (MutationObs = hasMutationObserver()) { // Modern browser
-		asap = initMutationObserver(MutationObs);
-
-	} else if (!capturedSetTimeout) { // vert.x
-		var vertxRequire = require;
-		var vertx = vertxRequire('vertx');
-		setTimer = function (f, ms) { return vertx.setTimer(ms, f); };
-		clearTimer = vertx.cancelTimer;
-		asap = vertx.runOnLoop || vertx.runOnContext;
-	}
-
-	return {
-		setTimer: setTimer,
-		clearTimer: clearTimer,
-		asap: asap
-	};
-
-	function isNode () {
-		return typeof process !== 'undefined' &&
-			Object.prototype.toString.call(process) === '[object process]';
-	}
-
-	function hasMutationObserver () {
-		return (typeof MutationObserver === 'function' && MutationObserver) ||
-			(typeof WebKitMutationObserver === 'function' && WebKitMutationObserver);
-	}
-
-	function initMutationObserver(MutationObserver) {
-		var scheduled;
-		var node = document.createTextNode('');
-		var o = new MutationObserver(run);
-		o.observe(node, { characterData: true });
-
-		function run() {
-			var f = scheduled;
-			scheduled = void 0;
-			f();
-		}
-
-		var i = 0;
-		return function (f) {
-			scheduled = f;
-			node.data = (i ^= 1);
-		};
-	}
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-}).call(this,require('_process'))
-},{"_process":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/process/browser.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/format.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return {
-		formatError: formatError,
-		formatObject: formatObject,
-		tryStringify: tryStringify
-	};
-
-	/**
-	 * Format an error into a string.  If e is an Error and has a stack property,
-	 * it's returned.  Otherwise, e is formatted using formatObject, with a
-	 * warning added about e not being a proper Error.
-	 * @param {*} e
-	 * @returns {String} formatted string, suitable for output to developers
-	 */
-	function formatError(e) {
-		var s = typeof e === 'object' && e !== null && (e.stack || e.message) ? e.stack || e.message : formatObject(e);
-		return e instanceof Error ? s : s + ' (WARNING: non-Error used)';
-	}
-
-	/**
-	 * Format an object, detecting "plain" objects and running them through
-	 * JSON.stringify if possible.
-	 * @param {Object} o
-	 * @returns {string}
-	 */
-	function formatObject(o) {
-		var s = String(o);
-		if(s === '[object Object]' && typeof JSON !== 'undefined') {
-			s = tryStringify(o, s);
-		}
-		return s;
-	}
-
-	/**
-	 * Try to return the result of JSON.stringify(x).  If that fails, return
-	 * defaultValue
-	 * @param {*} x
-	 * @param {*} defaultValue
-	 * @returns {String|*} JSON.stringify(x) or defaultValue
-	 */
-	function tryStringify(x, defaultValue) {
-		try {
-			return JSON.stringify(x);
-		} catch(e) {
-			return defaultValue;
-		}
-	}
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/liftAll.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return function liftAll(liftOne, combine, dst, src) {
-		if(typeof combine === 'undefined') {
-			combine = defaultCombine;
-		}
-
-		return Object.keys(src).reduce(function(dst, key) {
-			var f = src[key];
-			return typeof f === 'function' ? combine(dst, liftOne(f), key) : dst;
-		}, typeof dst === 'undefined' ? defaultDst(src) : dst);
-	};
-
-	function defaultCombine(o, f, k) {
-		o[k] = f;
-		return o;
-	}
-
-	function defaultDst(src) {
-		return typeof src === 'function' ? src.bind() : Object.create(src);
-	}
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/makePromise.js":[function(require,module,exports){
-(function (process){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return function makePromise(environment) {
-
-		var tasks = environment.scheduler;
-		var emitRejection = initEmitRejection();
-
-		var objectCreate = Object.create ||
-			function(proto) {
-				function Child() {}
-				Child.prototype = proto;
-				return new Child();
-			};
-
-		/**
-		 * Create a promise whose fate is determined by resolver
-		 * @constructor
-		 * @returns {Promise} promise
-		 * @name Promise
-		 */
-		function Promise(resolver, handler) {
-			this._handler = resolver === Handler ? handler : init(resolver);
-		}
-
-		/**
-		 * Run the supplied resolver
-		 * @param resolver
-		 * @returns {Pending}
-		 */
-		function init(resolver) {
-			var handler = new Pending();
-
-			try {
-				resolver(promiseResolve, promiseReject, promiseNotify);
-			} catch (e) {
-				promiseReject(e);
-			}
-
-			return handler;
-
-			/**
-			 * Transition from pre-resolution state to post-resolution state, notifying
-			 * all listeners of the ultimate fulfillment or rejection
-			 * @param {*} x resolution value
-			 */
-			function promiseResolve (x) {
-				handler.resolve(x);
-			}
-			/**
-			 * Reject this promise with reason, which will be used verbatim
-			 * @param {Error|*} reason rejection reason, strongly suggested
-			 *   to be an Error type
-			 */
-			function promiseReject (reason) {
-				handler.reject(reason);
-			}
-
-			/**
-			 * @deprecated
-			 * Issue a progress event, notifying all progress listeners
-			 * @param {*} x progress event payload to pass to all listeners
-			 */
-			function promiseNotify (x) {
-				handler.notify(x);
-			}
-		}
-
-		// Creation
-
-		Promise.resolve = resolve;
-		Promise.reject = reject;
-		Promise.never = never;
-
-		Promise._defer = defer;
-		Promise._handler = getHandler;
-
-		/**
-		 * Returns a trusted promise. If x is already a trusted promise, it is
-		 * returned, otherwise returns a new trusted Promise which follows x.
-		 * @param  {*} x
-		 * @return {Promise} promise
-		 */
-		function resolve(x) {
-			return isPromise(x) ? x
-				: new Promise(Handler, new Async(getHandler(x)));
-		}
-
-		/**
-		 * Return a reject promise with x as its reason (x is used verbatim)
-		 * @param {*} x
-		 * @returns {Promise} rejected promise
-		 */
-		function reject(x) {
-			return new Promise(Handler, new Async(new Rejected(x)));
-		}
-
-		/**
-		 * Return a promise that remains pending forever
-		 * @returns {Promise} forever-pending promise.
-		 */
-		function never() {
-			return foreverPendingPromise; // Should be frozen
-		}
-
-		/**
-		 * Creates an internal {promise, resolver} pair
-		 * @private
-		 * @returns {Promise}
-		 */
-		function defer() {
-			return new Promise(Handler, new Pending());
-		}
-
-		// Transformation and flow control
-
-		/**
-		 * Transform this promise's fulfillment value, returning a new Promise
-		 * for the transformed result.  If the promise cannot be fulfilled, onRejected
-		 * is called with the reason.  onProgress *may* be called with updates toward
-		 * this promise's fulfillment.
-		 * @param {function=} onFulfilled fulfillment handler
-		 * @param {function=} onRejected rejection handler
-		 * @param {function=} onProgress @deprecated progress handler
-		 * @return {Promise} new promise
-		 */
-		Promise.prototype.then = function(onFulfilled, onRejected, onProgress) {
-			var parent = this._handler;
-			var state = parent.join().state();
-
-			if ((typeof onFulfilled !== 'function' && state > 0) ||
-				(typeof onRejected !== 'function' && state < 0)) {
-				// Short circuit: value will not change, simply share handler
-				return new this.constructor(Handler, parent);
-			}
-
-			var p = this._beget();
-			var child = p._handler;
-
-			parent.chain(child, parent.receiver, onFulfilled, onRejected, onProgress);
-
-			return p;
-		};
-
-		/**
-		 * If this promise cannot be fulfilled due to an error, call onRejected to
-		 * handle the error. Shortcut for .then(undefined, onRejected)
-		 * @param {function?} onRejected
-		 * @return {Promise}
-		 */
-		Promise.prototype['catch'] = function(onRejected) {
-			return this.then(void 0, onRejected);
-		};
-
-		/**
-		 * Creates a new, pending promise of the same type as this promise
-		 * @private
-		 * @returns {Promise}
-		 */
-		Promise.prototype._beget = function() {
-			return begetFrom(this._handler, this.constructor);
-		};
-
-		function begetFrom(parent, Promise) {
-			var child = new Pending(parent.receiver, parent.join().context);
-			return new Promise(Handler, child);
-		}
-
-		// Array combinators
-
-		Promise.all = all;
-		Promise.race = race;
-		Promise._traverse = traverse;
-
-		/**
-		 * Return a promise that will fulfill when all promises in the
-		 * input array have fulfilled, or will reject when one of the
-		 * promises rejects.
-		 * @param {array} promises array of promises
-		 * @returns {Promise} promise for array of fulfillment values
-		 */
-		function all(promises) {
-			return traverseWith(snd, null, promises);
-		}
-
-		/**
-		 * Array<Promise<X>> -> Promise<Array<f(X)>>
-		 * @private
-		 * @param {function} f function to apply to each promise's value
-		 * @param {Array} promises array of promises
-		 * @returns {Promise} promise for transformed values
-		 */
-		function traverse(f, promises) {
-			return traverseWith(tryCatch2, f, promises);
-		}
-
-		function traverseWith(tryMap, f, promises) {
-			var handler = typeof f === 'function' ? mapAt : settleAt;
-
-			var resolver = new Pending();
-			var pending = promises.length >>> 0;
-			var results = new Array(pending);
-
-			for (var i = 0, x; i < promises.length && !resolver.resolved; ++i) {
-				x = promises[i];
-
-				if (x === void 0 && !(i in promises)) {
-					--pending;
-					continue;
-				}
-
-				traverseAt(promises, handler, i, x, resolver);
-			}
-
-			if(pending === 0) {
-				resolver.become(new Fulfilled(results));
-			}
-
-			return new Promise(Handler, resolver);
-
-			function mapAt(i, x, resolver) {
-				if(!resolver.resolved) {
-					traverseAt(promises, settleAt, i, tryMap(f, x, i), resolver);
-				}
-			}
-
-			function settleAt(i, x, resolver) {
-				results[i] = x;
-				if(--pending === 0) {
-					resolver.become(new Fulfilled(results));
-				}
-			}
-		}
-
-		function traverseAt(promises, handler, i, x, resolver) {
-			if (maybeThenable(x)) {
-				var h = getHandlerMaybeThenable(x);
-				var s = h.state();
-
-				if (s === 0) {
-					h.fold(handler, i, void 0, resolver);
-				} else if (s > 0) {
-					handler(i, h.value, resolver);
-				} else {
-					resolver.become(h);
-					visitRemaining(promises, i+1, h);
-				}
-			} else {
-				handler(i, x, resolver);
-			}
-		}
-
-		Promise._visitRemaining = visitRemaining;
-		function visitRemaining(promises, start, handler) {
-			for(var i=start; i<promises.length; ++i) {
-				markAsHandled(getHandler(promises[i]), handler);
-			}
-		}
-
-		function markAsHandled(h, handler) {
-			if(h === handler) {
-				return;
-			}
-
-			var s = h.state();
-			if(s === 0) {
-				h.visit(h, void 0, h._unreport);
-			} else if(s < 0) {
-				h._unreport();
-			}
-		}
-
-		/**
-		 * Fulfill-reject competitive race. Return a promise that will settle
-		 * to the same state as the earliest input promise to settle.
-		 *
-		 * WARNING: The ES6 Promise spec requires that race()ing an empty array
-		 * must return a promise that is pending forever.  This implementation
-		 * returns a singleton forever-pending promise, the same singleton that is
-		 * returned by Promise.never(), thus can be checked with ===
-		 *
-		 * @param {array} promises array of promises to race
-		 * @returns {Promise} if input is non-empty, a promise that will settle
-		 * to the same outcome as the earliest input promise to settle. if empty
-		 * is empty, returns a promise that will never settle.
-		 */
-		function race(promises) {
-			if(typeof promises !== 'object' || promises === null) {
-				return reject(new TypeError('non-iterable passed to race()'));
-			}
-
-			// Sigh, race([]) is untestable unless we return *something*
-			// that is recognizable without calling .then() on it.
-			return promises.length === 0 ? never()
-				 : promises.length === 1 ? resolve(promises[0])
-				 : runRace(promises);
-		}
-
-		function runRace(promises) {
-			var resolver = new Pending();
-			var i, x, h;
-			for(i=0; i<promises.length; ++i) {
-				x = promises[i];
-				if (x === void 0 && !(i in promises)) {
-					continue;
-				}
-
-				h = getHandler(x);
-				if(h.state() !== 0) {
-					resolver.become(h);
-					visitRemaining(promises, i+1, h);
-					break;
-				} else {
-					h.visit(resolver, resolver.resolve, resolver.reject);
-				}
-			}
-			return new Promise(Handler, resolver);
-		}
-
-		// Promise internals
-		// Below this, everything is @private
-
-		/**
-		 * Get an appropriate handler for x, without checking for cycles
-		 * @param {*} x
-		 * @returns {object} handler
-		 */
-		function getHandler(x) {
-			if(isPromise(x)) {
-				return x._handler.join();
-			}
-			return maybeThenable(x) ? getHandlerUntrusted(x) : new Fulfilled(x);
-		}
-
-		/**
-		 * Get a handler for thenable x.
-		 * NOTE: You must only call this if maybeThenable(x) == true
-		 * @param {object|function|Promise} x
-		 * @returns {object} handler
-		 */
-		function getHandlerMaybeThenable(x) {
-			return isPromise(x) ? x._handler.join() : getHandlerUntrusted(x);
-		}
-
-		/**
-		 * Get a handler for potentially untrusted thenable x
-		 * @param {*} x
-		 * @returns {object} handler
-		 */
-		function getHandlerUntrusted(x) {
-			try {
-				var untrustedThen = x.then;
-				return typeof untrustedThen === 'function'
-					? new Thenable(untrustedThen, x)
-					: new Fulfilled(x);
-			} catch(e) {
-				return new Rejected(e);
-			}
-		}
-
-		/**
-		 * Handler for a promise that is pending forever
-		 * @constructor
-		 */
-		function Handler() {}
-
-		Handler.prototype.when
-			= Handler.prototype.become
-			= Handler.prototype.notify // deprecated
-			= Handler.prototype.fail
-			= Handler.prototype._unreport
-			= Handler.prototype._report
-			= noop;
-
-		Handler.prototype._state = 0;
-
-		Handler.prototype.state = function() {
-			return this._state;
-		};
-
-		/**
-		 * Recursively collapse handler chain to find the handler
-		 * nearest to the fully resolved value.
-		 * @returns {object} handler nearest the fully resolved value
-		 */
-		Handler.prototype.join = function() {
-			var h = this;
-			while(h.handler !== void 0) {
-				h = h.handler;
-			}
-			return h;
-		};
-
-		Handler.prototype.chain = function(to, receiver, fulfilled, rejected, progress) {
-			this.when({
-				resolver: to,
-				receiver: receiver,
-				fulfilled: fulfilled,
-				rejected: rejected,
-				progress: progress
-			});
-		};
-
-		Handler.prototype.visit = function(receiver, fulfilled, rejected, progress) {
-			this.chain(failIfRejected, receiver, fulfilled, rejected, progress);
-		};
-
-		Handler.prototype.fold = function(f, z, c, to) {
-			this.when(new Fold(f, z, c, to));
-		};
-
-		/**
-		 * Handler that invokes fail() on any handler it becomes
-		 * @constructor
-		 */
-		function FailIfRejected() {}
-
-		inherit(Handler, FailIfRejected);
-
-		FailIfRejected.prototype.become = function(h) {
-			h.fail();
-		};
-
-		var failIfRejected = new FailIfRejected();
-
-		/**
-		 * Handler that manages a queue of consumers waiting on a pending promise
-		 * @constructor
-		 */
-		function Pending(receiver, inheritedContext) {
-			Promise.createContext(this, inheritedContext);
-
-			this.consumers = void 0;
-			this.receiver = receiver;
-			this.handler = void 0;
-			this.resolved = false;
-		}
-
-		inherit(Handler, Pending);
-
-		Pending.prototype._state = 0;
-
-		Pending.prototype.resolve = function(x) {
-			this.become(getHandler(x));
-		};
-
-		Pending.prototype.reject = function(x) {
-			if(this.resolved) {
-				return;
-			}
-
-			this.become(new Rejected(x));
-		};
-
-		Pending.prototype.join = function() {
-			if (!this.resolved) {
-				return this;
-			}
-
-			var h = this;
-
-			while (h.handler !== void 0) {
-				h = h.handler;
-				if (h === this) {
-					return this.handler = cycle();
-				}
-			}
-
-			return h;
-		};
-
-		Pending.prototype.run = function() {
-			var q = this.consumers;
-			var handler = this.handler;
-			this.handler = this.handler.join();
-			this.consumers = void 0;
-
-			for (var i = 0; i < q.length; ++i) {
-				handler.when(q[i]);
-			}
-		};
-
-		Pending.prototype.become = function(handler) {
-			if(this.resolved) {
-				return;
-			}
-
-			this.resolved = true;
-			this.handler = handler;
-			if(this.consumers !== void 0) {
-				tasks.enqueue(this);
-			}
-
-			if(this.context !== void 0) {
-				handler._report(this.context);
-			}
-		};
-
-		Pending.prototype.when = function(continuation) {
-			if(this.resolved) {
-				tasks.enqueue(new ContinuationTask(continuation, this.handler));
-			} else {
-				if(this.consumers === void 0) {
-					this.consumers = [continuation];
-				} else {
-					this.consumers.push(continuation);
-				}
-			}
-		};
-
-		/**
-		 * @deprecated
-		 */
-		Pending.prototype.notify = function(x) {
-			if(!this.resolved) {
-				tasks.enqueue(new ProgressTask(x, this));
-			}
-		};
-
-		Pending.prototype.fail = function(context) {
-			var c = typeof context === 'undefined' ? this.context : context;
-			this.resolved && this.handler.join().fail(c);
-		};
-
-		Pending.prototype._report = function(context) {
-			this.resolved && this.handler.join()._report(context);
-		};
-
-		Pending.prototype._unreport = function() {
-			this.resolved && this.handler.join()._unreport();
-		};
-
-		/**
-		 * Wrap another handler and force it into a future stack
-		 * @param {object} handler
-		 * @constructor
-		 */
-		function Async(handler) {
-			this.handler = handler;
-		}
-
-		inherit(Handler, Async);
-
-		Async.prototype.when = function(continuation) {
-			tasks.enqueue(new ContinuationTask(continuation, this));
-		};
-
-		Async.prototype._report = function(context) {
-			this.join()._report(context);
-		};
-
-		Async.prototype._unreport = function() {
-			this.join()._unreport();
-		};
-
-		/**
-		 * Handler that wraps an untrusted thenable and assimilates it in a future stack
-		 * @param {function} then
-		 * @param {{then: function}} thenable
-		 * @constructor
-		 */
-		function Thenable(then, thenable) {
-			Pending.call(this);
-			tasks.enqueue(new AssimilateTask(then, thenable, this));
-		}
-
-		inherit(Pending, Thenable);
-
-		/**
-		 * Handler for a fulfilled promise
-		 * @param {*} x fulfillment value
-		 * @constructor
-		 */
-		function Fulfilled(x) {
-			Promise.createContext(this);
-			this.value = x;
-		}
-
-		inherit(Handler, Fulfilled);
-
-		Fulfilled.prototype._state = 1;
-
-		Fulfilled.prototype.fold = function(f, z, c, to) {
-			runContinuation3(f, z, this, c, to);
-		};
-
-		Fulfilled.prototype.when = function(cont) {
-			runContinuation1(cont.fulfilled, this, cont.receiver, cont.resolver);
-		};
-
-		var errorId = 0;
-
-		/**
-		 * Handler for a rejected promise
-		 * @param {*} x rejection reason
-		 * @constructor
-		 */
-		function Rejected(x) {
-			Promise.createContext(this);
-
-			this.id = ++errorId;
-			this.value = x;
-			this.handled = false;
-			this.reported = false;
-
-			this._report();
-		}
-
-		inherit(Handler, Rejected);
-
-		Rejected.prototype._state = -1;
-
-		Rejected.prototype.fold = function(f, z, c, to) {
-			to.become(this);
-		};
-
-		Rejected.prototype.when = function(cont) {
-			if(typeof cont.rejected === 'function') {
-				this._unreport();
-			}
-			runContinuation1(cont.rejected, this, cont.receiver, cont.resolver);
-		};
-
-		Rejected.prototype._report = function(context) {
-			tasks.afterQueue(new ReportTask(this, context));
-		};
-
-		Rejected.prototype._unreport = function() {
-			if(this.handled) {
-				return;
-			}
-			this.handled = true;
-			tasks.afterQueue(new UnreportTask(this));
-		};
-
-		Rejected.prototype.fail = function(context) {
-			this.reported = true;
-			emitRejection('unhandledRejection', this);
-			Promise.onFatalRejection(this, context === void 0 ? this.context : context);
-		};
-
-		function ReportTask(rejection, context) {
-			this.rejection = rejection;
-			this.context = context;
-		}
-
-		ReportTask.prototype.run = function() {
-			if(!this.rejection.handled && !this.rejection.reported) {
-				this.rejection.reported = true;
-				emitRejection('unhandledRejection', this.rejection) ||
-					Promise.onPotentiallyUnhandledRejection(this.rejection, this.context);
-			}
-		};
-
-		function UnreportTask(rejection) {
-			this.rejection = rejection;
-		}
-
-		UnreportTask.prototype.run = function() {
-			if(this.rejection.reported) {
-				emitRejection('rejectionHandled', this.rejection) ||
-					Promise.onPotentiallyUnhandledRejectionHandled(this.rejection);
-			}
-		};
-
-		// Unhandled rejection hooks
-		// By default, everything is a noop
-
-		Promise.createContext
-			= Promise.enterContext
-			= Promise.exitContext
-			= Promise.onPotentiallyUnhandledRejection
-			= Promise.onPotentiallyUnhandledRejectionHandled
-			= Promise.onFatalRejection
-			= noop;
-
-		// Errors and singletons
-
-		var foreverPendingHandler = new Handler();
-		var foreverPendingPromise = new Promise(Handler, foreverPendingHandler);
-
-		function cycle() {
-			return new Rejected(new TypeError('Promise cycle'));
-		}
-
-		// Task runners
-
-		/**
-		 * Run a single consumer
-		 * @constructor
-		 */
-		function ContinuationTask(continuation, handler) {
-			this.continuation = continuation;
-			this.handler = handler;
-		}
-
-		ContinuationTask.prototype.run = function() {
-			this.handler.join().when(this.continuation);
-		};
-
-		/**
-		 * Run a queue of progress handlers
-		 * @constructor
-		 */
-		function ProgressTask(value, handler) {
-			this.handler = handler;
-			this.value = value;
-		}
-
-		ProgressTask.prototype.run = function() {
-			var q = this.handler.consumers;
-			if(q === void 0) {
-				return;
-			}
-
-			for (var c, i = 0; i < q.length; ++i) {
-				c = q[i];
-				runNotify(c.progress, this.value, this.handler, c.receiver, c.resolver);
-			}
-		};
-
-		/**
-		 * Assimilate a thenable, sending it's value to resolver
-		 * @param {function} then
-		 * @param {object|function} thenable
-		 * @param {object} resolver
-		 * @constructor
-		 */
-		function AssimilateTask(then, thenable, resolver) {
-			this._then = then;
-			this.thenable = thenable;
-			this.resolver = resolver;
-		}
-
-		AssimilateTask.prototype.run = function() {
-			var h = this.resolver;
-			tryAssimilate(this._then, this.thenable, _resolve, _reject, _notify);
-
-			function _resolve(x) { h.resolve(x); }
-			function _reject(x)  { h.reject(x); }
-			function _notify(x)  { h.notify(x); }
-		};
-
-		function tryAssimilate(then, thenable, resolve, reject, notify) {
-			try {
-				then.call(thenable, resolve, reject, notify);
-			} catch (e) {
-				reject(e);
-			}
-		}
-
-		/**
-		 * Fold a handler value with z
-		 * @constructor
-		 */
-		function Fold(f, z, c, to) {
-			this.f = f; this.z = z; this.c = c; this.to = to;
-			this.resolver = failIfRejected;
-			this.receiver = this;
-		}
-
-		Fold.prototype.fulfilled = function(x) {
-			this.f.call(this.c, this.z, x, this.to);
-		};
-
-		Fold.prototype.rejected = function(x) {
-			this.to.reject(x);
-		};
-
-		Fold.prototype.progress = function(x) {
-			this.to.notify(x);
-		};
-
-		// Other helpers
-
-		/**
-		 * @param {*} x
-		 * @returns {boolean} true iff x is a trusted Promise
-		 */
-		function isPromise(x) {
-			return x instanceof Promise;
-		}
-
-		/**
-		 * Test just enough to rule out primitives, in order to take faster
-		 * paths in some code
-		 * @param {*} x
-		 * @returns {boolean} false iff x is guaranteed *not* to be a thenable
-		 */
-		function maybeThenable(x) {
-			return (typeof x === 'object' || typeof x === 'function') && x !== null;
-		}
-
-		function runContinuation1(f, h, receiver, next) {
-			if(typeof f !== 'function') {
-				return next.become(h);
-			}
-
-			Promise.enterContext(h);
-			tryCatchReject(f, h.value, receiver, next);
-			Promise.exitContext();
-		}
-
-		function runContinuation3(f, x, h, receiver, next) {
-			if(typeof f !== 'function') {
-				return next.become(h);
-			}
-
-			Promise.enterContext(h);
-			tryCatchReject3(f, x, h.value, receiver, next);
-			Promise.exitContext();
-		}
-
-		/**
-		 * @deprecated
-		 */
-		function runNotify(f, x, h, receiver, next) {
-			if(typeof f !== 'function') {
-				return next.notify(x);
-			}
-
-			Promise.enterContext(h);
-			tryCatchReturn(f, x, receiver, next);
-			Promise.exitContext();
-		}
-
-		function tryCatch2(f, a, b) {
-			try {
-				return f(a, b);
-			} catch(e) {
-				return reject(e);
-			}
-		}
-
-		/**
-		 * Return f.call(thisArg, x), or if it throws return a rejected promise for
-		 * the thrown exception
-		 */
-		function tryCatchReject(f, x, thisArg, next) {
-			try {
-				next.become(getHandler(f.call(thisArg, x)));
-			} catch(e) {
-				next.become(new Rejected(e));
-			}
-		}
-
-		/**
-		 * Same as above, but includes the extra argument parameter.
-		 */
-		function tryCatchReject3(f, x, y, thisArg, next) {
-			try {
-				f.call(thisArg, x, y, next);
-			} catch(e) {
-				next.become(new Rejected(e));
-			}
-		}
-
-		/**
-		 * @deprecated
-		 * Return f.call(thisArg, x), or if it throws, *return* the exception
-		 */
-		function tryCatchReturn(f, x, thisArg, next) {
-			try {
-				next.notify(f.call(thisArg, x));
-			} catch(e) {
-				next.notify(e);
-			}
-		}
-
-		function inherit(Parent, Child) {
-			Child.prototype = objectCreate(Parent.prototype);
-			Child.prototype.constructor = Child;
-		}
-
-		function snd(x, y) {
-			return y;
-		}
-
-		function noop() {}
-
-		function initEmitRejection() {
-			/*global process, self, CustomEvent*/
-			if(typeof process !== 'undefined' && process !== null
-				&& typeof process.emit === 'function') {
-				// Returning falsy here means to call the default
-				// onPotentiallyUnhandledRejection API.  This is safe even in
-				// browserify since process.emit always returns falsy in browserify:
-				// https://github.com/defunctzombie/node-process/blob/master/browser.js#L40-L46
-				return function(type, rejection) {
-					return type === 'unhandledRejection'
-						? process.emit(type, rejection.value, rejection)
-						: process.emit(type, rejection);
-				};
-			} else if(typeof self !== 'undefined' && typeof CustomEvent === 'function') {
-				return (function(noop, self, CustomEvent) {
-					var hasCustomEvent = false;
-					try {
-						var ev = new CustomEvent('unhandledRejection');
-						hasCustomEvent = ev instanceof CustomEvent;
-					} catch (e) {}
-
-					return !hasCustomEvent ? noop : function(type, rejection) {
-						var ev = new CustomEvent(type, {
-							detail: {
-								reason: rejection.value,
-								key: rejection
-							},
-							bubbles: false,
-							cancelable: true
-						});
-
-						return !self.dispatchEvent(ev);
-					};
-				}(noop, self, CustomEvent));
-			}
-
-			return noop;
-		}
-
-		return Promise;
-	};
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-}).call(this,require('_process'))
-},{"_process":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/process/browser.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/state.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	return {
-		pending: toPendingState,
-		fulfilled: toFulfilledState,
-		rejected: toRejectedState,
-		inspect: inspect
-	};
-
-	function toPendingState() {
-		return { state: 'pending' };
-	}
-
-	function toRejectedState(e) {
-		return { state: 'rejected', reason: e };
-	}
-
-	function toFulfilledState(x) {
-		return { state: 'fulfilled', value: x };
-	}
-
-	function inspect(handler) {
-		var state = handler.state();
-		return state === 0 ? toPendingState()
-			 : state > 0   ? toFulfilledState(handler.value)
-			               : toRejectedState(handler.value);
-	}
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var PromiseMonitor = require('./monitor/PromiseMonitor');
-	var ConsoleReporter = require('./monitor/ConsoleReporter');
-
-	var promiseMonitor = new PromiseMonitor(new ConsoleReporter());
-
-	return function(Promise) {
-		return promiseMonitor.monitor(Promise);
-	};
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"./monitor/ConsoleReporter":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/ConsoleReporter.js","./monitor/PromiseMonitor":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/PromiseMonitor.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/ConsoleReporter.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var error = require('./error');
-	var unhandledRejectionsMsg = '[promises] Unhandled rejections: ';
-	var allHandledMsg = '[promises] All previously unhandled rejections have now been handled';
-
-	function ConsoleReporter() {
-		this._previouslyReported = false;
-	}
-
-	ConsoleReporter.prototype = initDefaultLogging();
-
-	ConsoleReporter.prototype.log = function(traces) {
-		if(traces.length === 0) {
-			if(this._previouslyReported) {
-				this._previouslyReported = false;
-				this.msg(allHandledMsg);
-			}
-			return;
-		}
-
-		this._previouslyReported = true;
-		this.groupStart(unhandledRejectionsMsg + traces.length);
-		try {
-			this._log(traces);
-		} finally {
-			this.groupEnd();
-		}
-	};
-
-	ConsoleReporter.prototype._log = function(traces) {
-		for(var i=0; i<traces.length; ++i) {
-			this.warn(error.format(traces[i]));
-		}
-	};
-
-	function initDefaultLogging() {
-		/*jshint maxcomplexity:7*/
-		var log, warn, groupStart, groupEnd;
-
-		if(typeof console === 'undefined') {
-			log = warn = consoleNotAvailable;
-		} else {
-			// Alias console to prevent things like uglify's drop_console option from
-			// removing console.log/error. Unhandled rejections fall into the same
-			// category as uncaught exceptions, and build tools shouldn't silence them.
-			var localConsole = console;
-			if(typeof localConsole.error === 'function'
-				&& typeof localConsole.dir === 'function') {
-				warn = function(s) {
-					localConsole.error(s);
-				};
-
-				log = function(s) {
-					localConsole.log(s);
-				};
-
-				if(typeof localConsole.groupCollapsed === 'function') {
-					groupStart = function(s) {
-						localConsole.groupCollapsed(s);
-					};
-					groupEnd = function() {
-						localConsole.groupEnd();
-					};
-				}
-			} else {
-				// IE8 has console.log and JSON, so we can make a
-				// reasonably useful warn() from those.
-				// Credit to webpro (https://github.com/webpro) for this idea
-				// typeof localConsole.log will return 'object' in IE8, so can't test it with === 'function'
-				// Since this is more of a corner case for IE8, I'm ok to check it with !== 'undefined' to reduce complexity
-				if (typeof localConsole.log !== 'undefined' && typeof JSON !== 'undefined') {
-					log = warn = function(x) {
-						if (typeof x !== 'string') {
-							try {
-								x = JSON.stringify(x);
-							} catch (e) {
-							}
-						}
-						localConsole.log(x);
-					};
-				} else {
-					log = warn = consoleNotAvailable;
-				}
-			}
-		}
-
-		return {
-			msg: log,
-			warn: warn,
-			groupStart: groupStart || warn,
-			groupEnd: groupEnd || consoleNotAvailable
-		};
-	}
-
-	function consoleNotAvailable() {}
-
-	return ConsoleReporter;
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"./error":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/error.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/PromiseMonitor.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var defaultStackJumpSeparator = 'from execution context:';
-	var defaultStackFilter = /[\s\(\/\\](node|module|timers)\.js:|when([\/\\]{1,2}(lib|monitor|es6-shim)[\/\\]{1,2}|\.js)|(new\sPromise)\b|(\b(PromiseMonitor|ConsoleReporter|Scheduler|RunHandlerTask|ProgressTask|Promise|.*Handler)\.[\w_]\w\w+\b)|\b(tryCatch\w+|getHandler\w*)\b/i;
-
-	var setTimer = require('../lib/env').setTimer;
-	var error = require('./error');
-
-	var executionContext = [];
-
-	function PromiseMonitor(reporter) {
-		this.logDelay = 0;
-		this.stackFilter = defaultStackFilter;
-		this.stackJumpSeparator = defaultStackJumpSeparator;
-		this.filterDuplicateFrames = true;
-
-		this._reporter = reporter;
-		if(typeof reporter.configurePromiseMonitor === 'function') {
-			reporter.configurePromiseMonitor(this);
-		}
-
-		this._traces = [];
-		this._traceTask = 0;
-
-		var self = this;
-		this._doLogTraces = function() {
-			self._logTraces();
-		};
-	}
-
-	PromiseMonitor.prototype.monitor = function(Promise) {
-		var self = this;
-		Promise.createContext = function(p, context) {
-			p.context = self.createContext(p, context);
-		};
-
-		Promise.enterContext = function(p) {
-			executionContext.push(p.context);
-		};
-
-		Promise.exitContext = function() {
-			executionContext.pop();
-		};
-
-		Promise.onPotentiallyUnhandledRejection = function(rejection, extraContext) {
-			return self.addTrace(rejection, extraContext);
-		};
-
-		Promise.onPotentiallyUnhandledRejectionHandled = function(rejection) {
-			return self.removeTrace(rejection);
-		};
-
-		Promise.onFatalRejection = function(rejection, extraContext) {
-			return self.fatal(rejection, extraContext);
-		};
-
-		return this;
-	};
-
-	PromiseMonitor.prototype.createContext = function(at, parentContext) {
-		var context = {
-			parent: parentContext || executionContext[executionContext.length - 1],
-			stack: void 0
-		};
-		error.captureStack(context, at.constructor);
-		return context;
-	};
-
-	PromiseMonitor.prototype.addTrace = function(handler, extraContext) {
-		var t, i;
-
-		for(i = this._traces.length-1; i >= 0; --i) {
-			t = this._traces[i];
-			if(t.handler === handler) {
-				break;
-			}
-		}
-
-		if(i >= 0) {
-			t.extraContext = extraContext;
-		} else {
-			this._traces.push({
-				handler: handler,
-				extraContext: extraContext
-			});
-		}
-
-		this.logTraces();
-	};
-
-	PromiseMonitor.prototype.removeTrace = function(/*handler*/) {
-		this.logTraces();
-	};
-
-	PromiseMonitor.prototype.fatal = function(handler, extraContext) {
-		var err = new Error();
-		err.stack = this._createLongTrace(handler.value, handler.context, extraContext).join('\n');
-		setTimer(function() {
-			throw err;
-		}, 0);
-	};
-
-	PromiseMonitor.prototype.logTraces = function() {
-		if(!this._traceTask) {
-			this._traceTask = setTimer(this._doLogTraces, this.logDelay);
-		}
-	};
-
-	PromiseMonitor.prototype._logTraces = function() {
-		this._traceTask = void 0;
-		this._traces = this._traces.filter(filterHandled);
-		this._reporter.log(this.formatTraces(this._traces));
-	};
-
-
-	PromiseMonitor.prototype.formatTraces = function(traces) {
-		return traces.map(function(t) {
-			return this._createLongTrace(t.handler.value, t.handler.context, t.extraContext);
-		}, this);
-	};
-
-	PromiseMonitor.prototype._createLongTrace = function(e, context, extraContext) {
-		var trace = error.parse(e) || [String(e) + ' (WARNING: non-Error used)'];
-		trace = filterFrames(this.stackFilter, trace, 0);
-		this._appendContext(trace, context);
-		this._appendContext(trace, extraContext);
-		return this.filterDuplicateFrames ? this._removeDuplicates(trace) : trace;
-	};
-
-	PromiseMonitor.prototype._removeDuplicates = function(trace) {
-		var seen = {};
-		var sep = this.stackJumpSeparator;
-		var count = 0;
-		return trace.reduceRight(function(deduped, line, i) {
-			if(i === 0) {
-				deduped.unshift(line);
-			} else if(line === sep) {
-				if(count > 0) {
-					deduped.unshift(line);
-					count = 0;
-				}
-			} else if(!seen[line]) {
-				seen[line] = true;
-				deduped.unshift(line);
-				++count;
-			}
-			return deduped;
-		}, []);
-	};
-
-	PromiseMonitor.prototype._appendContext = function(trace, context) {
-		trace.push.apply(trace, this._createTrace(context));
-	};
-
-	PromiseMonitor.prototype._createTrace = function(traceChain) {
-		var trace = [];
-		var stack;
-
-		while(traceChain) {
-			stack = error.parse(traceChain);
-
-			if (stack) {
-				stack = filterFrames(this.stackFilter, stack);
-				appendStack(trace, stack, this.stackJumpSeparator);
-			}
-
-			traceChain = traceChain.parent;
-		}
-
-		return trace;
-	};
-
-	function appendStack(trace, stack, separator) {
-		if (stack.length > 1) {
-			stack[0] = separator;
-			trace.push.apply(trace, stack);
-		}
-	}
-
-	function filterFrames(stackFilter, stack) {
-		return stack.filter(function(frame) {
-			return !stackFilter.test(frame);
-		});
-	}
-
-	function filterHandled(t) {
-		return !t.handler.handled;
-	}
-
-	return PromiseMonitor;
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"../lib/env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/env.js","./error":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/error.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/console.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function(require) {
-
-	var monitor = require('../monitor');
-	var Promise = require('../when').Promise;
-
-	return monitor(Promise);
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
-
-},{"../monitor":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor.js","../when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/monitor/error.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-/** @author Brian Cavalier */
-/** @author John Hann */
-
-(function(define) { 'use strict';
-define(function() {
-
-	var parse, captureStack, format;
-
-	if(Error.captureStackTrace) {
-		// Use Error.captureStackTrace if available
-		parse = function(e) {
-			return e && e.stack && e.stack.split('\n');
-		};
-
-		format = formatAsString;
-		captureStack = Error.captureStackTrace;
-
-	} else {
-		// Otherwise, do minimal feature detection to determine
-		// how to capture and format reasonable stacks.
-		parse = function(e) {
-			var stack = e && e.stack && e.stack.split('\n');
-			if(stack && e.message) {
-				stack.unshift(e.message);
-			}
-			return stack;
-		};
-
-		(function() {
-			var e = new Error();
-			if(typeof e.stack !== 'string') {
-				format = formatAsString;
-				captureStack = captureSpiderMonkeyStack;
-			} else {
-				format = formatAsErrorWithStack;
-				captureStack = useStackDirectly;
-			}
-		}());
-	}
-
-	function captureSpiderMonkeyStack(host) {
-		try {
-			throw new Error();
-		} catch(err) {
-			host.stack = err.stack;
-		}
-	}
-
-	function useStackDirectly(host) {
-		host.stack = new Error().stack;
-	}
-
-	function formatAsString(longTrace) {
-		return join(longTrace);
-	}
-
-	function formatAsErrorWithStack(longTrace) {
-		var e = new Error();
-		e.stack = formatAsString(longTrace);
-		return e;
-	}
-
-	// About 5-10x faster than String.prototype.join o_O
-	function join(a) {
-		var sep = false;
-		var s = '';
-		for(var i=0; i< a.length; ++i) {
-			if(sep) {
-				s += '\n' + a[i];
-			} else {
-				s+= a[i];
-				sep = true;
-			}
-		}
-		return s;
-	}
-
-	return {
-		parse: parse,
-		format: format,
-		captureStack: captureStack
-	};
-
-});
-}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
-
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/when.js":[function(require,module,exports){
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-
-/**
- * Promises/A+ and when() implementation
- * when is part of the cujoJS family of libraries (http://cujojs.com/)
- * @author Brian Cavalier
- * @author John Hann
- */
-(function(define) { 'use strict';
-define(function (require) {
-
-	var timed = require('./lib/decorators/timed');
-	var array = require('./lib/decorators/array');
-	var flow = require('./lib/decorators/flow');
-	var fold = require('./lib/decorators/fold');
-	var inspect = require('./lib/decorators/inspect');
-	var generate = require('./lib/decorators/iterate');
-	var progress = require('./lib/decorators/progress');
-	var withThis = require('./lib/decorators/with');
-	var unhandledRejection = require('./lib/decorators/unhandledRejection');
-	var TimeoutError = require('./lib/TimeoutError');
-
-	var Promise = [array, flow, fold, generate, progress,
-		inspect, withThis, timed, unhandledRejection]
-		.reduce(function(Promise, feature) {
-			return feature(Promise);
-		}, require('./lib/Promise'));
-
-	var apply = require('./lib/apply')(Promise);
-
-	// Public API
-
-	when.promise     = promise;              // Create a pending promise
-	when.resolve     = Promise.resolve;      // Create a resolved promise
-	when.reject      = Promise.reject;       // Create a rejected promise
-
-	when.lift        = lift;                 // lift a function to return promises
-	when['try']      = attempt;              // call a function and return a promise
-	when.attempt     = attempt;              // alias for when.try
-
-	when.iterate     = Promise.iterate;      // DEPRECATED (use cujojs/most streams) Generate a stream of promises
-	when.unfold      = Promise.unfold;       // DEPRECATED (use cujojs/most streams) Generate a stream of promises
-
-	when.join        = join;                 // Join 2 or more promises
-
-	when.all         = all;                  // Resolve a list of promises
-	when.settle      = settle;               // Settle a list of promises
-
-	when.any         = lift(Promise.any);    // One-winner race
-	when.some        = lift(Promise.some);   // Multi-winner race
-	when.race        = lift(Promise.race);   // First-to-settle race
-
-	when.map         = map;                  // Array.map() for promises
-	when.filter      = filter;               // Array.filter() for promises
-	when.reduce      = lift(Promise.reduce);       // Array.reduce() for promises
-	when.reduceRight = lift(Promise.reduceRight);  // Array.reduceRight() for promises
-
-	when.isPromiseLike = isPromiseLike;      // Is something promise-like, aka thenable
-
-	when.Promise     = Promise;              // Promise constructor
-	when.defer       = defer;                // Create a {promise, resolve, reject} tuple
-
-	// Error types
-
-	when.TimeoutError = TimeoutError;
-
-	/**
-	 * Get a trusted promise for x, or by transforming x with onFulfilled
-	 *
-	 * @param {*} x
-	 * @param {function?} onFulfilled callback to be called when x is
-	 *   successfully fulfilled.  If promiseOrValue is an immediate value, callback
-	 *   will be invoked immediately.
-	 * @param {function?} onRejected callback to be called when x is
-	 *   rejected.
-	 * @param {function?} onProgress callback to be called when progress updates
-	 *   are issued for x. @deprecated
-	 * @returns {Promise} a new promise that will fulfill with the return
-	 *   value of callback or errback or the completion value of promiseOrValue if
-	 *   callback and/or errback is not supplied.
-	 */
-	function when(x, onFulfilled, onRejected, onProgress) {
-		var p = Promise.resolve(x);
-		if (arguments.length < 2) {
-			return p;
-		}
-
-		return p.then(onFulfilled, onRejected, onProgress);
-	}
-
-	/**
-	 * Creates a new promise whose fate is determined by resolver.
-	 * @param {function} resolver function(resolve, reject, notify)
-	 * @returns {Promise} promise whose fate is determine by resolver
-	 */
-	function promise(resolver) {
-		return new Promise(resolver);
-	}
-
-	/**
-	 * Lift the supplied function, creating a version of f that returns
-	 * promises, and accepts promises as arguments.
-	 * @param {function} f
-	 * @returns {Function} version of f that returns promises
-	 */
-	function lift(f) {
-		return function() {
-			for(var i=0, l=arguments.length, a=new Array(l); i<l; ++i) {
-				a[i] = arguments[i];
-			}
-			return apply(f, this, a);
-		};
-	}
-
-	/**
-	 * Call f in a future turn, with the supplied args, and return a promise
-	 * for the result.
-	 * @param {function} f
-	 * @returns {Promise}
-	 */
-	function attempt(f /*, args... */) {
-		/*jshint validthis:true */
-		for(var i=0, l=arguments.length-1, a=new Array(l); i<l; ++i) {
-			a[i] = arguments[i+1];
-		}
-		return apply(f, this, a);
-	}
-
-	/**
-	 * Creates a {promise, resolver} pair, either or both of which
-	 * may be given out safely to consumers.
-	 * @return {{promise: Promise, resolve: function, reject: function, notify: function}}
-	 */
-	function defer() {
-		return new Deferred();
-	}
-
-	function Deferred() {
-		var p = Promise._defer();
-
-		function resolve(x) { p._handler.resolve(x); }
-		function reject(x) { p._handler.reject(x); }
-		function notify(x) { p._handler.notify(x); }
-
-		this.promise = p;
-		this.resolve = resolve;
-		this.reject = reject;
-		this.notify = notify;
-		this.resolver = { resolve: resolve, reject: reject, notify: notify };
-	}
-
-	/**
-	 * Determines if x is promise-like, i.e. a thenable object
-	 * NOTE: Will return true for *any thenable object*, and isn't truly
-	 * safe, since it may attempt to access the `then` property of x (i.e.
-	 *  clever/malicious getters may do weird things)
-	 * @param {*} x anything
-	 * @returns {boolean} true if x is promise-like
-	 */
-	function isPromiseLike(x) {
-		return x && typeof x.then === 'function';
-	}
-
-	/**
-	 * Return a promise that will resolve only once all the supplied arguments
-	 * have resolved. The resolution value of the returned promise will be an array
-	 * containing the resolution values of each of the arguments.
-	 * @param {...*} arguments may be a mix of promises and values
-	 * @returns {Promise}
-	 */
-	function join(/* ...promises */) {
-		return Promise.all(arguments);
-	}
-
-	/**
-	 * Return a promise that will fulfill once all input promises have
-	 * fulfilled, or reject when any one input promise rejects.
-	 * @param {array|Promise} promises array (or promise for an array) of promises
-	 * @returns {Promise}
-	 */
-	function all(promises) {
-		return when(promises, Promise.all);
-	}
-
-	/**
-	 * Return a promise that will always fulfill with an array containing
-	 * the outcome states of all input promises.  The returned promise
-	 * will only reject if `promises` itself is a rejected promise.
-	 * @param {array|Promise} promises array (or promise for an array) of promises
-	 * @returns {Promise} promise for array of settled state descriptors
-	 */
-	function settle(promises) {
-		return when(promises, Promise.settle);
-	}
-
-	/**
-	 * Promise-aware array map function, similar to `Array.prototype.map()`,
-	 * but input array may contain promises or values.
-	 * @param {Array|Promise} promises array of anything, may contain promises and values
-	 * @param {function(x:*, index:Number):*} mapFunc map function which may
-	 *  return a promise or value
-	 * @returns {Promise} promise that will fulfill with an array of mapped values
-	 *  or reject if any input promise rejects.
-	 */
-	function map(promises, mapFunc) {
-		return when(promises, function(promises) {
-			return Promise.map(promises, mapFunc);
-		});
-	}
-
-	/**
-	 * Filter the provided array of promises using the provided predicate.  Input may
-	 * contain promises and values
-	 * @param {Array|Promise} promises array of promises and values
-	 * @param {function(x:*, index:Number):boolean} predicate filtering predicate.
-	 *  Must return truthy (or promise for truthy) for items to retain.
-	 * @returns {Promise} promise that will fulfill with an array containing all items
-	 *  for which predicate returned truthy.
-	 */
-	function filter(promises, predicate) {
-		return when(promises, function(promises) {
-			return Promise.filter(promises, predicate);
-		});
-	}
-
-	return when;
-});
-})(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
-
-},{"./lib/Promise":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/Promise.js","./lib/TimeoutError":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/TimeoutError.js","./lib/apply":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/apply.js","./lib/decorators/array":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/array.js","./lib/decorators/flow":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/flow.js","./lib/decorators/fold":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/fold.js","./lib/decorators/inspect":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/inspect.js","./lib/decorators/iterate":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/iterate.js","./lib/decorators/progress":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/progress.js","./lib/decorators/timed":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/timed.js","./lib/decorators/unhandledRejection":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/unhandledRejection.js","./lib/decorators/with":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/when/lib/decorators/with.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/ws/lib/browser.js":[function(require,module,exports){
+},{"./core":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/crypto-js/core.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/node_modules/ws/lib/browser.js":[function(require,module,exports){
 
 /**
  * Module dependencies.
@@ -15052,7 +12166,7 @@ if (WebSocket) ws.prototype = WebSocket.prototype;
 },{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/autobahn/package.json":[function(require,module,exports){
 module.exports={
   "name": "autobahn",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "description": "An implementation of The Web Application Messaging Protocol (WAMP).",
   "main": "index.js",
   "browser": {
@@ -15072,7 +12186,7 @@ module.exports={
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/tavendo/AutobahnJS.git"
+    "url": "git://github.com/crossbario/autobahn-js.git"
   },
   "keywords": [
     "WAMP",
@@ -15084,13 +12198,13 @@ module.exports={
     "name": "Tavendo GmbH"
   },
   "license": "MIT",
-  "readme": "# AutobahnJS\r\n\r\nAutobahnJS implements **[The Web Application Messaging Protocol V2](http://wamp.ws/)** in JavaScript.\r\n\r\nWAMP provides asynchronous **Remote Procedure Calls** and **Publish & Subscribe** for applications in *one* protocol running over [WebSocket](http://tools.ietf.org/html/rfc6455).\r\n\r\nAutobahnJS runs on both **Web browsers** and **[Node.js](http://nodejs.org/)**, and implements the following WAMP roles:\r\n\r\n1. Publisher\r\n2. Subscriber\r\n3. Caller\r\n4. Callee\r\n\r\nAutobahnJS is part of the [Autobahn project](http://autobahn.ws/), MIT licensed, and full source code can be found on [GitHub](https://github.com/tavendo/AutobahnJS/).\r\n",
+  "readme": "# AutobahnJS\n\nAutobahnJS implements **[The Web Application Messaging Protocol V2](http://wamp.ws/)** in JavaScript.\n\nWAMP provides asynchronous **Remote Procedure Calls** and **Publish & Subscribe** for applications in *one* protocol running over [WebSocket](http://tools.ietf.org/html/rfc6455).\n\nAutobahnJS runs on both **Web browsers** and **[Node.js](http://nodejs.org/)**, and implements the following WAMP roles:\n\n1. Publisher\n2. Subscriber\n3. Caller\n4. Callee\n\nAutobahnJS is part of the [Autobahn project](http://autobahn.ws/), MIT licensed, and full source code can be found on [GitHub](https://github.com/crossbario/autobahn-js/).\n",
   "readmeFilename": "README.md",
   "bugs": {
-    "url": "https://github.com/tavendo/AutobahnJS/issues"
+    "url": "https://github.com/crossbario/autobahn-js/issues"
   },
-  "_id": "autobahn@0.9.8",
-  "_from": "autobahn@~0.9.8"
+  "_id": "autobahn@0.9.9",
+  "_from": "autobahn@^0.9.9"
 }
 
 },{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/d3/d3.js":[function(require,module,exports){
@@ -53240,6 +50354,82 @@ function characterReplacer(character) {
 // Export the `N3Writer` class as a whole.
 module.exports = N3Writer;
 
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/query-string/index.js":[function(require,module,exports){
+'use strict';
+var strictUriEncode = require('strict-uri-encode');
+
+exports.extract = function (str) {
+	return str.split('?')[1] || '';
+};
+
+exports.parse = function (str) {
+	if (typeof str !== 'string') {
+		return {};
+	}
+
+	str = str.trim().replace(/^(\?|#|&)/, '');
+
+	if (!str) {
+		return {};
+	}
+
+	return str.split('&').reduce(function (ret, param) {
+		var parts = param.replace(/\+/g, ' ').split('=');
+		// Firefox (pre 40) decodes `%3D` to `=`
+		// https://github.com/sindresorhus/query-string/pull/37
+		var key = parts.shift();
+		var val = parts.length > 0 ? parts.join('=') : undefined;
+
+		key = decodeURIComponent(key);
+
+		// missing `=` should be `null`:
+		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+		val = val === undefined ? null : decodeURIComponent(val);
+
+		if (!ret.hasOwnProperty(key)) {
+			ret[key] = val;
+		} else if (Array.isArray(ret[key])) {
+			ret[key].push(val);
+		} else {
+			ret[key] = [ret[key], val];
+		}
+
+		return ret;
+	}, {});
+};
+
+exports.stringify = function (obj) {
+	return obj ? Object.keys(obj).sort().map(function (key) {
+		var val = obj[key];
+
+		if (val === undefined) {
+			return '';
+		}
+
+		if (val === null) {
+			return key;
+		}
+
+		if (Array.isArray(val)) {
+			return val.sort().map(function (val2) {
+				return strictUriEncode(key) + '=' + strictUriEncode(val2);
+			}).join('&');
+		}
+
+		return strictUriEncode(key) + '=' + strictUriEncode(val);
+	}).filter(function (x) {
+		return x.length > 0;
+	}).join('&') : '';
+};
+
+},{"strict-uri-encode":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/query-string/node_modules/strict-uri-encode/index.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/query-string/node_modules/strict-uri-encode/index.js":[function(require,module,exports){
+'use strict';
+module.exports = function (str) {
+	return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+		return '%' + c.charCodeAt(0).toString(16);
+	});
+};
+
 },{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react-dom/index.js":[function(require,module,exports){
 'use strict';
 
@@ -72211,7 +69401,2897 @@ i.selected===!1&&(i.x=n.from.x,i.y=n.from.y),o.selected===!1&&(o.x=n.to.x,o.y=n.
 }}function u(t,e,i,o,n){var s={from:e,to:i,type:o};return t.edge&&(s.attr=a({},t.edge)),s.attr=a(s.attr||{},n),s}function c(){for(L=E.NULL,N="";" "===z||"	"===z||"\n"===z||"\r"===z;)n();do{var t=!1;if("#"===z){for(var e=I-1;" "===P.charAt(e)||"	"===P.charAt(e);)e--;if("\n"===P.charAt(e)||""===P.charAt(e)){for(;""!=z&&"\n"!=z;)n();t=!0}}if("/"===z&&"/"===s()){for(;""!=z&&"\n"!=z;)n();t=!0}if("/"===z&&"*"===s()){for(;""!=z;){if("*"===z&&"/"===s()){n(),n();break}n()}t=!0}for(;" "===z||"	"===z||"\n"===z||"\r"===z;)n()}while(t);if(""===z)return void(L=E.DELIMITER);var i=z+s();if(S[i])return L=E.DELIMITER,N=i,n(),void n();if(S[z])return L=E.DELIMITER,N=z,void n();if(r(z)||"-"===z){for(N+=z,n();r(z);)N+=z,n();return"false"===N?N=!1:"true"===N?N=!0:isNaN(Number(N))||(N=Number(N)),void(L=E.IDENTIFIER)}if('"'===z){for(n();""!=z&&('"'!=z||'"'===z&&'"'===s());)N+=z,'"'===z&&n(),n();if('"'!=z)throw _('End of string " expected');return n(),void(L=E.IDENTIFIER)}for(L=E.UNKNOWN;""!=z;)N+=z,n();throw new SyntaxError('Syntax error in part "'+x(N,30)+'"')}function p(){var t={};if(o(),c(),"strict"===N&&(t.strict=!0,c()),("graph"===N||"digraph"===N)&&(t.type=N,c()),L===E.IDENTIFIER&&(t.id=N,c()),"{"!=N)throw _("Angle bracket { expected");if(c(),f(t),"}"!=N)throw _("Angle bracket } expected");if(c(),""!==N)throw _("End of file expected");return c(),delete t.node,delete t.edge,delete t.graph,t}function f(t){for(;""!==N&&"}"!=N;)m(t),";"===N&&c()}function m(t){var e=v(t);if(e)return void b(t,e);var i=g(t);if(!i){if(L!=E.IDENTIFIER)throw _("Identifier expected");var o=N;if(c(),"="===N){if(c(),L!=E.IDENTIFIER)throw _("Identifier expected");t[o]=N,c()}else y(t,o)}}function v(t){var e=null;if("subgraph"===N&&(e={},e.type="subgraph",c(),L===E.IDENTIFIER&&(e.id=N,c())),"{"===N){if(c(),e||(e={}),e.parent=t,e.node=t.node,e.edge=t.edge,e.graph=t.graph,f(e),"}"!=N)throw _("Angle bracket } expected");c(),delete e.node,delete e.edge,delete e.graph,delete e.parent,t.subgraphs||(t.subgraphs=[]),t.subgraphs.push(e)}return e}function g(t){return"node"===N?(c(),t.node=w(),"node"):"edge"===N?(c(),t.edge=w(),"edge"):"graph"===N?(c(),t.graph=w(),"graph"):null}function y(t,e){var i={id:e},o=w();o&&(i.attr=o),d(t,i),b(t,e)}function b(t,e){for(;"->"===N||"--"===N;){var i,o=N;c();var n=v(t);if(n)i=n;else{if(L!=E.IDENTIFIER)throw _("Identifier or subgraph expected");i=N,d(t,{id:i}),c()}var s=w(),r=u(t,e,i,o,s);l(t,r),e=i}}function w(){for(var t=null;"["===N;){for(c(),t={};""!==N&&"]"!=N;){if(L!=E.IDENTIFIER)throw _("Attribute name expected");var e=N;if(c(),"="!=N)throw _("Equal sign = expected");if(c(),L!=E.IDENTIFIER)throw _("Attribute value expected");var i=N;h(t,e,i),c(),","==N&&c()}if("]"!=N)throw _("Bracket ] expected");c()}return t}function _(t){return new SyntaxError(t+', got "'+x(N,30)+'" (char '+I+")")}function x(t,e){return t.length<=e?t:t.substr(0,27)+"..."}function k(t,e,i){Array.isArray(t)?t.forEach(function(t){Array.isArray(e)?e.forEach(function(e){i(t,e)}):i(t,e)}):Array.isArray(e)?e.forEach(function(e){i(t,e)}):i(t,e)}function O(t,e,i){for(var o=e.split("."),n=o.pop(),s=t,r=0;r<o.length;r++){var a=o[r];a in s||(s[a]={}),s=s[a]}return s[n]=i,t}function D(t,e){var i={};for(var o in t)if(t.hasOwnProperty(o)){var n=e[o];Array.isArray(n)?n.forEach(function(e){O(i,e,t[o])}):"string"==typeof n?O(i,n,t[o]):O(i,o,t[o])}return i}function M(t){var e=i(t),o={nodes:[],edges:[],options:{}};if(e.nodes&&e.nodes.forEach(function(t){var e={id:t.id,label:String(t.label||t.id)};a(e,D(t.attr,C)),e.image&&(e.shape="image"),o.nodes.push(e)}),e.edges){var n=function(t){var e={from:t.from,to:t.to};return a(e,D(t.attr,T)),e.arrows="->"===t.type?"to":void 0,e};e.edges.forEach(function(t){var e,i;e=t.from instanceof Object?t.from.nodes:{id:t.from},i=t.to instanceof Object?t.to.nodes:{id:t.to},t.from instanceof Object&&t.from.edges&&t.from.edges.forEach(function(t){var e=n(t);o.edges.push(e)}),k(e,i,function(e,i){var s=u(o,e.id,i.id,t.type,t.attr),r=n(s);o.edges.push(r)}),t.to instanceof Object&&t.to.edges&&t.to.edges.forEach(function(t){var e=n(t);o.edges.push(e)})})}return e.attr&&(o.options=e.attr),o}var C={fontsize:"font.size",fontcolor:"font.color",labelfontcolor:"font.color",fontname:"font.face",color:["color.border","color.background"],fillcolor:"color.background",tooltip:"title",labeltooltip:"title"},T=Object.create(C);T.color="color.color";var E={NULL:0,DELIMITER:1,IDENTIFIER:2,UNKNOWN:3},S={"{":!0,"}":!0,"[":!0,"]":!0,";":!0,"=":!0,",":!0,"->":!0,"--":!0},P="",I=0,z="",N="",L=E.NULL,A=/[a-zA-Z_0-9.:#]/;e.parseDOT=i,e.DOTToGraph=M},function(t,e){function i(t,e){var i=[],o=[],n={edges:{inheritColor:!1},nodes:{fixed:!1,parseColor:!1}};void 0!==e&&(void 0!==e.fixed&&(n.nodes.fixed=e.fixed),void 0!==e.parseColor&&(n.nodes.parseColor=e.parseColor),void 0!==e.inheritColor&&(n.edges.inheritColor=e.inheritColor));for(var s=t.edges,r=t.nodes,a=0;a<s.length;a++){var h={},d=s[a];h.id=d.id,h.from=d.source,h.to=d.target,h.attributes=d.attributes,h.label=d.label,h.title=void 0!==d.attributes?d.attributes.title:void 0,"Directed"===d.type&&(h.arrows="to"),d.color&&n.inheritColor===!1&&(h.color=d.color),i.push(h)}for(var a=0;a<r.length;a++){var l={},u=r[a];l.id=u.id,l.attributes=u.attributes,l.title=u.title,l.x=u.x,l.y=u.y,l.label=u.label,l.title=void 0!==u.attributes?u.attributes.title:void 0,n.nodes.parseColor===!0?l.color=u.color:l.color=void 0!==u.color?{background:u.color,border:u.color,highlight:{background:u.color,border:u.color},hover:{background:u.color,border:u.color}}:void 0,l.size=u.size,l.fixed=n.nodes.fixed&&void 0!==u.x&&void 0!==u.y,o.push(l)}return{nodes:o,edges:i}}e.parseGephi=i},function(t,e){function i(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(e,"__esModule",{value:!0});var o=function(){function t(t,e){for(var i=0;i<e.length;i++){var o=e[i];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(t,o.key,o)}}return function(e,i,o){return i&&t(e.prototype,i),o&&t(e,o),e}}(),n=function(){function t(e){i(this,t),this.images={},this.imageBroken={},this.callback=e}return o(t,[{key:"_addImageToCache",value:function(t,e){0===e.width&&(document.body.appendChild(e),e.width=e.offsetWidth,e.height=e.offsetHeight,document.body.removeChild(e)),this.images[t]=e}},{key:"_tryloadBrokenUrl",value:function(t,e,i){var o=this;void 0!==t&&void 0!==e&&void 0!==i&&(i.onerror=function(){console.error("Could not load brokenImage:",e),o._addImageToCache(t,new Image)},i.src=e)}},{key:"_redrawWithImage",value:function(t){this.callback&&this.callback(t)}},{key:"load",value:function(t,e,i){var o=this,n=this.images[t];if(n)return n;var s=new Image;return s.onload=function(){o._addImageToCache(t,s),o._redrawWithImage(s)},s.onerror=function(){console.error("Could not load image:",t),o._tryloadBrokenUrl(t,e,s)},s.src=t,s}}]),t}();e["default"]=n,t.exports=e["default"]},function(t,e){e.en={edit:"Edit",del:"Delete selected",back:"Back",addNode:"Add Node",addEdge:"Add Edge",editNode:"Edit Node",editEdge:"Edit Edge",addDescription:"Click in an empty space to place a new node.",edgeDescription:"Click on a node and drag the edge to another node to connect them.",editEdgeDescription:"Click on the control points and drag them to a node to connect to it.",createEdgeError:"Cannot link edges to a cluster.",deleteClusterError:"Clusters cannot be deleted.",editClusterError:"Clusters cannot be edited."},e.en_EN=e.en,e.en_US=e.en,e.de={edit:"Editieren",del:"Lösche Auswahl",back:"Zurück",addNode:"Knoten hinzufügen",addEdge:"Kante hinzufügen",editNode:"Knoten editieren",editEdge:"Kante editieren",addDescription:"Klicke auf eine freie Stelle, um einen neuen Knoten zu plazieren.",edgeDescription:"Klicke auf einen Knoten und ziehe die Kante zu einem anderen Knoten, um diese zu verbinden.",editEdgeDescription:"Klicke auf die Verbindungspunkte und ziehe diese auf einen Knoten, um sie zu verbinden.",createEdgeError:"Es ist nicht möglich, Kanten mit Clustern zu verbinden.",deleteClusterError:"Cluster können nicht gelöscht werden.",editClusterError:"Cluster können nicht editiert werden."},e.de_DE=e.de,e.es={edit:"Editar",del:"Eliminar selección",back:"Átras",addNode:"Añadir nodo",addEdge:"Añadir arista",editNode:"Editar nodo",editEdge:"Editar arista",addDescription:"Haga clic en un lugar vacío para colocar un nuevo nodo.",edgeDescription:"Haga clic en un nodo y arrastre la arista hacia otro nodo para conectarlos.",editEdgeDescription:"Haga clic en un punto de control y arrastrelo a un nodo para conectarlo.",createEdgeError:"No se puede conectar una arista a un grupo.",deleteClusterError:"No es posible eliminar grupos.",editClusterError:"No es posible editar grupos."},e.es_ES=e.es,e.nl={edit:"Wijzigen",del:"Selectie verwijderen",back:"Terug",addNode:"Node toevoegen",addEdge:"Link toevoegen",editNode:"Node wijzigen",editEdge:"Link wijzigen",addDescription:"Klik op een leeg gebied om een nieuwe node te maken.",edgeDescription:"Klik op een node en sleep de link naar een andere node om ze te verbinden.",editEdgeDescription:"Klik op de verbindingspunten en sleep ze naar een node om daarmee te verbinden.",createEdgeError:"Kan geen link maken naar een cluster.",deleteClusterError:"Clusters kunnen niet worden verwijderd.",editClusterError:"Clusters kunnen niet worden aangepast."},e.nl_NL=e.nl,e.nl_BE=e.nl}])});
 //# sourceMappingURL=vis.map
 
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/app.react.js":[function(require,module,exports){
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/function.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2013-2014 original author or authors */
+
+/**
+ * Collection of helper functions for wrapping and executing 'traditional'
+ * synchronous functions in a promise interface.
+ *
+ * @author Brian Cavalier
+ * @contributor Renato Zannon
+ */
+
+(function(define) {
+define(function(require) {
+
+	var when = require('./when');
+	var attempt = when['try'];
+	var _liftAll = require('./lib/liftAll');
+	var _apply = require('./lib/apply')(when.Promise);
+	var slice = Array.prototype.slice;
+
+	return {
+		lift: lift,
+		liftAll: liftAll,
+		call: attempt,
+		apply: apply,
+		compose: compose
+	};
+
+	/**
+	 * Takes a function and an optional array of arguments (that might be promises),
+	 * and calls the function. The return value is a promise whose resolution
+	 * depends on the value returned by the function.
+	 * @param {function} f function to be called
+	 * @param {Array} [args] array of arguments to func
+	 * @returns {Promise} promise for the return value of func
+	 */
+	function apply(f, args) {
+		// slice args just in case the caller passed an Arguments instance
+		return _apply(f, this, args == null ? [] : slice.call(args));
+	}
+
+	/**
+	 * Takes a 'regular' function and returns a version of that function that
+	 * returns a promise instead of a plain value, and handles thrown errors by
+	 * returning a rejected promise. Also accepts a list of arguments to be
+	 * prepended to the new function, as does Function.prototype.bind.
+	 *
+	 * The resulting function is promise-aware, in the sense that it accepts
+	 * promise arguments, and waits for their resolution.
+	 * @param {Function} f function to be bound
+	 * @param {...*} [args] arguments to be prepended for the new function @deprecated
+	 * @returns {Function} a promise-returning function
+	 */
+	function lift(f /*, args... */) {
+		var args = arguments.length > 1 ? slice.call(arguments, 1) : [];
+		return function() {
+			return _apply(f, this, args.concat(slice.call(arguments)));
+		};
+	}
+
+	/**
+	 * Lift all the functions/methods on src
+	 * @param {object|function} src source whose functions will be lifted
+	 * @param {function?} combine optional function for customizing the lifting
+	 *  process. It is passed dst, the lifted function, and the property name of
+	 *  the original function on src.
+	 * @param {(object|function)?} dst option destination host onto which to place lifted
+	 *  functions. If not provided, liftAll returns a new object.
+	 * @returns {*} If dst is provided, returns dst with lifted functions as
+	 *  properties.  If dst not provided, returns a new object with lifted functions.
+	 */
+	function liftAll(src, combine, dst) {
+		return _liftAll(lift, combine, dst, src);
+	}
+
+	/**
+	 * Composes multiple functions by piping their return values. It is
+	 * transparent to whether the functions return 'regular' values or promises:
+	 * the piped argument is always a resolved value. If one of the functions
+	 * throws or returns a rejected promise, the composed promise will be also
+	 * rejected.
+	 *
+	 * The arguments (or promises to arguments) given to the returned function (if
+	 * any), are passed directly to the first function on the 'pipeline'.
+	 * @param {Function} f the function to which the arguments will be passed
+	 * @param {...Function} [funcs] functions that will be composed, in order
+	 * @returns {Function} a promise-returning composition of the functions
+	 */
+	function compose(f /*, funcs... */) {
+		var funcs = slice.call(arguments, 1);
+
+		return function() {
+			var thisArg = this;
+			var args = slice.call(arguments);
+			var firstPromise = attempt.apply(thisArg, [f].concat(args));
+
+			return when.reduce(funcs, function(arg, func) {
+				return func.call(thisArg, arg);
+			}, firstPromise);
+		};
+	}
+});
+})(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
+
+
+
+},{"./lib/apply":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/apply.js","./lib/liftAll":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/liftAll.js","./when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/Promise.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function (require) {
+
+	var makePromise = require('./makePromise');
+	var Scheduler = require('./Scheduler');
+	var async = require('./env').asap;
+
+	return makePromise({
+		scheduler: new Scheduler(async)
+	});
+
+});
+})(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
+
+},{"./Scheduler":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/Scheduler.js","./env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/env.js","./makePromise":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/makePromise.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/Scheduler.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	// Credit to Twisol (https://github.com/Twisol) for suggesting
+	// this type of extensible queue + trampoline approach for next-tick conflation.
+
+	/**
+	 * Async task scheduler
+	 * @param {function} async function to schedule a single async function
+	 * @constructor
+	 */
+	function Scheduler(async) {
+		this._async = async;
+		this._running = false;
+
+		this._queue = this;
+		this._queueLen = 0;
+		this._afterQueue = {};
+		this._afterQueueLen = 0;
+
+		var self = this;
+		this.drain = function() {
+			self._drain();
+		};
+	}
+
+	/**
+	 * Enqueue a task
+	 * @param {{ run:function }} task
+	 */
+	Scheduler.prototype.enqueue = function(task) {
+		this._queue[this._queueLen++] = task;
+		this.run();
+	};
+
+	/**
+	 * Enqueue a task to run after the main task queue
+	 * @param {{ run:function }} task
+	 */
+	Scheduler.prototype.afterQueue = function(task) {
+		this._afterQueue[this._afterQueueLen++] = task;
+		this.run();
+	};
+
+	Scheduler.prototype.run = function() {
+		if (!this._running) {
+			this._running = true;
+			this._async(this.drain);
+		}
+	};
+
+	/**
+	 * Drain the handler queue entirely, and then the after queue
+	 */
+	Scheduler.prototype._drain = function() {
+		var i = 0;
+		for (; i < this._queueLen; ++i) {
+			this._queue[i].run();
+			this._queue[i] = void 0;
+		}
+
+		this._queueLen = 0;
+		this._running = false;
+
+		for (i = 0; i < this._afterQueueLen; ++i) {
+			this._afterQueue[i].run();
+			this._afterQueue[i] = void 0;
+		}
+
+		this._afterQueueLen = 0;
+	};
+
+	return Scheduler;
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/TimeoutError.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	/**
+	 * Custom error type for promises rejected by promise.timeout
+	 * @param {string} message
+	 * @constructor
+	 */
+	function TimeoutError (message) {
+		Error.call(this);
+		this.message = message;
+		this.name = TimeoutError.name;
+		if (typeof Error.captureStackTrace === 'function') {
+			Error.captureStackTrace(this, TimeoutError);
+		}
+	}
+
+	TimeoutError.prototype = Object.create(Error.prototype);
+	TimeoutError.prototype.constructor = TimeoutError;
+
+	return TimeoutError;
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/apply.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	makeApply.tryCatchResolve = tryCatchResolve;
+
+	return makeApply;
+
+	function makeApply(Promise, call) {
+		if(arguments.length < 2) {
+			call = tryCatchResolve;
+		}
+
+		return apply;
+
+		function apply(f, thisArg, args) {
+			var p = Promise._defer();
+			var l = args.length;
+			var params = new Array(l);
+			callAndResolve({ f:f, thisArg:thisArg, args:args, params:params, i:l-1, call:call }, p._handler);
+
+			return p;
+		}
+
+		function callAndResolve(c, h) {
+			if(c.i < 0) {
+				return call(c.f, c.thisArg, c.params, h);
+			}
+
+			var handler = Promise._handler(c.args[c.i]);
+			handler.fold(callAndResolveNext, c, void 0, h);
+		}
+
+		function callAndResolveNext(c, x, h) {
+			c.params[c.i] = x;
+			c.i -= 1;
+			callAndResolve(c, h);
+		}
+	}
+
+	function tryCatchResolve(f, thisArg, args, resolver) {
+		try {
+			resolver.resolve(f.apply(thisArg, args));
+		} catch(e) {
+			resolver.reject(e);
+		}
+	}
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/array.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var state = require('../state');
+	var applier = require('../apply');
+
+	return function array(Promise) {
+
+		var applyFold = applier(Promise);
+		var toPromise = Promise.resolve;
+		var all = Promise.all;
+
+		var ar = Array.prototype.reduce;
+		var arr = Array.prototype.reduceRight;
+		var slice = Array.prototype.slice;
+
+		// Additional array combinators
+
+		Promise.any = any;
+		Promise.some = some;
+		Promise.settle = settle;
+
+		Promise.map = map;
+		Promise.filter = filter;
+		Promise.reduce = reduce;
+		Promise.reduceRight = reduceRight;
+
+		/**
+		 * When this promise fulfills with an array, do
+		 * onFulfilled.apply(void 0, array)
+		 * @param {function} onFulfilled function to apply
+		 * @returns {Promise} promise for the result of applying onFulfilled
+		 */
+		Promise.prototype.spread = function(onFulfilled) {
+			return this.then(all).then(function(array) {
+				return onFulfilled.apply(this, array);
+			});
+		};
+
+		return Promise;
+
+		/**
+		 * One-winner competitive race.
+		 * Return a promise that will fulfill when one of the promises
+		 * in the input array fulfills, or will reject when all promises
+		 * have rejected.
+		 * @param {array} promises
+		 * @returns {Promise} promise for the first fulfilled value
+		 */
+		function any(promises) {
+			var p = Promise._defer();
+			var resolver = p._handler;
+			var l = promises.length>>>0;
+
+			var pending = l;
+			var errors = [];
+
+			for (var h, x, i = 0; i < l; ++i) {
+				x = promises[i];
+				if(x === void 0 && !(i in promises)) {
+					--pending;
+					continue;
+				}
+
+				h = Promise._handler(x);
+				if(h.state() > 0) {
+					resolver.become(h);
+					Promise._visitRemaining(promises, i, h);
+					break;
+				} else {
+					h.visit(resolver, handleFulfill, handleReject);
+				}
+			}
+
+			if(pending === 0) {
+				resolver.reject(new RangeError('any(): array must not be empty'));
+			}
+
+			return p;
+
+			function handleFulfill(x) {
+				/*jshint validthis:true*/
+				errors = null;
+				this.resolve(x); // this === resolver
+			}
+
+			function handleReject(e) {
+				/*jshint validthis:true*/
+				if(this.resolved) { // this === resolver
+					return;
+				}
+
+				errors.push(e);
+				if(--pending === 0) {
+					this.reject(errors);
+				}
+			}
+		}
+
+		/**
+		 * N-winner competitive race
+		 * Return a promise that will fulfill when n input promises have
+		 * fulfilled, or will reject when it becomes impossible for n
+		 * input promises to fulfill (ie when promises.length - n + 1
+		 * have rejected)
+		 * @param {array} promises
+		 * @param {number} n
+		 * @returns {Promise} promise for the earliest n fulfillment values
+		 *
+		 * @deprecated
+		 */
+		function some(promises, n) {
+			/*jshint maxcomplexity:7*/
+			var p = Promise._defer();
+			var resolver = p._handler;
+
+			var results = [];
+			var errors = [];
+
+			var l = promises.length>>>0;
+			var nFulfill = 0;
+			var nReject;
+			var x, i; // reused in both for() loops
+
+			// First pass: count actual array items
+			for(i=0; i<l; ++i) {
+				x = promises[i];
+				if(x === void 0 && !(i in promises)) {
+					continue;
+				}
+				++nFulfill;
+			}
+
+			// Compute actual goals
+			n = Math.max(n, 0);
+			nReject = (nFulfill - n + 1);
+			nFulfill = Math.min(n, nFulfill);
+
+			if(n > nFulfill) {
+				resolver.reject(new RangeError('some(): array must contain at least '
+				+ n + ' item(s), but had ' + nFulfill));
+			} else if(nFulfill === 0) {
+				resolver.resolve(results);
+			}
+
+			// Second pass: observe each array item, make progress toward goals
+			for(i=0; i<l; ++i) {
+				x = promises[i];
+				if(x === void 0 && !(i in promises)) {
+					continue;
+				}
+
+				Promise._handler(x).visit(resolver, fulfill, reject, resolver.notify);
+			}
+
+			return p;
+
+			function fulfill(x) {
+				/*jshint validthis:true*/
+				if(this.resolved) { // this === resolver
+					return;
+				}
+
+				results.push(x);
+				if(--nFulfill === 0) {
+					errors = null;
+					this.resolve(results);
+				}
+			}
+
+			function reject(e) {
+				/*jshint validthis:true*/
+				if(this.resolved) { // this === resolver
+					return;
+				}
+
+				errors.push(e);
+				if(--nReject === 0) {
+					results = null;
+					this.reject(errors);
+				}
+			}
+		}
+
+		/**
+		 * Apply f to the value of each promise in a list of promises
+		 * and return a new list containing the results.
+		 * @param {array} promises
+		 * @param {function(x:*, index:Number):*} f mapping function
+		 * @returns {Promise}
+		 */
+		function map(promises, f) {
+			return Promise._traverse(f, promises);
+		}
+
+		/**
+		 * Filter the provided array of promises using the provided predicate.  Input may
+		 * contain promises and values
+		 * @param {Array} promises array of promises and values
+		 * @param {function(x:*, index:Number):boolean} predicate filtering predicate.
+		 *  Must return truthy (or promise for truthy) for items to retain.
+		 * @returns {Promise} promise that will fulfill with an array containing all items
+		 *  for which predicate returned truthy.
+		 */
+		function filter(promises, predicate) {
+			var a = slice.call(promises);
+			return Promise._traverse(predicate, a).then(function(keep) {
+				return filterSync(a, keep);
+			});
+		}
+
+		function filterSync(promises, keep) {
+			// Safe because we know all promises have fulfilled if we've made it this far
+			var l = keep.length;
+			var filtered = new Array(l);
+			for(var i=0, j=0; i<l; ++i) {
+				if(keep[i]) {
+					filtered[j++] = Promise._handler(promises[i]).value;
+				}
+			}
+			filtered.length = j;
+			return filtered;
+
+		}
+
+		/**
+		 * Return a promise that will always fulfill with an array containing
+		 * the outcome states of all input promises.  The returned promise
+		 * will never reject.
+		 * @param {Array} promises
+		 * @returns {Promise} promise for array of settled state descriptors
+		 */
+		function settle(promises) {
+			return all(promises.map(settleOne));
+		}
+
+		function settleOne(p) {
+			var h = Promise._handler(p);
+			if(h.state() === 0) {
+				return toPromise(p).then(state.fulfilled, state.rejected);
+			}
+
+			h._unreport();
+			return state.inspect(h);
+		}
+
+		/**
+		 * Traditional reduce function, similar to `Array.prototype.reduce()`, but
+		 * input may contain promises and/or values, and reduceFunc
+		 * may return either a value or a promise, *and* initialValue may
+		 * be a promise for the starting value.
+		 * @param {Array|Promise} promises array or promise for an array of anything,
+		 *      may contain a mix of promises and values.
+		 * @param {function(accumulated:*, x:*, index:Number):*} f reduce function
+		 * @returns {Promise} that will resolve to the final reduced value
+		 */
+		function reduce(promises, f /*, initialValue */) {
+			return arguments.length > 2 ? ar.call(promises, liftCombine(f), arguments[2])
+					: ar.call(promises, liftCombine(f));
+		}
+
+		/**
+		 * Traditional reduce function, similar to `Array.prototype.reduceRight()`, but
+		 * input may contain promises and/or values, and reduceFunc
+		 * may return either a value or a promise, *and* initialValue may
+		 * be a promise for the starting value.
+		 * @param {Array|Promise} promises array or promise for an array of anything,
+		 *      may contain a mix of promises and values.
+		 * @param {function(accumulated:*, x:*, index:Number):*} f reduce function
+		 * @returns {Promise} that will resolve to the final reduced value
+		 */
+		function reduceRight(promises, f /*, initialValue */) {
+			return arguments.length > 2 ? arr.call(promises, liftCombine(f), arguments[2])
+					: arr.call(promises, liftCombine(f));
+		}
+
+		function liftCombine(f) {
+			return function(z, x, i) {
+				return applyFold(f, void 0, [z,x,i]);
+			};
+		}
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"../apply":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/apply.js","../state":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/state.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/flow.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return function flow(Promise) {
+
+		var resolve = Promise.resolve;
+		var reject = Promise.reject;
+		var origCatch = Promise.prototype['catch'];
+
+		/**
+		 * Handle the ultimate fulfillment value or rejection reason, and assume
+		 * responsibility for all errors.  If an error propagates out of result
+		 * or handleFatalError, it will be rethrown to the host, resulting in a
+		 * loud stack track on most platforms and a crash on some.
+		 * @param {function?} onResult
+		 * @param {function?} onError
+		 * @returns {undefined}
+		 */
+		Promise.prototype.done = function(onResult, onError) {
+			this._handler.visit(this._handler.receiver, onResult, onError);
+		};
+
+		/**
+		 * Add Error-type and predicate matching to catch.  Examples:
+		 * promise.catch(TypeError, handleTypeError)
+		 *   .catch(predicate, handleMatchedErrors)
+		 *   .catch(handleRemainingErrors)
+		 * @param onRejected
+		 * @returns {*}
+		 */
+		Promise.prototype['catch'] = Promise.prototype.otherwise = function(onRejected) {
+			if (arguments.length < 2) {
+				return origCatch.call(this, onRejected);
+			}
+
+			if(typeof onRejected !== 'function') {
+				return this.ensure(rejectInvalidPredicate);
+			}
+
+			return origCatch.call(this, createCatchFilter(arguments[1], onRejected));
+		};
+
+		/**
+		 * Wraps the provided catch handler, so that it will only be called
+		 * if the predicate evaluates truthy
+		 * @param {?function} handler
+		 * @param {function} predicate
+		 * @returns {function} conditional catch handler
+		 */
+		function createCatchFilter(handler, predicate) {
+			return function(e) {
+				return evaluatePredicate(e, predicate)
+					? handler.call(this, e)
+					: reject(e);
+			};
+		}
+
+		/**
+		 * Ensures that onFulfilledOrRejected will be called regardless of whether
+		 * this promise is fulfilled or rejected.  onFulfilledOrRejected WILL NOT
+		 * receive the promises' value or reason.  Any returned value will be disregarded.
+		 * onFulfilledOrRejected may throw or return a rejected promise to signal
+		 * an additional error.
+		 * @param {function} handler handler to be called regardless of
+		 *  fulfillment or rejection
+		 * @returns {Promise}
+		 */
+		Promise.prototype['finally'] = Promise.prototype.ensure = function(handler) {
+			if(typeof handler !== 'function') {
+				return this;
+			}
+
+			return this.then(function(x) {
+				return runSideEffect(handler, this, identity, x);
+			}, function(e) {
+				return runSideEffect(handler, this, reject, e);
+			});
+		};
+
+		function runSideEffect (handler, thisArg, propagate, value) {
+			var result = handler.call(thisArg);
+			return maybeThenable(result)
+				? propagateValue(result, propagate, value)
+				: propagate(value);
+		}
+
+		function propagateValue (result, propagate, x) {
+			return resolve(result).then(function () {
+				return propagate(x);
+			});
+		}
+
+		/**
+		 * Recover from a failure by returning a defaultValue.  If defaultValue
+		 * is a promise, it's fulfillment value will be used.  If defaultValue is
+		 * a promise that rejects, the returned promise will reject with the
+		 * same reason.
+		 * @param {*} defaultValue
+		 * @returns {Promise} new promise
+		 */
+		Promise.prototype['else'] = Promise.prototype.orElse = function(defaultValue) {
+			return this.then(void 0, function() {
+				return defaultValue;
+			});
+		};
+
+		/**
+		 * Shortcut for .then(function() { return value; })
+		 * @param  {*} value
+		 * @return {Promise} a promise that:
+		 *  - is fulfilled if value is not a promise, or
+		 *  - if value is a promise, will fulfill with its value, or reject
+		 *    with its reason.
+		 */
+		Promise.prototype['yield'] = function(value) {
+			return this.then(function() {
+				return value;
+			});
+		};
+
+		/**
+		 * Runs a side effect when this promise fulfills, without changing the
+		 * fulfillment value.
+		 * @param {function} onFulfilledSideEffect
+		 * @returns {Promise}
+		 */
+		Promise.prototype.tap = function(onFulfilledSideEffect) {
+			return this.then(onFulfilledSideEffect)['yield'](this);
+		};
+
+		return Promise;
+	};
+
+	function rejectInvalidPredicate() {
+		throw new TypeError('catch predicate must be a function');
+	}
+
+	function evaluatePredicate(e, predicate) {
+		return isError(predicate) ? e instanceof predicate : predicate(e);
+	}
+
+	function isError(predicate) {
+		return predicate === Error
+			|| (predicate != null && predicate.prototype instanceof Error);
+	}
+
+	function maybeThenable(x) {
+		return (typeof x === 'object' || typeof x === 'function') && x !== null;
+	}
+
+	function identity(x) {
+		return x;
+	}
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/fold.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+/** @author Jeff Escalante */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return function fold(Promise) {
+
+		Promise.prototype.fold = function(f, z) {
+			var promise = this._beget();
+
+			this._handler.fold(function(z, x, to) {
+				Promise._handler(z).fold(function(x, z, to) {
+					to.resolve(f.call(this, z, x));
+				}, x, this, to);
+			}, z, promise._handler.receiver, promise._handler);
+
+			return promise;
+		};
+
+		return Promise;
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/inspect.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var inspect = require('../state').inspect;
+
+	return function inspection(Promise) {
+
+		Promise.prototype.inspect = function() {
+			return inspect(Promise._handler(this));
+		};
+
+		return Promise;
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"../state":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/state.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/iterate.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return function generate(Promise) {
+
+		var resolve = Promise.resolve;
+
+		Promise.iterate = iterate;
+		Promise.unfold = unfold;
+
+		return Promise;
+
+		/**
+		 * @deprecated Use github.com/cujojs/most streams and most.iterate
+		 * Generate a (potentially infinite) stream of promised values:
+		 * x, f(x), f(f(x)), etc. until condition(x) returns true
+		 * @param {function} f function to generate a new x from the previous x
+		 * @param {function} condition function that, given the current x, returns
+		 *  truthy when the iterate should stop
+		 * @param {function} handler function to handle the value produced by f
+		 * @param {*|Promise} x starting value, may be a promise
+		 * @return {Promise} the result of the last call to f before
+		 *  condition returns true
+		 */
+		function iterate(f, condition, handler, x) {
+			return unfold(function(x) {
+				return [x, f(x)];
+			}, condition, handler, x);
+		}
+
+		/**
+		 * @deprecated Use github.com/cujojs/most streams and most.unfold
+		 * Generate a (potentially infinite) stream of promised values
+		 * by applying handler(generator(seed)) iteratively until
+		 * condition(seed) returns true.
+		 * @param {function} unspool function that generates a [value, newSeed]
+		 *  given a seed.
+		 * @param {function} condition function that, given the current seed, returns
+		 *  truthy when the unfold should stop
+		 * @param {function} handler function to handle the value produced by unspool
+		 * @param x {*|Promise} starting value, may be a promise
+		 * @return {Promise} the result of the last value produced by unspool before
+		 *  condition returns true
+		 */
+		function unfold(unspool, condition, handler, x) {
+			return resolve(x).then(function(seed) {
+				return resolve(condition(seed)).then(function(done) {
+					return done ? seed : resolve(unspool(seed)).spread(next);
+				});
+			});
+
+			function next(item, newSeed) {
+				return resolve(handler(item)).then(function() {
+					return unfold(unspool, condition, handler, newSeed);
+				});
+			}
+		}
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/progress.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return function progress(Promise) {
+
+		/**
+		 * @deprecated
+		 * Register a progress handler for this promise
+		 * @param {function} onProgress
+		 * @returns {Promise}
+		 */
+		Promise.prototype.progress = function(onProgress) {
+			return this.then(void 0, void 0, onProgress);
+		};
+
+		return Promise;
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/timed.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var env = require('../env');
+	var TimeoutError = require('../TimeoutError');
+
+	function setTimeout(f, ms, x, y) {
+		return env.setTimer(function() {
+			f(x, y, ms);
+		}, ms);
+	}
+
+	return function timed(Promise) {
+		/**
+		 * Return a new promise whose fulfillment value is revealed only
+		 * after ms milliseconds
+		 * @param {number} ms milliseconds
+		 * @returns {Promise}
+		 */
+		Promise.prototype.delay = function(ms) {
+			var p = this._beget();
+			this._handler.fold(handleDelay, ms, void 0, p._handler);
+			return p;
+		};
+
+		function handleDelay(ms, x, h) {
+			setTimeout(resolveDelay, ms, x, h);
+		}
+
+		function resolveDelay(x, h) {
+			h.resolve(x);
+		}
+
+		/**
+		 * Return a new promise that rejects after ms milliseconds unless
+		 * this promise fulfills earlier, in which case the returned promise
+		 * fulfills with the same value.
+		 * @param {number} ms milliseconds
+		 * @param {Error|*=} reason optional rejection reason to use, defaults
+		 *   to a TimeoutError if not provided
+		 * @returns {Promise}
+		 */
+		Promise.prototype.timeout = function(ms, reason) {
+			var p = this._beget();
+			var h = p._handler;
+
+			var t = setTimeout(onTimeout, ms, reason, p._handler);
+
+			this._handler.visit(h,
+				function onFulfill(x) {
+					env.clearTimer(t);
+					this.resolve(x); // this = h
+				},
+				function onReject(x) {
+					env.clearTimer(t);
+					this.reject(x); // this = h
+				},
+				h.notify);
+
+			return p;
+		};
+
+		function onTimeout(reason, h, ms) {
+			var e = typeof reason === 'undefined'
+				? new TimeoutError('timed out after ' + ms + 'ms')
+				: reason;
+			h.reject(e);
+		}
+
+		return Promise;
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"../TimeoutError":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/TimeoutError.js","../env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/env.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/unhandledRejection.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var setTimer = require('../env').setTimer;
+	var format = require('../format');
+
+	return function unhandledRejection(Promise) {
+
+		var logError = noop;
+		var logInfo = noop;
+		var localConsole;
+
+		if(typeof console !== 'undefined') {
+			// Alias console to prevent things like uglify's drop_console option from
+			// removing console.log/error. Unhandled rejections fall into the same
+			// category as uncaught exceptions, and build tools shouldn't silence them.
+			localConsole = console;
+			logError = typeof localConsole.error !== 'undefined'
+				? function (e) { localConsole.error(e); }
+				: function (e) { localConsole.log(e); };
+
+			logInfo = typeof localConsole.info !== 'undefined'
+				? function (e) { localConsole.info(e); }
+				: function (e) { localConsole.log(e); };
+		}
+
+		Promise.onPotentiallyUnhandledRejection = function(rejection) {
+			enqueue(report, rejection);
+		};
+
+		Promise.onPotentiallyUnhandledRejectionHandled = function(rejection) {
+			enqueue(unreport, rejection);
+		};
+
+		Promise.onFatalRejection = function(rejection) {
+			enqueue(throwit, rejection.value);
+		};
+
+		var tasks = [];
+		var reported = [];
+		var running = null;
+
+		function report(r) {
+			if(!r.handled) {
+				reported.push(r);
+				logError('Potentially unhandled rejection [' + r.id + '] ' + format.formatError(r.value));
+			}
+		}
+
+		function unreport(r) {
+			var i = reported.indexOf(r);
+			if(i >= 0) {
+				reported.splice(i, 1);
+				logInfo('Handled previous rejection [' + r.id + '] ' + format.formatObject(r.value));
+			}
+		}
+
+		function enqueue(f, x) {
+			tasks.push(f, x);
+			if(running === null) {
+				running = setTimer(flush, 0);
+			}
+		}
+
+		function flush() {
+			running = null;
+			while(tasks.length > 0) {
+				tasks.shift()(tasks.shift());
+			}
+		}
+
+		return Promise;
+	};
+
+	function throwit(e) {
+		throw e;
+	}
+
+	function noop() {}
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"../env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/env.js","../format":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/format.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/with.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return function addWith(Promise) {
+		/**
+		 * Returns a promise whose handlers will be called with `this` set to
+		 * the supplied receiver.  Subsequent promises derived from the
+		 * returned promise will also have their handlers called with receiver
+		 * as `this`. Calling `with` with undefined or no arguments will return
+		 * a promise whose handlers will again be called in the usual Promises/A+
+		 * way (no `this`) thus safely undoing any previous `with` in the
+		 * promise chain.
+		 *
+		 * WARNING: Promises returned from `with`/`withThis` are NOT Promises/A+
+		 * compliant, specifically violating 2.2.5 (http://promisesaplus.com/#point-41)
+		 *
+		 * @param {object} receiver `this` value for all handlers attached to
+		 *  the returned promise.
+		 * @returns {Promise}
+		 */
+		Promise.prototype['with'] = Promise.prototype.withThis = function(receiver) {
+			var p = this._beget();
+			var child = p._handler;
+			child.receiver = receiver;
+			this._handler.chain(child, receiver);
+			return p;
+		};
+
+		return Promise;
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/env.js":[function(require,module,exports){
+(function (process){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+/*global process,document,setTimeout,clearTimeout,MutationObserver,WebKitMutationObserver*/
+(function(define) { 'use strict';
+define(function(require) {
+	/*jshint maxcomplexity:6*/
+
+	// Sniff "best" async scheduling option
+	// Prefer process.nextTick or MutationObserver, then check for
+	// setTimeout, and finally vertx, since its the only env that doesn't
+	// have setTimeout
+
+	var MutationObs;
+	var capturedSetTimeout = typeof setTimeout !== 'undefined' && setTimeout;
+
+	// Default env
+	var setTimer = function(f, ms) { return setTimeout(f, ms); };
+	var clearTimer = function(t) { return clearTimeout(t); };
+	var asap = function (f) { return capturedSetTimeout(f, 0); };
+
+	// Detect specific env
+	if (isNode()) { // Node
+		asap = function (f) { return process.nextTick(f); };
+
+	} else if (MutationObs = hasMutationObserver()) { // Modern browser
+		asap = initMutationObserver(MutationObs);
+
+	} else if (!capturedSetTimeout) { // vert.x
+		var vertxRequire = require;
+		var vertx = vertxRequire('vertx');
+		setTimer = function (f, ms) { return vertx.setTimer(ms, f); };
+		clearTimer = vertx.cancelTimer;
+		asap = vertx.runOnLoop || vertx.runOnContext;
+	}
+
+	return {
+		setTimer: setTimer,
+		clearTimer: clearTimer,
+		asap: asap
+	};
+
+	function isNode () {
+		return typeof process !== 'undefined' &&
+			Object.prototype.toString.call(process) === '[object process]';
+	}
+
+	function hasMutationObserver () {
+		return (typeof MutationObserver === 'function' && MutationObserver) ||
+			(typeof WebKitMutationObserver === 'function' && WebKitMutationObserver);
+	}
+
+	function initMutationObserver(MutationObserver) {
+		var scheduled;
+		var node = document.createTextNode('');
+		var o = new MutationObserver(run);
+		o.observe(node, { characterData: true });
+
+		function run() {
+			var f = scheduled;
+			scheduled = void 0;
+			f();
+		}
+
+		var i = 0;
+		return function (f) {
+			scheduled = f;
+			node.data = (i ^= 1);
+		};
+	}
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+}).call(this,require('_process'))
+},{"_process":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/process/browser.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/format.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return {
+		formatError: formatError,
+		formatObject: formatObject,
+		tryStringify: tryStringify
+	};
+
+	/**
+	 * Format an error into a string.  If e is an Error and has a stack property,
+	 * it's returned.  Otherwise, e is formatted using formatObject, with a
+	 * warning added about e not being a proper Error.
+	 * @param {*} e
+	 * @returns {String} formatted string, suitable for output to developers
+	 */
+	function formatError(e) {
+		var s = typeof e === 'object' && e !== null && (e.stack || e.message) ? e.stack || e.message : formatObject(e);
+		return e instanceof Error ? s : s + ' (WARNING: non-Error used)';
+	}
+
+	/**
+	 * Format an object, detecting "plain" objects and running them through
+	 * JSON.stringify if possible.
+	 * @param {Object} o
+	 * @returns {string}
+	 */
+	function formatObject(o) {
+		var s = String(o);
+		if(s === '[object Object]' && typeof JSON !== 'undefined') {
+			s = tryStringify(o, s);
+		}
+		return s;
+	}
+
+	/**
+	 * Try to return the result of JSON.stringify(x).  If that fails, return
+	 * defaultValue
+	 * @param {*} x
+	 * @param {*} defaultValue
+	 * @returns {String|*} JSON.stringify(x) or defaultValue
+	 */
+	function tryStringify(x, defaultValue) {
+		try {
+			return JSON.stringify(x);
+		} catch(e) {
+			return defaultValue;
+		}
+	}
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/liftAll.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return function liftAll(liftOne, combine, dst, src) {
+		if(typeof combine === 'undefined') {
+			combine = defaultCombine;
+		}
+
+		return Object.keys(src).reduce(function(dst, key) {
+			var f = src[key];
+			return typeof f === 'function' ? combine(dst, liftOne(f), key) : dst;
+		}, typeof dst === 'undefined' ? defaultDst(src) : dst);
+	};
+
+	function defaultCombine(o, f, k) {
+		o[k] = f;
+		return o;
+	}
+
+	function defaultDst(src) {
+		return typeof src === 'function' ? src.bind() : Object.create(src);
+	}
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/makePromise.js":[function(require,module,exports){
+(function (process){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return function makePromise(environment) {
+
+		var tasks = environment.scheduler;
+		var emitRejection = initEmitRejection();
+
+		var objectCreate = Object.create ||
+			function(proto) {
+				function Child() {}
+				Child.prototype = proto;
+				return new Child();
+			};
+
+		/**
+		 * Create a promise whose fate is determined by resolver
+		 * @constructor
+		 * @returns {Promise} promise
+		 * @name Promise
+		 */
+		function Promise(resolver, handler) {
+			this._handler = resolver === Handler ? handler : init(resolver);
+		}
+
+		/**
+		 * Run the supplied resolver
+		 * @param resolver
+		 * @returns {Pending}
+		 */
+		function init(resolver) {
+			var handler = new Pending();
+
+			try {
+				resolver(promiseResolve, promiseReject, promiseNotify);
+			} catch (e) {
+				promiseReject(e);
+			}
+
+			return handler;
+
+			/**
+			 * Transition from pre-resolution state to post-resolution state, notifying
+			 * all listeners of the ultimate fulfillment or rejection
+			 * @param {*} x resolution value
+			 */
+			function promiseResolve (x) {
+				handler.resolve(x);
+			}
+			/**
+			 * Reject this promise with reason, which will be used verbatim
+			 * @param {Error|*} reason rejection reason, strongly suggested
+			 *   to be an Error type
+			 */
+			function promiseReject (reason) {
+				handler.reject(reason);
+			}
+
+			/**
+			 * @deprecated
+			 * Issue a progress event, notifying all progress listeners
+			 * @param {*} x progress event payload to pass to all listeners
+			 */
+			function promiseNotify (x) {
+				handler.notify(x);
+			}
+		}
+
+		// Creation
+
+		Promise.resolve = resolve;
+		Promise.reject = reject;
+		Promise.never = never;
+
+		Promise._defer = defer;
+		Promise._handler = getHandler;
+
+		/**
+		 * Returns a trusted promise. If x is already a trusted promise, it is
+		 * returned, otherwise returns a new trusted Promise which follows x.
+		 * @param  {*} x
+		 * @return {Promise} promise
+		 */
+		function resolve(x) {
+			return isPromise(x) ? x
+				: new Promise(Handler, new Async(getHandler(x)));
+		}
+
+		/**
+		 * Return a reject promise with x as its reason (x is used verbatim)
+		 * @param {*} x
+		 * @returns {Promise} rejected promise
+		 */
+		function reject(x) {
+			return new Promise(Handler, new Async(new Rejected(x)));
+		}
+
+		/**
+		 * Return a promise that remains pending forever
+		 * @returns {Promise} forever-pending promise.
+		 */
+		function never() {
+			return foreverPendingPromise; // Should be frozen
+		}
+
+		/**
+		 * Creates an internal {promise, resolver} pair
+		 * @private
+		 * @returns {Promise}
+		 */
+		function defer() {
+			return new Promise(Handler, new Pending());
+		}
+
+		// Transformation and flow control
+
+		/**
+		 * Transform this promise's fulfillment value, returning a new Promise
+		 * for the transformed result.  If the promise cannot be fulfilled, onRejected
+		 * is called with the reason.  onProgress *may* be called with updates toward
+		 * this promise's fulfillment.
+		 * @param {function=} onFulfilled fulfillment handler
+		 * @param {function=} onRejected rejection handler
+		 * @param {function=} onProgress @deprecated progress handler
+		 * @return {Promise} new promise
+		 */
+		Promise.prototype.then = function(onFulfilled, onRejected, onProgress) {
+			var parent = this._handler;
+			var state = parent.join().state();
+
+			if ((typeof onFulfilled !== 'function' && state > 0) ||
+				(typeof onRejected !== 'function' && state < 0)) {
+				// Short circuit: value will not change, simply share handler
+				return new this.constructor(Handler, parent);
+			}
+
+			var p = this._beget();
+			var child = p._handler;
+
+			parent.chain(child, parent.receiver, onFulfilled, onRejected, onProgress);
+
+			return p;
+		};
+
+		/**
+		 * If this promise cannot be fulfilled due to an error, call onRejected to
+		 * handle the error. Shortcut for .then(undefined, onRejected)
+		 * @param {function?} onRejected
+		 * @return {Promise}
+		 */
+		Promise.prototype['catch'] = function(onRejected) {
+			return this.then(void 0, onRejected);
+		};
+
+		/**
+		 * Creates a new, pending promise of the same type as this promise
+		 * @private
+		 * @returns {Promise}
+		 */
+		Promise.prototype._beget = function() {
+			return begetFrom(this._handler, this.constructor);
+		};
+
+		function begetFrom(parent, Promise) {
+			var child = new Pending(parent.receiver, parent.join().context);
+			return new Promise(Handler, child);
+		}
+
+		// Array combinators
+
+		Promise.all = all;
+		Promise.race = race;
+		Promise._traverse = traverse;
+
+		/**
+		 * Return a promise that will fulfill when all promises in the
+		 * input array have fulfilled, or will reject when one of the
+		 * promises rejects.
+		 * @param {array} promises array of promises
+		 * @returns {Promise} promise for array of fulfillment values
+		 */
+		function all(promises) {
+			return traverseWith(snd, null, promises);
+		}
+
+		/**
+		 * Array<Promise<X>> -> Promise<Array<f(X)>>
+		 * @private
+		 * @param {function} f function to apply to each promise's value
+		 * @param {Array} promises array of promises
+		 * @returns {Promise} promise for transformed values
+		 */
+		function traverse(f, promises) {
+			return traverseWith(tryCatch2, f, promises);
+		}
+
+		function traverseWith(tryMap, f, promises) {
+			var handler = typeof f === 'function' ? mapAt : settleAt;
+
+			var resolver = new Pending();
+			var pending = promises.length >>> 0;
+			var results = new Array(pending);
+
+			for (var i = 0, x; i < promises.length && !resolver.resolved; ++i) {
+				x = promises[i];
+
+				if (x === void 0 && !(i in promises)) {
+					--pending;
+					continue;
+				}
+
+				traverseAt(promises, handler, i, x, resolver);
+			}
+
+			if(pending === 0) {
+				resolver.become(new Fulfilled(results));
+			}
+
+			return new Promise(Handler, resolver);
+
+			function mapAt(i, x, resolver) {
+				if(!resolver.resolved) {
+					traverseAt(promises, settleAt, i, tryMap(f, x, i), resolver);
+				}
+			}
+
+			function settleAt(i, x, resolver) {
+				results[i] = x;
+				if(--pending === 0) {
+					resolver.become(new Fulfilled(results));
+				}
+			}
+		}
+
+		function traverseAt(promises, handler, i, x, resolver) {
+			if (maybeThenable(x)) {
+				var h = getHandlerMaybeThenable(x);
+				var s = h.state();
+
+				if (s === 0) {
+					h.fold(handler, i, void 0, resolver);
+				} else if (s > 0) {
+					handler(i, h.value, resolver);
+				} else {
+					resolver.become(h);
+					visitRemaining(promises, i+1, h);
+				}
+			} else {
+				handler(i, x, resolver);
+			}
+		}
+
+		Promise._visitRemaining = visitRemaining;
+		function visitRemaining(promises, start, handler) {
+			for(var i=start; i<promises.length; ++i) {
+				markAsHandled(getHandler(promises[i]), handler);
+			}
+		}
+
+		function markAsHandled(h, handler) {
+			if(h === handler) {
+				return;
+			}
+
+			var s = h.state();
+			if(s === 0) {
+				h.visit(h, void 0, h._unreport);
+			} else if(s < 0) {
+				h._unreport();
+			}
+		}
+
+		/**
+		 * Fulfill-reject competitive race. Return a promise that will settle
+		 * to the same state as the earliest input promise to settle.
+		 *
+		 * WARNING: The ES6 Promise spec requires that race()ing an empty array
+		 * must return a promise that is pending forever.  This implementation
+		 * returns a singleton forever-pending promise, the same singleton that is
+		 * returned by Promise.never(), thus can be checked with ===
+		 *
+		 * @param {array} promises array of promises to race
+		 * @returns {Promise} if input is non-empty, a promise that will settle
+		 * to the same outcome as the earliest input promise to settle. if empty
+		 * is empty, returns a promise that will never settle.
+		 */
+		function race(promises) {
+			if(typeof promises !== 'object' || promises === null) {
+				return reject(new TypeError('non-iterable passed to race()'));
+			}
+
+			// Sigh, race([]) is untestable unless we return *something*
+			// that is recognizable without calling .then() on it.
+			return promises.length === 0 ? never()
+				 : promises.length === 1 ? resolve(promises[0])
+				 : runRace(promises);
+		}
+
+		function runRace(promises) {
+			var resolver = new Pending();
+			var i, x, h;
+			for(i=0; i<promises.length; ++i) {
+				x = promises[i];
+				if (x === void 0 && !(i in promises)) {
+					continue;
+				}
+
+				h = getHandler(x);
+				if(h.state() !== 0) {
+					resolver.become(h);
+					visitRemaining(promises, i+1, h);
+					break;
+				} else {
+					h.visit(resolver, resolver.resolve, resolver.reject);
+				}
+			}
+			return new Promise(Handler, resolver);
+		}
+
+		// Promise internals
+		// Below this, everything is @private
+
+		/**
+		 * Get an appropriate handler for x, without checking for cycles
+		 * @param {*} x
+		 * @returns {object} handler
+		 */
+		function getHandler(x) {
+			if(isPromise(x)) {
+				return x._handler.join();
+			}
+			return maybeThenable(x) ? getHandlerUntrusted(x) : new Fulfilled(x);
+		}
+
+		/**
+		 * Get a handler for thenable x.
+		 * NOTE: You must only call this if maybeThenable(x) == true
+		 * @param {object|function|Promise} x
+		 * @returns {object} handler
+		 */
+		function getHandlerMaybeThenable(x) {
+			return isPromise(x) ? x._handler.join() : getHandlerUntrusted(x);
+		}
+
+		/**
+		 * Get a handler for potentially untrusted thenable x
+		 * @param {*} x
+		 * @returns {object} handler
+		 */
+		function getHandlerUntrusted(x) {
+			try {
+				var untrustedThen = x.then;
+				return typeof untrustedThen === 'function'
+					? new Thenable(untrustedThen, x)
+					: new Fulfilled(x);
+			} catch(e) {
+				return new Rejected(e);
+			}
+		}
+
+		/**
+		 * Handler for a promise that is pending forever
+		 * @constructor
+		 */
+		function Handler() {}
+
+		Handler.prototype.when
+			= Handler.prototype.become
+			= Handler.prototype.notify // deprecated
+			= Handler.prototype.fail
+			= Handler.prototype._unreport
+			= Handler.prototype._report
+			= noop;
+
+		Handler.prototype._state = 0;
+
+		Handler.prototype.state = function() {
+			return this._state;
+		};
+
+		/**
+		 * Recursively collapse handler chain to find the handler
+		 * nearest to the fully resolved value.
+		 * @returns {object} handler nearest the fully resolved value
+		 */
+		Handler.prototype.join = function() {
+			var h = this;
+			while(h.handler !== void 0) {
+				h = h.handler;
+			}
+			return h;
+		};
+
+		Handler.prototype.chain = function(to, receiver, fulfilled, rejected, progress) {
+			this.when({
+				resolver: to,
+				receiver: receiver,
+				fulfilled: fulfilled,
+				rejected: rejected,
+				progress: progress
+			});
+		};
+
+		Handler.prototype.visit = function(receiver, fulfilled, rejected, progress) {
+			this.chain(failIfRejected, receiver, fulfilled, rejected, progress);
+		};
+
+		Handler.prototype.fold = function(f, z, c, to) {
+			this.when(new Fold(f, z, c, to));
+		};
+
+		/**
+		 * Handler that invokes fail() on any handler it becomes
+		 * @constructor
+		 */
+		function FailIfRejected() {}
+
+		inherit(Handler, FailIfRejected);
+
+		FailIfRejected.prototype.become = function(h) {
+			h.fail();
+		};
+
+		var failIfRejected = new FailIfRejected();
+
+		/**
+		 * Handler that manages a queue of consumers waiting on a pending promise
+		 * @constructor
+		 */
+		function Pending(receiver, inheritedContext) {
+			Promise.createContext(this, inheritedContext);
+
+			this.consumers = void 0;
+			this.receiver = receiver;
+			this.handler = void 0;
+			this.resolved = false;
+		}
+
+		inherit(Handler, Pending);
+
+		Pending.prototype._state = 0;
+
+		Pending.prototype.resolve = function(x) {
+			this.become(getHandler(x));
+		};
+
+		Pending.prototype.reject = function(x) {
+			if(this.resolved) {
+				return;
+			}
+
+			this.become(new Rejected(x));
+		};
+
+		Pending.prototype.join = function() {
+			if (!this.resolved) {
+				return this;
+			}
+
+			var h = this;
+
+			while (h.handler !== void 0) {
+				h = h.handler;
+				if (h === this) {
+					return this.handler = cycle();
+				}
+			}
+
+			return h;
+		};
+
+		Pending.prototype.run = function() {
+			var q = this.consumers;
+			var handler = this.handler;
+			this.handler = this.handler.join();
+			this.consumers = void 0;
+
+			for (var i = 0; i < q.length; ++i) {
+				handler.when(q[i]);
+			}
+		};
+
+		Pending.prototype.become = function(handler) {
+			if(this.resolved) {
+				return;
+			}
+
+			this.resolved = true;
+			this.handler = handler;
+			if(this.consumers !== void 0) {
+				tasks.enqueue(this);
+			}
+
+			if(this.context !== void 0) {
+				handler._report(this.context);
+			}
+		};
+
+		Pending.prototype.when = function(continuation) {
+			if(this.resolved) {
+				tasks.enqueue(new ContinuationTask(continuation, this.handler));
+			} else {
+				if(this.consumers === void 0) {
+					this.consumers = [continuation];
+				} else {
+					this.consumers.push(continuation);
+				}
+			}
+		};
+
+		/**
+		 * @deprecated
+		 */
+		Pending.prototype.notify = function(x) {
+			if(!this.resolved) {
+				tasks.enqueue(new ProgressTask(x, this));
+			}
+		};
+
+		Pending.prototype.fail = function(context) {
+			var c = typeof context === 'undefined' ? this.context : context;
+			this.resolved && this.handler.join().fail(c);
+		};
+
+		Pending.prototype._report = function(context) {
+			this.resolved && this.handler.join()._report(context);
+		};
+
+		Pending.prototype._unreport = function() {
+			this.resolved && this.handler.join()._unreport();
+		};
+
+		/**
+		 * Wrap another handler and force it into a future stack
+		 * @param {object} handler
+		 * @constructor
+		 */
+		function Async(handler) {
+			this.handler = handler;
+		}
+
+		inherit(Handler, Async);
+
+		Async.prototype.when = function(continuation) {
+			tasks.enqueue(new ContinuationTask(continuation, this));
+		};
+
+		Async.prototype._report = function(context) {
+			this.join()._report(context);
+		};
+
+		Async.prototype._unreport = function() {
+			this.join()._unreport();
+		};
+
+		/**
+		 * Handler that wraps an untrusted thenable and assimilates it in a future stack
+		 * @param {function} then
+		 * @param {{then: function}} thenable
+		 * @constructor
+		 */
+		function Thenable(then, thenable) {
+			Pending.call(this);
+			tasks.enqueue(new AssimilateTask(then, thenable, this));
+		}
+
+		inherit(Pending, Thenable);
+
+		/**
+		 * Handler for a fulfilled promise
+		 * @param {*} x fulfillment value
+		 * @constructor
+		 */
+		function Fulfilled(x) {
+			Promise.createContext(this);
+			this.value = x;
+		}
+
+		inherit(Handler, Fulfilled);
+
+		Fulfilled.prototype._state = 1;
+
+		Fulfilled.prototype.fold = function(f, z, c, to) {
+			runContinuation3(f, z, this, c, to);
+		};
+
+		Fulfilled.prototype.when = function(cont) {
+			runContinuation1(cont.fulfilled, this, cont.receiver, cont.resolver);
+		};
+
+		var errorId = 0;
+
+		/**
+		 * Handler for a rejected promise
+		 * @param {*} x rejection reason
+		 * @constructor
+		 */
+		function Rejected(x) {
+			Promise.createContext(this);
+
+			this.id = ++errorId;
+			this.value = x;
+			this.handled = false;
+			this.reported = false;
+
+			this._report();
+		}
+
+		inherit(Handler, Rejected);
+
+		Rejected.prototype._state = -1;
+
+		Rejected.prototype.fold = function(f, z, c, to) {
+			to.become(this);
+		};
+
+		Rejected.prototype.when = function(cont) {
+			if(typeof cont.rejected === 'function') {
+				this._unreport();
+			}
+			runContinuation1(cont.rejected, this, cont.receiver, cont.resolver);
+		};
+
+		Rejected.prototype._report = function(context) {
+			tasks.afterQueue(new ReportTask(this, context));
+		};
+
+		Rejected.prototype._unreport = function() {
+			if(this.handled) {
+				return;
+			}
+			this.handled = true;
+			tasks.afterQueue(new UnreportTask(this));
+		};
+
+		Rejected.prototype.fail = function(context) {
+			this.reported = true;
+			emitRejection('unhandledRejection', this);
+			Promise.onFatalRejection(this, context === void 0 ? this.context : context);
+		};
+
+		function ReportTask(rejection, context) {
+			this.rejection = rejection;
+			this.context = context;
+		}
+
+		ReportTask.prototype.run = function() {
+			if(!this.rejection.handled && !this.rejection.reported) {
+				this.rejection.reported = true;
+				emitRejection('unhandledRejection', this.rejection) ||
+					Promise.onPotentiallyUnhandledRejection(this.rejection, this.context);
+			}
+		};
+
+		function UnreportTask(rejection) {
+			this.rejection = rejection;
+		}
+
+		UnreportTask.prototype.run = function() {
+			if(this.rejection.reported) {
+				emitRejection('rejectionHandled', this.rejection) ||
+					Promise.onPotentiallyUnhandledRejectionHandled(this.rejection);
+			}
+		};
+
+		// Unhandled rejection hooks
+		// By default, everything is a noop
+
+		Promise.createContext
+			= Promise.enterContext
+			= Promise.exitContext
+			= Promise.onPotentiallyUnhandledRejection
+			= Promise.onPotentiallyUnhandledRejectionHandled
+			= Promise.onFatalRejection
+			= noop;
+
+		// Errors and singletons
+
+		var foreverPendingHandler = new Handler();
+		var foreverPendingPromise = new Promise(Handler, foreverPendingHandler);
+
+		function cycle() {
+			return new Rejected(new TypeError('Promise cycle'));
+		}
+
+		// Task runners
+
+		/**
+		 * Run a single consumer
+		 * @constructor
+		 */
+		function ContinuationTask(continuation, handler) {
+			this.continuation = continuation;
+			this.handler = handler;
+		}
+
+		ContinuationTask.prototype.run = function() {
+			this.handler.join().when(this.continuation);
+		};
+
+		/**
+		 * Run a queue of progress handlers
+		 * @constructor
+		 */
+		function ProgressTask(value, handler) {
+			this.handler = handler;
+			this.value = value;
+		}
+
+		ProgressTask.prototype.run = function() {
+			var q = this.handler.consumers;
+			if(q === void 0) {
+				return;
+			}
+
+			for (var c, i = 0; i < q.length; ++i) {
+				c = q[i];
+				runNotify(c.progress, this.value, this.handler, c.receiver, c.resolver);
+			}
+		};
+
+		/**
+		 * Assimilate a thenable, sending it's value to resolver
+		 * @param {function} then
+		 * @param {object|function} thenable
+		 * @param {object} resolver
+		 * @constructor
+		 */
+		function AssimilateTask(then, thenable, resolver) {
+			this._then = then;
+			this.thenable = thenable;
+			this.resolver = resolver;
+		}
+
+		AssimilateTask.prototype.run = function() {
+			var h = this.resolver;
+			tryAssimilate(this._then, this.thenable, _resolve, _reject, _notify);
+
+			function _resolve(x) { h.resolve(x); }
+			function _reject(x)  { h.reject(x); }
+			function _notify(x)  { h.notify(x); }
+		};
+
+		function tryAssimilate(then, thenable, resolve, reject, notify) {
+			try {
+				then.call(thenable, resolve, reject, notify);
+			} catch (e) {
+				reject(e);
+			}
+		}
+
+		/**
+		 * Fold a handler value with z
+		 * @constructor
+		 */
+		function Fold(f, z, c, to) {
+			this.f = f; this.z = z; this.c = c; this.to = to;
+			this.resolver = failIfRejected;
+			this.receiver = this;
+		}
+
+		Fold.prototype.fulfilled = function(x) {
+			this.f.call(this.c, this.z, x, this.to);
+		};
+
+		Fold.prototype.rejected = function(x) {
+			this.to.reject(x);
+		};
+
+		Fold.prototype.progress = function(x) {
+			this.to.notify(x);
+		};
+
+		// Other helpers
+
+		/**
+		 * @param {*} x
+		 * @returns {boolean} true iff x is a trusted Promise
+		 */
+		function isPromise(x) {
+			return x instanceof Promise;
+		}
+
+		/**
+		 * Test just enough to rule out primitives, in order to take faster
+		 * paths in some code
+		 * @param {*} x
+		 * @returns {boolean} false iff x is guaranteed *not* to be a thenable
+		 */
+		function maybeThenable(x) {
+			return (typeof x === 'object' || typeof x === 'function') && x !== null;
+		}
+
+		function runContinuation1(f, h, receiver, next) {
+			if(typeof f !== 'function') {
+				return next.become(h);
+			}
+
+			Promise.enterContext(h);
+			tryCatchReject(f, h.value, receiver, next);
+			Promise.exitContext();
+		}
+
+		function runContinuation3(f, x, h, receiver, next) {
+			if(typeof f !== 'function') {
+				return next.become(h);
+			}
+
+			Promise.enterContext(h);
+			tryCatchReject3(f, x, h.value, receiver, next);
+			Promise.exitContext();
+		}
+
+		/**
+		 * @deprecated
+		 */
+		function runNotify(f, x, h, receiver, next) {
+			if(typeof f !== 'function') {
+				return next.notify(x);
+			}
+
+			Promise.enterContext(h);
+			tryCatchReturn(f, x, receiver, next);
+			Promise.exitContext();
+		}
+
+		function tryCatch2(f, a, b) {
+			try {
+				return f(a, b);
+			} catch(e) {
+				return reject(e);
+			}
+		}
+
+		/**
+		 * Return f.call(thisArg, x), or if it throws return a rejected promise for
+		 * the thrown exception
+		 */
+		function tryCatchReject(f, x, thisArg, next) {
+			try {
+				next.become(getHandler(f.call(thisArg, x)));
+			} catch(e) {
+				next.become(new Rejected(e));
+			}
+		}
+
+		/**
+		 * Same as above, but includes the extra argument parameter.
+		 */
+		function tryCatchReject3(f, x, y, thisArg, next) {
+			try {
+				f.call(thisArg, x, y, next);
+			} catch(e) {
+				next.become(new Rejected(e));
+			}
+		}
+
+		/**
+		 * @deprecated
+		 * Return f.call(thisArg, x), or if it throws, *return* the exception
+		 */
+		function tryCatchReturn(f, x, thisArg, next) {
+			try {
+				next.notify(f.call(thisArg, x));
+			} catch(e) {
+				next.notify(e);
+			}
+		}
+
+		function inherit(Parent, Child) {
+			Child.prototype = objectCreate(Parent.prototype);
+			Child.prototype.constructor = Child;
+		}
+
+		function snd(x, y) {
+			return y;
+		}
+
+		function noop() {}
+
+		function initEmitRejection() {
+			/*global process, self, CustomEvent*/
+			if(typeof process !== 'undefined' && process !== null
+				&& typeof process.emit === 'function') {
+				// Returning falsy here means to call the default
+				// onPotentiallyUnhandledRejection API.  This is safe even in
+				// browserify since process.emit always returns falsy in browserify:
+				// https://github.com/defunctzombie/node-process/blob/master/browser.js#L40-L46
+				return function(type, rejection) {
+					return type === 'unhandledRejection'
+						? process.emit(type, rejection.value, rejection)
+						: process.emit(type, rejection);
+				};
+			} else if(typeof self !== 'undefined' && typeof CustomEvent === 'function') {
+				return (function(noop, self, CustomEvent) {
+					var hasCustomEvent = false;
+					try {
+						var ev = new CustomEvent('unhandledRejection');
+						hasCustomEvent = ev instanceof CustomEvent;
+					} catch (e) {}
+
+					return !hasCustomEvent ? noop : function(type, rejection) {
+						var ev = new CustomEvent(type, {
+							detail: {
+								reason: rejection.value,
+								key: rejection
+							},
+							bubbles: false,
+							cancelable: true
+						});
+
+						return !self.dispatchEvent(ev);
+					};
+				}(noop, self, CustomEvent));
+			}
+
+			return noop;
+		}
+
+		return Promise;
+	};
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+}).call(this,require('_process'))
+},{"_process":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/process/browser.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/state.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	return {
+		pending: toPendingState,
+		fulfilled: toFulfilledState,
+		rejected: toRejectedState,
+		inspect: inspect
+	};
+
+	function toPendingState() {
+		return { state: 'pending' };
+	}
+
+	function toRejectedState(e) {
+		return { state: 'rejected', reason: e };
+	}
+
+	function toFulfilledState(x) {
+		return { state: 'fulfilled', value: x };
+	}
+
+	function inspect(handler) {
+		var state = handler.state();
+		return state === 0 ? toPendingState()
+			 : state > 0   ? toFulfilledState(handler.value)
+			               : toRejectedState(handler.value);
+	}
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var PromiseMonitor = require('./monitor/PromiseMonitor');
+	var ConsoleReporter = require('./monitor/ConsoleReporter');
+
+	var promiseMonitor = new PromiseMonitor(new ConsoleReporter());
+
+	return function(Promise) {
+		return promiseMonitor.monitor(Promise);
+	};
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"./monitor/ConsoleReporter":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/ConsoleReporter.js","./monitor/PromiseMonitor":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/PromiseMonitor.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/ConsoleReporter.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var error = require('./error');
+	var unhandledRejectionsMsg = '[promises] Unhandled rejections: ';
+	var allHandledMsg = '[promises] All previously unhandled rejections have now been handled';
+
+	function ConsoleReporter() {
+		this._previouslyReported = false;
+	}
+
+	ConsoleReporter.prototype = initDefaultLogging();
+
+	ConsoleReporter.prototype.log = function(traces) {
+		if(traces.length === 0) {
+			if(this._previouslyReported) {
+				this._previouslyReported = false;
+				this.msg(allHandledMsg);
+			}
+			return;
+		}
+
+		this._previouslyReported = true;
+		this.groupStart(unhandledRejectionsMsg + traces.length);
+		try {
+			this._log(traces);
+		} finally {
+			this.groupEnd();
+		}
+	};
+
+	ConsoleReporter.prototype._log = function(traces) {
+		for(var i=0; i<traces.length; ++i) {
+			this.warn(error.format(traces[i]));
+		}
+	};
+
+	function initDefaultLogging() {
+		/*jshint maxcomplexity:7*/
+		var log, warn, groupStart, groupEnd;
+
+		if(typeof console === 'undefined') {
+			log = warn = consoleNotAvailable;
+		} else {
+			// Alias console to prevent things like uglify's drop_console option from
+			// removing console.log/error. Unhandled rejections fall into the same
+			// category as uncaught exceptions, and build tools shouldn't silence them.
+			var localConsole = console;
+			if(typeof localConsole.error === 'function'
+				&& typeof localConsole.dir === 'function') {
+				warn = function(s) {
+					localConsole.error(s);
+				};
+
+				log = function(s) {
+					localConsole.log(s);
+				};
+
+				if(typeof localConsole.groupCollapsed === 'function') {
+					groupStart = function(s) {
+						localConsole.groupCollapsed(s);
+					};
+					groupEnd = function() {
+						localConsole.groupEnd();
+					};
+				}
+			} else {
+				// IE8 has console.log and JSON, so we can make a
+				// reasonably useful warn() from those.
+				// Credit to webpro (https://github.com/webpro) for this idea
+				// typeof localConsole.log will return 'object' in IE8, so can't test it with === 'function'
+				// Since this is more of a corner case for IE8, I'm ok to check it with !== 'undefined' to reduce complexity
+				if (typeof localConsole.log !== 'undefined' && typeof JSON !== 'undefined') {
+					log = warn = function(x) {
+						if (typeof x !== 'string') {
+							try {
+								x = JSON.stringify(x);
+							} catch (e) {
+							}
+						}
+						localConsole.log(x);
+					};
+				} else {
+					log = warn = consoleNotAvailable;
+				}
+			}
+		}
+
+		return {
+			msg: log,
+			warn: warn,
+			groupStart: groupStart || warn,
+			groupEnd: groupEnd || consoleNotAvailable
+		};
+	}
+
+	function consoleNotAvailable() {}
+
+	return ConsoleReporter;
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"./error":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/error.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/PromiseMonitor.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var defaultStackJumpSeparator = 'from execution context:';
+	var defaultStackFilter = /[\s\(\/\\](node|module|timers)\.js:|when([\/\\]{1,2}(lib|monitor|es6-shim)[\/\\]{1,2}|\.js)|(new\sPromise)\b|(\b(PromiseMonitor|ConsoleReporter|Scheduler|RunHandlerTask|ProgressTask|Promise|.*Handler)\.[\w_]\w\w+\b)|\b(tryCatch\w+|getHandler\w*)\b/i;
+
+	var setTimer = require('../lib/env').setTimer;
+	var error = require('./error');
+
+	var executionContext = [];
+
+	function PromiseMonitor(reporter) {
+		this.logDelay = 0;
+		this.stackFilter = defaultStackFilter;
+		this.stackJumpSeparator = defaultStackJumpSeparator;
+		this.filterDuplicateFrames = true;
+
+		this._reporter = reporter;
+		if(typeof reporter.configurePromiseMonitor === 'function') {
+			reporter.configurePromiseMonitor(this);
+		}
+
+		this._traces = [];
+		this._traceTask = 0;
+
+		var self = this;
+		this._doLogTraces = function() {
+			self._logTraces();
+		};
+	}
+
+	PromiseMonitor.prototype.monitor = function(Promise) {
+		var self = this;
+		Promise.createContext = function(p, context) {
+			p.context = self.createContext(p, context);
+		};
+
+		Promise.enterContext = function(p) {
+			executionContext.push(p.context);
+		};
+
+		Promise.exitContext = function() {
+			executionContext.pop();
+		};
+
+		Promise.onPotentiallyUnhandledRejection = function(rejection, extraContext) {
+			return self.addTrace(rejection, extraContext);
+		};
+
+		Promise.onPotentiallyUnhandledRejectionHandled = function(rejection) {
+			return self.removeTrace(rejection);
+		};
+
+		Promise.onFatalRejection = function(rejection, extraContext) {
+			return self.fatal(rejection, extraContext);
+		};
+
+		return this;
+	};
+
+	PromiseMonitor.prototype.createContext = function(at, parentContext) {
+		var context = {
+			parent: parentContext || executionContext[executionContext.length - 1],
+			stack: void 0
+		};
+		error.captureStack(context, at.constructor);
+		return context;
+	};
+
+	PromiseMonitor.prototype.addTrace = function(handler, extraContext) {
+		var t, i;
+
+		for(i = this._traces.length-1; i >= 0; --i) {
+			t = this._traces[i];
+			if(t.handler === handler) {
+				break;
+			}
+		}
+
+		if(i >= 0) {
+			t.extraContext = extraContext;
+		} else {
+			this._traces.push({
+				handler: handler,
+				extraContext: extraContext
+			});
+		}
+
+		this.logTraces();
+	};
+
+	PromiseMonitor.prototype.removeTrace = function(/*handler*/) {
+		this.logTraces();
+	};
+
+	PromiseMonitor.prototype.fatal = function(handler, extraContext) {
+		var err = new Error();
+		err.stack = this._createLongTrace(handler.value, handler.context, extraContext).join('\n');
+		setTimer(function() {
+			throw err;
+		}, 0);
+	};
+
+	PromiseMonitor.prototype.logTraces = function() {
+		if(!this._traceTask) {
+			this._traceTask = setTimer(this._doLogTraces, this.logDelay);
+		}
+	};
+
+	PromiseMonitor.prototype._logTraces = function() {
+		this._traceTask = void 0;
+		this._traces = this._traces.filter(filterHandled);
+		this._reporter.log(this.formatTraces(this._traces));
+	};
+
+
+	PromiseMonitor.prototype.formatTraces = function(traces) {
+		return traces.map(function(t) {
+			return this._createLongTrace(t.handler.value, t.handler.context, t.extraContext);
+		}, this);
+	};
+
+	PromiseMonitor.prototype._createLongTrace = function(e, context, extraContext) {
+		var trace = error.parse(e) || [String(e) + ' (WARNING: non-Error used)'];
+		trace = filterFrames(this.stackFilter, trace, 0);
+		this._appendContext(trace, context);
+		this._appendContext(trace, extraContext);
+		return this.filterDuplicateFrames ? this._removeDuplicates(trace) : trace;
+	};
+
+	PromiseMonitor.prototype._removeDuplicates = function(trace) {
+		var seen = {};
+		var sep = this.stackJumpSeparator;
+		var count = 0;
+		return trace.reduceRight(function(deduped, line, i) {
+			if(i === 0) {
+				deduped.unshift(line);
+			} else if(line === sep) {
+				if(count > 0) {
+					deduped.unshift(line);
+					count = 0;
+				}
+			} else if(!seen[line]) {
+				seen[line] = true;
+				deduped.unshift(line);
+				++count;
+			}
+			return deduped;
+		}, []);
+	};
+
+	PromiseMonitor.prototype._appendContext = function(trace, context) {
+		trace.push.apply(trace, this._createTrace(context));
+	};
+
+	PromiseMonitor.prototype._createTrace = function(traceChain) {
+		var trace = [];
+		var stack;
+
+		while(traceChain) {
+			stack = error.parse(traceChain);
+
+			if (stack) {
+				stack = filterFrames(this.stackFilter, stack);
+				appendStack(trace, stack, this.stackJumpSeparator);
+			}
+
+			traceChain = traceChain.parent;
+		}
+
+		return trace;
+	};
+
+	function appendStack(trace, stack, separator) {
+		if (stack.length > 1) {
+			stack[0] = separator;
+			trace.push.apply(trace, stack);
+		}
+	}
+
+	function filterFrames(stackFilter, stack) {
+		return stack.filter(function(frame) {
+			return !stackFilter.test(frame);
+		});
+	}
+
+	function filterHandled(t) {
+		return !t.handler.handled;
+	}
+
+	return PromiseMonitor;
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"../lib/env":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/env.js","./error":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/error.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/console.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function(require) {
+
+	var monitor = require('../monitor');
+	var Promise = require('../when').Promise;
+
+	return monitor(Promise);
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(require); }));
+
+},{"../monitor":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor.js","../when":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/monitor/error.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+/** @author Brian Cavalier */
+/** @author John Hann */
+
+(function(define) { 'use strict';
+define(function() {
+
+	var parse, captureStack, format;
+
+	if(Error.captureStackTrace) {
+		// Use Error.captureStackTrace if available
+		parse = function(e) {
+			return e && e.stack && e.stack.split('\n');
+		};
+
+		format = formatAsString;
+		captureStack = Error.captureStackTrace;
+
+	} else {
+		// Otherwise, do minimal feature detection to determine
+		// how to capture and format reasonable stacks.
+		parse = function(e) {
+			var stack = e && e.stack && e.stack.split('\n');
+			if(stack && e.message) {
+				stack.unshift(e.message);
+			}
+			return stack;
+		};
+
+		(function() {
+			var e = new Error();
+			if(typeof e.stack !== 'string') {
+				format = formatAsString;
+				captureStack = captureSpiderMonkeyStack;
+			} else {
+				format = formatAsErrorWithStack;
+				captureStack = useStackDirectly;
+			}
+		}());
+	}
+
+	function captureSpiderMonkeyStack(host) {
+		try {
+			throw new Error();
+		} catch(err) {
+			host.stack = err.stack;
+		}
+	}
+
+	function useStackDirectly(host) {
+		host.stack = new Error().stack;
+	}
+
+	function formatAsString(longTrace) {
+		return join(longTrace);
+	}
+
+	function formatAsErrorWithStack(longTrace) {
+		var e = new Error();
+		e.stack = formatAsString(longTrace);
+		return e;
+	}
+
+	// About 5-10x faster than String.prototype.join o_O
+	function join(a) {
+		var sep = false;
+		var s = '';
+		for(var i=0; i< a.length; ++i) {
+			if(sep) {
+				s += '\n' + a[i];
+			} else {
+				s+= a[i];
+				sep = true;
+			}
+		}
+		return s;
+	}
+
+	return {
+		parse: parse,
+		format: format,
+		captureStack: captureStack
+	};
+
+});
+}(typeof define === 'function' && define.amd ? define : function(factory) { module.exports = factory(); }));
+
+},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/when.js":[function(require,module,exports){
+/** @license MIT License (c) copyright 2010-2014 original author or authors */
+
+/**
+ * Promises/A+ and when() implementation
+ * when is part of the cujoJS family of libraries (http://cujojs.com/)
+ * @author Brian Cavalier
+ * @author John Hann
+ */
+(function(define) { 'use strict';
+define(function (require) {
+
+	var timed = require('./lib/decorators/timed');
+	var array = require('./lib/decorators/array');
+	var flow = require('./lib/decorators/flow');
+	var fold = require('./lib/decorators/fold');
+	var inspect = require('./lib/decorators/inspect');
+	var generate = require('./lib/decorators/iterate');
+	var progress = require('./lib/decorators/progress');
+	var withThis = require('./lib/decorators/with');
+	var unhandledRejection = require('./lib/decorators/unhandledRejection');
+	var TimeoutError = require('./lib/TimeoutError');
+
+	var Promise = [array, flow, fold, generate, progress,
+		inspect, withThis, timed, unhandledRejection]
+		.reduce(function(Promise, feature) {
+			return feature(Promise);
+		}, require('./lib/Promise'));
+
+	var apply = require('./lib/apply')(Promise);
+
+	// Public API
+
+	when.promise     = promise;              // Create a pending promise
+	when.resolve     = Promise.resolve;      // Create a resolved promise
+	when.reject      = Promise.reject;       // Create a rejected promise
+
+	when.lift        = lift;                 // lift a function to return promises
+	when['try']      = attempt;              // call a function and return a promise
+	when.attempt     = attempt;              // alias for when.try
+
+	when.iterate     = Promise.iterate;      // DEPRECATED (use cujojs/most streams) Generate a stream of promises
+	when.unfold      = Promise.unfold;       // DEPRECATED (use cujojs/most streams) Generate a stream of promises
+
+	when.join        = join;                 // Join 2 or more promises
+
+	when.all         = all;                  // Resolve a list of promises
+	when.settle      = settle;               // Settle a list of promises
+
+	when.any         = lift(Promise.any);    // One-winner race
+	when.some        = lift(Promise.some);   // Multi-winner race
+	when.race        = lift(Promise.race);   // First-to-settle race
+
+	when.map         = map;                  // Array.map() for promises
+	when.filter      = filter;               // Array.filter() for promises
+	when.reduce      = lift(Promise.reduce);       // Array.reduce() for promises
+	when.reduceRight = lift(Promise.reduceRight);  // Array.reduceRight() for promises
+
+	when.isPromiseLike = isPromiseLike;      // Is something promise-like, aka thenable
+
+	when.Promise     = Promise;              // Promise constructor
+	when.defer       = defer;                // Create a {promise, resolve, reject} tuple
+
+	// Error types
+
+	when.TimeoutError = TimeoutError;
+
+	/**
+	 * Get a trusted promise for x, or by transforming x with onFulfilled
+	 *
+	 * @param {*} x
+	 * @param {function?} onFulfilled callback to be called when x is
+	 *   successfully fulfilled.  If promiseOrValue is an immediate value, callback
+	 *   will be invoked immediately.
+	 * @param {function?} onRejected callback to be called when x is
+	 *   rejected.
+	 * @param {function?} onProgress callback to be called when progress updates
+	 *   are issued for x. @deprecated
+	 * @returns {Promise} a new promise that will fulfill with the return
+	 *   value of callback or errback or the completion value of promiseOrValue if
+	 *   callback and/or errback is not supplied.
+	 */
+	function when(x, onFulfilled, onRejected, onProgress) {
+		var p = Promise.resolve(x);
+		if (arguments.length < 2) {
+			return p;
+		}
+
+		return p.then(onFulfilled, onRejected, onProgress);
+	}
+
+	/**
+	 * Creates a new promise whose fate is determined by resolver.
+	 * @param {function} resolver function(resolve, reject, notify)
+	 * @returns {Promise} promise whose fate is determine by resolver
+	 */
+	function promise(resolver) {
+		return new Promise(resolver);
+	}
+
+	/**
+	 * Lift the supplied function, creating a version of f that returns
+	 * promises, and accepts promises as arguments.
+	 * @param {function} f
+	 * @returns {Function} version of f that returns promises
+	 */
+	function lift(f) {
+		return function() {
+			for(var i=0, l=arguments.length, a=new Array(l); i<l; ++i) {
+				a[i] = arguments[i];
+			}
+			return apply(f, this, a);
+		};
+	}
+
+	/**
+	 * Call f in a future turn, with the supplied args, and return a promise
+	 * for the result.
+	 * @param {function} f
+	 * @returns {Promise}
+	 */
+	function attempt(f /*, args... */) {
+		/*jshint validthis:true */
+		for(var i=0, l=arguments.length-1, a=new Array(l); i<l; ++i) {
+			a[i] = arguments[i+1];
+		}
+		return apply(f, this, a);
+	}
+
+	/**
+	 * Creates a {promise, resolver} pair, either or both of which
+	 * may be given out safely to consumers.
+	 * @return {{promise: Promise, resolve: function, reject: function, notify: function}}
+	 */
+	function defer() {
+		return new Deferred();
+	}
+
+	function Deferred() {
+		var p = Promise._defer();
+
+		function resolve(x) { p._handler.resolve(x); }
+		function reject(x) { p._handler.reject(x); }
+		function notify(x) { p._handler.notify(x); }
+
+		this.promise = p;
+		this.resolve = resolve;
+		this.reject = reject;
+		this.notify = notify;
+		this.resolver = { resolve: resolve, reject: reject, notify: notify };
+	}
+
+	/**
+	 * Determines if x is promise-like, i.e. a thenable object
+	 * NOTE: Will return true for *any thenable object*, and isn't truly
+	 * safe, since it may attempt to access the `then` property of x (i.e.
+	 *  clever/malicious getters may do weird things)
+	 * @param {*} x anything
+	 * @returns {boolean} true if x is promise-like
+	 */
+	function isPromiseLike(x) {
+		return x && typeof x.then === 'function';
+	}
+
+	/**
+	 * Return a promise that will resolve only once all the supplied arguments
+	 * have resolved. The resolution value of the returned promise will be an array
+	 * containing the resolution values of each of the arguments.
+	 * @param {...*} arguments may be a mix of promises and values
+	 * @returns {Promise}
+	 */
+	function join(/* ...promises */) {
+		return Promise.all(arguments);
+	}
+
+	/**
+	 * Return a promise that will fulfill once all input promises have
+	 * fulfilled, or reject when any one input promise rejects.
+	 * @param {array|Promise} promises array (or promise for an array) of promises
+	 * @returns {Promise}
+	 */
+	function all(promises) {
+		return when(promises, Promise.all);
+	}
+
+	/**
+	 * Return a promise that will always fulfill with an array containing
+	 * the outcome states of all input promises.  The returned promise
+	 * will only reject if `promises` itself is a rejected promise.
+	 * @param {array|Promise} promises array (or promise for an array) of promises
+	 * @returns {Promise} promise for array of settled state descriptors
+	 */
+	function settle(promises) {
+		return when(promises, Promise.settle);
+	}
+
+	/**
+	 * Promise-aware array map function, similar to `Array.prototype.map()`,
+	 * but input array may contain promises or values.
+	 * @param {Array|Promise} promises array of anything, may contain promises and values
+	 * @param {function(x:*, index:Number):*} mapFunc map function which may
+	 *  return a promise or value
+	 * @returns {Promise} promise that will fulfill with an array of mapped values
+	 *  or reject if any input promise rejects.
+	 */
+	function map(promises, mapFunc) {
+		return when(promises, function(promises) {
+			return Promise.map(promises, mapFunc);
+		});
+	}
+
+	/**
+	 * Filter the provided array of promises using the provided predicate.  Input may
+	 * contain promises and values
+	 * @param {Array|Promise} promises array of promises and values
+	 * @param {function(x:*, index:Number):boolean} predicate filtering predicate.
+	 *  Must return truthy (or promise for truthy) for items to retain.
+	 * @returns {Promise} promise that will fulfill with an array containing all items
+	 *  for which predicate returned truthy.
+	 */
+	function filter(promises, predicate) {
+		return when(promises, function(promises) {
+			return Promise.filter(promises, predicate);
+		});
+	}
+
+	return when;
+});
+})(typeof define === 'function' && define.amd ? define : function (factory) { module.exports = factory(require); });
+
+},{"./lib/Promise":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/Promise.js","./lib/TimeoutError":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/TimeoutError.js","./lib/apply":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/apply.js","./lib/decorators/array":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/array.js","./lib/decorators/flow":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/flow.js","./lib/decorators/fold":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/fold.js","./lib/decorators/inspect":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/inspect.js","./lib/decorators/iterate":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/iterate.js","./lib/decorators/progress":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/progress.js","./lib/decorators/timed":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/timed.js","./lib/decorators/unhandledRejection":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/unhandledRejection.js","./lib/decorators/with":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/when/lib/decorators/with.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/app.react.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -72752,22 +72832,33 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _queryString = require('query-string');
+
+var _queryString2 = _interopRequireDefault(_queryString);
+
 var FUSEKI_BASE = "http://demo-1.semiot.ru:3030/ds/query";
 var ANALYZING_SERVICE_BASE = "http://demo-1.semiot.ru:8085/";
+
+var params = _queryString2["default"].parse(location.search);
+var INITIAL_TIME_BOUNDS = [params.from ? parseInt(params.from) : Date.now() - 1 * 3600 * 1000, params.to ? parseInt(params.to) : Date.now() + 10 * 1000];
 
 exports["default"] = {
     URLS: {
         tiles: "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ",
         endpoint: FUSEKI_BASE,
-        obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/1"
+        obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/1/events?from={0}&to={1}"
     },
+    INITIAL_TIME_BOUNDS: INITIAL_TIME_BOUNDS,
     TOPICS: {
         observations: 'ru.semiot.alerts'
     }
 };
 module.exports = exports["default"];
 
-},{}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/index.js":[function(require,module,exports){
+},{"query-string":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/query-string/index.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/index.js":[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -72781,6 +72872,15 @@ var _reactDom = require('react-dom');
 var _componentsAppReact = require('./components/app.react');
 
 var _componentsAppReact2 = _interopRequireDefault(_componentsAppReact);
+
+// string formatting god, follow him!
+String.prototype.format = function () {
+    var pattern = /\{\d+\}/g;
+    var args = arguments;
+    return this.replace(pattern, function (capture) {
+        return args[capture.match(/\d+/)];
+    });
+};
 
 (0, _reactDom.render)(_react2['default'].createElement(_componentsAppReact2['default'], null), document.getElementById('main-wrapper'));
 
@@ -72807,10 +72907,12 @@ var _observationsStore = require('./observations-store');
 
 var _observationsStore2 = _interopRequireDefault(_observationsStore);
 
+var _config = require('../config');
+
 var state = {
     currentTime: Date.now(),
     currentSnapshot: null,
-    timeBounds: [Date.now() - 12 * 3600 * 1000, Date.now() + 10 * 1000],
+    timeBounds: _config.INITIAL_TIME_BOUNDS,
     showMapLabels: false,
     isPlaying: false
 };
@@ -72929,7 +73031,7 @@ var AppStateStore = (function (_EventEmitter) {
 exports['default'] = new AppStateStore();
 module.exports = exports['default'];
 
-},{"./observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","events":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/events/events.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js":[function(require,module,exports){
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","./observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","events":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/events/events.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js":[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, '__esModule', {
@@ -72992,7 +73094,9 @@ var ObservationStore = (function (_EventEmitter) {
 
             var promise = _jquery2['default'].Deferred();
             this.loadSensors().done(function () {
-                (0, _utilsAnalyzingService.loadLastObservations)().done(function (observations) {
+                var INITIAL_TIME_BOUNDS = _config2['default'].INITIAL_TIME_BOUNDS;
+
+                (0, _utilsAnalyzingService.loadLastObservations)(INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done(function (observations) {
                     var promises = [];
                     observations.map(function (observation) {
                         var localPromise = _jquery2['default'].Deferred();
@@ -73181,16 +73285,20 @@ var _config = require('../config');
 
 var _config2 = _interopRequireDefault(_config);
 
-function loadLastObservations() {
+function loadLastObservations(_from, to) {
+
+    console.info('loading archive data from ' + new Date(_from) + ' to ' + new Date(to) + '...');
+
     var promise = _jquery2['default'].Deferred();
 
     _jquery2['default'].ajax({
-        url: _config2['default'].URLS.obs_snapshot,
+        url: _config2['default'].URLS.obs_snapshot.format(_from, to),
         success: function success(data) {
-            promise.resolve(data.events ? data.events[0] : []);
+            promise.resolve(data);
         },
         error: function error() {
             console.error('failed to load observation snapshot');
+            promise.resolve([]);
         }
     });
 
