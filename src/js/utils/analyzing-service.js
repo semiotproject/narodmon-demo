@@ -20,3 +20,20 @@ export function loadLastObservations(_from, to) {
 
     return promise;
 }
+
+export function parseObservations(obs) {
+    const promise = $.Deferred();
+
+    // since we get JSON, no need to parseObservations explicitly; just parse numbers to float
+    promise.resolve(obs.map((o) => {
+        /*
+        o.avg = parseFloat(o.avg);
+        o.temp = parseFloat(o.temp);
+        o.diff = parseFloat(o.diff);
+        o.group = parseFloat(o.group);
+        */
+        return o;
+    }));
+
+    return promise;
+}

@@ -1,9 +1,9 @@
 "use strict";
 
 import { EventEmitter } from 'events';
-import { loadLastObservations } from '../utils/analyzing-service';
+import { loadLastObservations, parseObservations } from '../utils/analyzing-service';
 import wamp from '../utils/wamp';
-import { parseObservations } from '../utils/turtle';
+// import { parseObservations } from '../utils/turtle';
 import CONFIG from '../config';
 import { loadLocations } from '../utils/sparql';
 import $ from 'jquery';
