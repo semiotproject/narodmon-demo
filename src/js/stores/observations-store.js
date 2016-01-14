@@ -62,6 +62,7 @@ class ObservationStore extends EventEmitter {
             lead: 0,
             rest: 0
         };
+        let avgTemp = 0;
         obs.map((o) => {
             if ((o.group === 1 && o.avg > 0) || (o.group === 2 && o.avg < 0)) {
                 o.lead = true;
@@ -73,6 +74,7 @@ class ObservationStore extends EventEmitter {
                     maxDiff['rest'] = Math.abs(o.diff);
                 }
             }
+            avgTemp += o.temp;
         });
 
         // normalize observations
@@ -97,6 +99,7 @@ class ObservationStore extends EventEmitter {
                 color: o.avg > 0 ? "red" : "blue",
                 group: o.group,
                 avg: o.avg,
+                avgTemp: avgTemp / obs.length,
                 temp: o.temp,
                 diff: o.diff,
                 intensity

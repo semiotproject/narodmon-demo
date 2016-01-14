@@ -4,6 +4,7 @@ import ObservationStore from '../stores/observations-store';
 import PlayButton from './play-button.react';
 import vis from 'vis';
 import moment from 'moment';
+import CONFIG from '../config';
 
 export default class Legend extends React.Component {
 
@@ -21,6 +22,9 @@ export default class Legend extends React.Component {
         };
         this.handleShowLabelsChange = () => {
             AppStateStore.showMapLabels = !AppStateStore.showMapLabels;
+        };
+        this.handleModeChange = (mode) => {
+            AppStateStore.mode = mode;
         };
     }
 
@@ -45,9 +49,31 @@ export default class Legend extends React.Component {
         } else {
             icon = <i className="glyphicon glyphicon-minus"></i>;
         }
+        console.log(AppStateStore.mode, CONFIG.MODES);
         return (
             <div id="legend">
                 <div className="legend-body">
+                    <p>
+                        <span>Mode:</span>
+                        <label>
+                            <input
+                                type="radio"
+                                value={CONFIG.MODES.diff}
+                                onChange={this.handleModeChange.bind(this, CONFIG.MODES.diff)}
+                                checked={AppStateStore.mode === CONFIG.MODES.diff}
+                            />
+                            <span>difference</span>
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                value={CONFIG.MODES.temp}
+                                onChange={this.handleModeChange.bind(this, CONFIG.MODES.temp)}
+                                checked={AppStateStore.mode === CONFIG.MODES.temp}
+                            />
+                            <span>temperature</span>
+                        </label>
+                    </p>
                     <p>Red is warmer</p>
                     <p>Blue is colder</p>
                     <p>Average temperature: {temp} {icon} ({avgDiff})</p>

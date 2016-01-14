@@ -16,6 +16,10 @@ export default {
         obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/1/events?from={0}&to={1}"
     },
     INITIAL_TIME_BOUNDS,
+    MODES: {
+        diff: 'DIFF_MODE',
+        temp: 'TEMPERATURE_MODE'
+    },
     TOPICS: {
         observations: 'ru.semiot.alerts'
     }

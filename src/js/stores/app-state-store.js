@@ -1,12 +1,13 @@
 import { EventEmitter } from 'events';
 import ObservationStore from './observations-store';
-import { INITIAL_TIME_BOUNDS } from '../config';
+import { INITIAL_TIME_BOUNDS, MODES } from '../config';
 
 const state = {
     currentTime: Date.now(),
     currentSnapshot: null,
     timeBounds: INITIAL_TIME_BOUNDS,
     showMapLabels: false,
+    mode: MODES.diff,
     isPlaying: false
 };
 
@@ -95,6 +96,14 @@ class AppStateStore extends EventEmitter {
     }
     set showMapLabels(flag) {
         state.showMapLabels = flag;
+        this.emit('update');
+    }
+
+    get mode() {
+        return state.mode;
+    }
+    set mode(mode) {
+        state.mode = mode;
         this.emit('update');
     }
 }
