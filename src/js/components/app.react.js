@@ -59,7 +59,8 @@ export default class App extends React.Component {
     setObservations() {
         console.info(`setting new observations..`);
         this.setState({
-            observations: ObservationStore.getObservationsForSnapshot(AppStateStore.currentSnapshot)
+            observations: ObservationStore.getObservationsForSnapshot(AppStateStore.currentSnapshot),
+            currentSnapshot: AppStateStore.currentSnapshot
         }, () => {
             this.setHeatMap();
         });
