@@ -84693,6 +84693,10 @@ var _legendReact = require('./legend.react');
 
 var _legendReact2 = _interopRequireDefault(_legendReact);
 
+var _navReact = require('./nav.react');
+
+var _navReact2 = _interopRequireDefault(_navReact);
+
 var HEAT_RADIUS = 25;
 
 var App = (function (_React$Component) {
@@ -84808,19 +84812,7 @@ var App = (function (_React$Component) {
             return _react2['default'].createElement(
                 'div',
                 null,
-                _react2['default'].createElement(
-                    'nav',
-                    { className: 'navbar navbar-inverse navbar-fixed-top' },
-                    _react2['default'].createElement(
-                        'div',
-                        { className: 'navbar-collapse collapse' },
-                        _react2['default'].createElement(
-                            'a',
-                            { href: '', className: 'navbar-brand' },
-                            'Unequal Temperature Changes (Demo)'
-                        )
-                    )
-                ),
+                _react2['default'].createElement(_navReact2['default'], null),
                 content
             );
         }
@@ -84832,7 +84824,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","../stores/observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","../voronoi.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/voronoi.js","./legend.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js","./timeline.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/timeline.react.js","leaflet":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/leaflet/dist/leaflet-src.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js":[function(require,module,exports){
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","../stores/observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","../voronoi.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/voronoi.js","./legend.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js","./nav.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/nav.react.js","./timeline.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/timeline.react.js","leaflet":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/leaflet/dist/leaflet-src.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -84843,11 +84835,15 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
+var _MODE_DESCRIPTION;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var _react = require('react');
 
@@ -84877,6 +84873,8 @@ var _config = require('../config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var MODE_DESCRIPTION = (_MODE_DESCRIPTION = {}, _defineProperty(_MODE_DESCRIPTION, _config2['default'].MODES.diff, "This is difference mode description"), _defineProperty(_MODE_DESCRIPTION, _config2['default'].MODES.temp, "This is temperature mode description"), _MODE_DESCRIPTION);
+
 var Legend = (function (_React$Component) {
     _inherits(Legend, _React$Component);
 
@@ -84901,6 +84899,9 @@ var Legend = (function (_React$Component) {
         };
         this.handleModeChange = function (mode) {
             _storesAppStateStore2['default'].mode = mode;
+        };
+        this.handleCityChange = function (e) {
+            _storesAppStateStore2['default'].city = _this.refs.city.value;
         };
     }
 
@@ -84929,7 +84930,6 @@ var Legend = (function (_React$Component) {
             } else {
                 icon = _react2['default'].createElement('i', { className: 'glyphicon glyphicon-minus' });
             }
-            console.log(_storesAppStateStore2['default'].mode, _config2['default'].MODES);
             return _react2['default'].createElement(
                 'div',
                 { id: 'legend' },
@@ -84939,51 +84939,21 @@ var Legend = (function (_React$Component) {
                     _react2['default'].createElement(
                         'p',
                         null,
+                        'Current city:',
                         _react2['default'].createElement(
-                            'span',
-                            null,
-                            'Mode:'
-                        ),
-                        _react2['default'].createElement(
-                            'label',
-                            null,
-                            _react2['default'].createElement('input', {
-                                type: 'radio',
-                                value: _config2['default'].MODES.diff,
-                                onChange: this.handleModeChange.bind(this, _config2['default'].MODES.diff),
-                                checked: _storesAppStateStore2['default'].mode === _config2['default'].MODES.diff
-                            }),
+                            'select',
+                            { ref: 'city', defaultValue: _storesAppStateStore2['default'].city, onChange: this.handleCityChange },
                             _react2['default'].createElement(
-                                'span',
-                                null,
-                                'difference'
-                            )
-                        ),
-                        _react2['default'].createElement(
-                            'label',
-                            null,
-                            _react2['default'].createElement('input', {
-                                type: 'radio',
-                                value: _config2['default'].MODES.temp,
-                                onChange: this.handleModeChange.bind(this, _config2['default'].MODES.temp),
-                                checked: _storesAppStateStore2['default'].mode === _config2['default'].MODES.temp
-                            }),
+                                'option',
+                                { value: _config2['default'].CITIES.Moscow },
+                                'Moscow'
+                            ),
                             _react2['default'].createElement(
-                                'span',
-                                null,
-                                'temperature'
+                                'option',
+                                { value: _config2['default'].CITIES['Saint-Petersburg'], disabled: true },
+                                'Saint-Petersburg'
                             )
                         )
-                    ),
-                    _react2['default'].createElement(
-                        'p',
-                        null,
-                        'Red is warmer'
-                    ),
-                    _react2['default'].createElement(
-                        'p',
-                        null,
-                        'Blue is colder'
                     ),
                     _react2['default'].createElement(
                         'p',
@@ -84999,7 +84969,7 @@ var Legend = (function (_React$Component) {
                     _react2['default'].createElement(
                         'p',
                         null,
-                        'Show areas\' temperature: ',
+                        'Show areas\' labels: ',
                         _react2['default'].createElement('input', { type: 'checkbox', onChange: this.handleShowLabelsChange, defaultChecked: _storesAppStateStore2['default'].showMapLabels })
                     ),
                     _react2['default'].createElement(
@@ -85009,7 +84979,12 @@ var Legend = (function (_React$Component) {
                         (0, _moment2['default'])(this.state.currentTime).format('DD/MM/YY, hh:mm:ss')
                     )
                 ),
-                _react2['default'].createElement(_playButtonReact2['default'], null)
+                _react2['default'].createElement(_playButtonReact2['default'], null),
+                _react2['default'].createElement(
+                    'p',
+                    null,
+                    MODE_DESCRIPTION[_storesAppStateStore2['default'].mode]
+                )
             );
         }
     }]);
@@ -85020,7 +84995,127 @@ var Legend = (function (_React$Component) {
 exports['default'] = Legend;
 module.exports = exports['default'];
 
-},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","../stores/observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","./play-button.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js","moment":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/moment/moment.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js","vis":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/vis/dist/vis.min.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js":[function(require,module,exports){
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","../stores/observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","./play-button.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js","moment":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/moment/moment.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js","vis":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/vis/dist/vis.min.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/nav.react.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _storesAppStateStore = require('../stores/app-state-store');
+
+var _storesAppStateStore2 = _interopRequireDefault(_storesAppStateStore);
+
+var _config = require('../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var Nav = (function (_React$Component) {
+    _inherits(Nav, _React$Component);
+
+    function Nav(props) {
+        var _this = this;
+
+        _classCallCheck(this, Nav);
+
+        _get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this, props);
+
+        // instead of getInitialState in new React notation
+        this.state = this.getState();
+
+        this.handleAppStateUpdate = function () {
+            _this.setState(_this.getState());
+        };
+        this.handleModeSelected = function (mode) {
+            _storesAppStateStore2['default'].mode = mode;
+        };
+    }
+
+    _createClass(Nav, [{
+        key: 'getState',
+        value: function getState() {
+            return {
+                mode: _storesAppStateStore2['default'].mode
+            };
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _storesAppStateStore2['default'].on('update', this.handleAppStateUpdate);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            _storesAppStateStore2['default'].off('update', this.handleAppStateUpdate);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2['default'].createElement(
+                'nav',
+                { className: 'navbar navbar-inverse navbar-fixed-top' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'navbar-collapse collapse' },
+                    _react2['default'].createElement(
+                        'a',
+                        { href: '', className: 'navbar-brand' },
+                        'Unequal Temperature Changes (Demo)'
+                    ),
+                    _react2['default'].createElement(
+                        'ul',
+                        { className: 'navbar-nav nav' },
+                        _react2['default'].createElement(
+                            'li',
+                            {
+                                className: this.state.mode === _config2['default'].MODES.diff ? "active" : "",
+                                onClick: this.handleModeSelected.bind(this, _config2['default'].MODES.diff)
+                            },
+                            _react2['default'].createElement(
+                                'a',
+                                null,
+                                'Difference'
+                            )
+                        ),
+                        _react2['default'].createElement(
+                            'li',
+                            {
+                                className: this.state.mode === _config2['default'].MODES.temp ? "active" : "",
+                                onClick: this.handleModeSelected.bind(this, _config2['default'].MODES.temp)
+                            },
+                            _react2['default'].createElement(
+                                'a',
+                                null,
+                                'Temperature'
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Nav;
+})(_react2['default'].Component);
+
+exports['default'] = Nav;
+module.exports = exports['default'];
+
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/play-button.react.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -85049,15 +85144,15 @@ var _vis = require('vis');
 
 var _vis2 = _interopRequireDefault(_vis);
 
-var Timeline = (function (_React$Component) {
-    _inherits(Timeline, _React$Component);
+var PlayButton = (function (_React$Component) {
+    _inherits(PlayButton, _React$Component);
 
-    function Timeline(props) {
+    function PlayButton(props) {
         var _this = this;
 
-        _classCallCheck(this, Timeline);
+        _classCallCheck(this, PlayButton);
 
-        _get(Object.getPrototypeOf(Timeline.prototype), 'constructor', this).call(this, props);
+        _get(Object.getPrototypeOf(PlayButton.prototype), 'constructor', this).call(this, props);
 
         // instead of getInitialState in new React notation
         this.state = this.getState();
@@ -85070,7 +85165,7 @@ var Timeline = (function (_React$Component) {
         };
     }
 
-    _createClass(Timeline, [{
+    _createClass(PlayButton, [{
         key: 'getState',
         value: function getState() {
             return {
@@ -85103,10 +85198,10 @@ var Timeline = (function (_React$Component) {
         }
     }]);
 
-    return Timeline;
+    return PlayButton;
 })(_react2['default'].Component);
 
-exports['default'] = Timeline;
+exports['default'] = PlayButton;
 module.exports = exports['default'];
 
 },{"../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js","vis":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/vis/dist/vis.min.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/timeline.react.js":[function(require,module,exports){
@@ -85264,6 +85359,10 @@ exports["default"] = {
         diff: 'DIFF_MODE',
         temp: 'TEMPERATURE_MODE'
     },
+    CITIES: {
+        Moscow: "Moscow",
+        'Saint-Petersburg': 'Saint-Petersburg'
+    },
     TOPICS: {
         observations: 'ru.semiot.alerts'
     }
@@ -85327,6 +85426,7 @@ var state = {
     timeBounds: _config.INITIAL_TIME_BOUNDS,
     showMapLabels: false,
     mode: _config.MODES.diff,
+    city: _config.CITIES.Moscow,
     isPlaying: false
 };
 
@@ -85443,6 +85543,15 @@ var AppStateStore = (function (_EventEmitter) {
         },
         set: function set(mode) {
             state.mode = mode;
+            this.emit('update');
+        }
+    }, {
+        key: 'city',
+        get: function get() {
+            return state.city;
+        },
+        set: function set(city) {
+            state.city = city;
             this.emit('update');
         }
     }]);
