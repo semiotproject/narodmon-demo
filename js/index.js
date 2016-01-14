@@ -84761,7 +84761,8 @@ var App = (function (_React$Component) {
 
             console.info('setting new observations..');
             this.setState({
-                observations: _storesObservationsStore2['default'].getObservationsForSnapshot(_storesAppStateStore2['default'].currentSnapshot)
+                observations: _storesObservationsStore2['default'].getObservationsForSnapshot(_storesAppStateStore2['default'].currentSnapshot),
+                currentSnapshot: _storesAppStateStore2['default'].currentSnapshot
             }, function () {
                 _this3.setHeatMap();
             });
