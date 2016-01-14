@@ -57,7 +57,6 @@ export default class Legend extends React.Component {
         } else {
             icon = <i className="glyphicon glyphicon-minus"></i>;
         }
-        console.log(AppStateStore.mode, CONFIG.MODES);
         return (
             <div id="legend">
                 <div className="legend-body">
