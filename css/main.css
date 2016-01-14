@@ -10672,6 +10672,11 @@ h4 {
   vertical-align: bottom;
   cursor: pointer;
 }
+#legend label {
+  margin-left: 10px;
+  font-weight: normal;
+  cursor: pointer;
+}
 .preloader {
   background: url("../img/preloader.gif") center no-repeat;
   height: 300px;
