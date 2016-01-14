@@ -6,6 +6,7 @@ import L from 'leaflet';
 import { drawTempPolygons, drawDiffPolygons } from '../voronoi.js';
 import AppStateStore from '../stores/app-state-store';
 import Legend from './legend.react';
+import Navbar from './nav.react';
 
 const HEAT_RADIUS = 25;
 
@@ -106,11 +107,7 @@ export default class App extends React.Component {
         }
         return (
             <div>
-                <nav className="navbar navbar-inverse navbar-fixed-top">
-                    <div className="navbar-collapse collapse">
-                        <a href="" className="navbar-brand">Unequal Temperature Changes (Demo)</a>
-                    </div>
-                </nav>
+                <Navbar />
                 {content}
             </div>
         );

@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import ObservationStore from './observations-store';
-import { INITIAL_TIME_BOUNDS, MODES } from '../config';
+import { INITIAL_TIME_BOUNDS, MODES, CITIES } from '../config';
 
 const state = {
     currentTime: Date.now(),
@@ -8,6 +8,7 @@ const state = {
     timeBounds: INITIAL_TIME_BOUNDS,
     showMapLabels: false,
     mode: MODES.diff,
+    city: CITIES.Moscow,
     isPlaying: false
 };
 
@@ -104,6 +105,14 @@ class AppStateStore extends EventEmitter {
     }
     set mode(mode) {
         state.mode = mode;
+        this.emit('update');
+    }
+
+    get city() {
+        return state.city;
+    }
+    set city(city) {
+        state.city = city;
         this.emit('update');
     }
 }

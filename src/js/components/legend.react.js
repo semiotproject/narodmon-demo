@@ -6,6 +6,11 @@ import vis from 'vis';
 import moment from 'moment';
 import CONFIG from '../config';
 
+const MODE_DESCRIPTION = {
+    [CONFIG.MODES.diff]: "This is difference mode description",
+    [CONFIG.MODES.temp]: "This is temperature mode description"
+};
+
 export default class Legend extends React.Component {
 
     constructor(props) {
@@ -25,6 +30,9 @@ export default class Legend extends React.Component {
         };
         this.handleModeChange = (mode) => {
             AppStateStore.mode = mode;
+        };
+        this.handleCityChange = (e) => {
+            AppStateStore.city = this.refs.city.value;
         };
     }
 
@@ -53,34 +61,18 @@ export default class Legend extends React.Component {
         return (
             <div id="legend">
                 <div className="legend-body">
-                    <p>
-                        <span>Mode:</span>
-                        <label>
-                            <input
-                                type="radio"
-                                value={CONFIG.MODES.diff}
-                                onChange={this.handleModeChange.bind(this, CONFIG.MODES.diff)}
-                                checked={AppStateStore.mode === CONFIG.MODES.diff}
-                            />
-                            <span>difference</span>
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                value={CONFIG.MODES.temp}
-                                onChange={this.handleModeChange.bind(this, CONFIG.MODES.temp)}
-                                checked={AppStateStore.mode === CONFIG.MODES.temp}
-                            />
-                            <span>temperature</span>
-                        </label>
+                    <p>Current city:
+                        <select ref="city" defaultValue={AppStateStore.city} onChange={this.handleCityChange}>
+                            <option value={CONFIG.CITIES.Moscow}>Moscow</option>
+                            <option value={CONFIG.CITIES['Saint-Petersburg']} disabled>Saint-Petersburg</option>
+                        </select>
                     </p>
-                    <p>Red is warmer</p>
-                    <p>Blue is colder</p>
                     <p>Average temperature: {temp} {icon} ({avgDiff})</p>
-                    <p>Show areas' temperature: <input type="checkbox" onChange={this.handleShowLabelsChange} defaultChecked={AppStateStore.showMapLabels} /></p>
+                    <p>Show areas' labels: <input type="checkbox" onChange={this.handleShowLabelsChange} defaultChecked={AppStateStore.showMapLabels} /></p>
                     <p>Current&nbsp;viewing&nbsp;time:&nbsp;{moment(this.state.currentTime).format('DD/MM/YY, hh:mm:ss')}</p>
                 </div>
                 <PlayButton />
+                <p>{MODE_DESCRIPTION[AppStateStore.mode]}</p>
             </div>
         );
     }

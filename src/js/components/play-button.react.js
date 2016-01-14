@@ -2,7 +2,7 @@ import React from 'react';
 import AppStateStore from '../stores/app-state-store';
 import vis from 'vis';
 
-export default class Timeline extends React.Component {
+export default class PlayButton extends React.Component {
 
     constructor(props) {
         super(props);

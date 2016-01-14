@@ -20,6 +20,10 @@ export default {
         diff: 'DIFF_MODE',
         temp: 'TEMPERATURE_MODE'
     },
+    CITIES: {
+        Moscow: "Moscow",
+        'Saint-Petersburg': 'Saint-Petersburg'
+    },
     TOPICS: {
         observations: 'ru.semiot.alerts'
     }
