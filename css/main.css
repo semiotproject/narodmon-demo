@@ -10652,19 +10652,30 @@ h4 {
   margin: 0 30%;
   cursor: pointer;
 }
-#legend {
+#right-container {
   position: absolute;
   top: 30px;
   right: 30px;
+}
+#legend,
+#description {
+  margin: 0 0 30px 0;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   padding: 20px;
   border-radius: 4px;
+  max-width: 300px;
 }
-#legend .legend-body * {
+#legend h4,
+#description h4 {
+  padding-left: 0;
+}
+#legend .legend-body *,
+#description .legend-body * {
   color: black;
 }
-#legend input[type=checkbox] {
+#legend input[type=checkbox],
+#description input[type=checkbox] {
   padding: 0;
   margin: 0;
   height: 18px;
@@ -10673,12 +10684,14 @@ h4 {
   vertical-align: bottom;
   cursor: pointer;
 }
-#legend label {
+#legend label,
+#description label {
   margin-left: 10px;
   font-weight: normal;
   cursor: pointer;
 }
-#legend p {
+#legend p,
+#description p {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.42);
 }
 .preloader {

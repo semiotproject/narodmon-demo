@@ -84693,6 +84693,10 @@ var _legendReact = require('./legend.react');
 
 var _legendReact2 = _interopRequireDefault(_legendReact);
 
+var _descriptionReact = require('./description.react');
+
+var _descriptionReact2 = _interopRequireDefault(_descriptionReact);
+
 var _navReact = require('./nav.react');
 
 var _navReact2 = _interopRequireDefault(_navReact);
@@ -84806,7 +84810,12 @@ var App = (function (_React$Component) {
                     'div',
                     { className: 'content' },
                     _react2['default'].createElement('div', { id: 'map' }),
-                    _react2['default'].createElement(_legendReact2['default'], null),
+                    _react2['default'].createElement(
+                        'div',
+                        { id: 'right-container' },
+                        _react2['default'].createElement(_legendReact2['default'], null),
+                        _react2['default'].createElement(_descriptionReact2['default'], null)
+                    ),
                     _react2['default'].createElement(_timelineReact2['default'], null)
                 );
             }
@@ -84825,7 +84834,7 @@ var App = (function (_React$Component) {
 exports['default'] = App;
 module.exports = exports['default'];
 
-},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","../stores/observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","../voronoi.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/voronoi.js","./legend.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js","./nav.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/nav.react.js","./timeline.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/timeline.react.js","leaflet":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/leaflet/dist/leaflet-src.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js":[function(require,module,exports){
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","../stores/observations-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/observations-store.js","../voronoi.js":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/voronoi.js","./description.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/description.react.js","./legend.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js","./nav.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/nav.react.js","./timeline.react":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/timeline.react.js","leaflet":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/leaflet/dist/leaflet-src.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/description.react.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -84854,6 +84863,104 @@ var _storesAppStateStore = require('../stores/app-state-store');
 
 var _storesAppStateStore2 = _interopRequireDefault(_storesAppStateStore);
 
+var _config = require('../config');
+
+var _config2 = _interopRequireDefault(_config);
+
+var MODE_DESCRIPTION = (_MODE_DESCRIPTION = {}, _defineProperty(_MODE_DESCRIPTION, _config2['default'].MODES.diff, _react2['default'].createElement(
+    'div',
+    null,
+    _react2['default'].createElement(
+        'h4',
+        null,
+        'Difference mode'
+    ),
+    _react2['default'].createElement(
+        'p',
+        null,
+        'This is difference mode description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quod dignissimos perspiciatis, eum eligendi iusto iste quisquam obcaecati doloremque sequi saepe minus deleniti repudiandae quaerat culpa doloribus rem minima. Dolores?'
+    )
+)), _defineProperty(_MODE_DESCRIPTION, _config2['default'].MODES.temp, _react2['default'].createElement(
+    'div',
+    null,
+    _react2['default'].createElement(
+        'h4',
+        null,
+        'Temperature mode'
+    ),
+    _react2['default'].createElement(
+        'p',
+        null,
+        'This is temperature mode description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia quo ipsum odio cum sit fuga magni vero dolorem tempore voluptatum aut perspiciatis ab sint aperiam est unde sequi assumenda, beatae.'
+    )
+)), _MODE_DESCRIPTION);
+
+var Legend = (function (_React$Component) {
+    _inherits(Legend, _React$Component);
+
+    function Legend(props) {
+        var _this = this;
+
+        _classCallCheck(this, Legend);
+
+        _get(Object.getPrototypeOf(Legend.prototype), 'constructor', this).call(this, props);
+        this.handleAppStateUpdate = function () {
+            _this.forceUpdate();
+        };
+    }
+
+    _createClass(Legend, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _storesAppStateStore2['default'].on('update', this.handleAppStateUpdate);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            _storesAppStateStore2['default'].off('update', this.handleAppStateUpdate);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2['default'].createElement(
+                'div',
+                { id: 'description' },
+                MODE_DESCRIPTION[_storesAppStateStore2['default'].mode]
+            );
+        }
+    }]);
+
+    return Legend;
+})(_react2['default'].Component);
+
+exports['default'] = Legend;
+module.exports = exports['default'];
+
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../stores/app-state-store":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/stores/app-state-store.js","react":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/react/react.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/components/legend.react.js":[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _storesAppStateStore = require('../stores/app-state-store');
+
+var _storesAppStateStore2 = _interopRequireDefault(_storesAppStateStore);
+
 var _storesObservationsStore = require('../stores/observations-store');
 
 var _storesObservationsStore2 = _interopRequireDefault(_storesObservationsStore);
@@ -84873,8 +84980,6 @@ var _moment2 = _interopRequireDefault(_moment);
 var _config = require('../config');
 
 var _config2 = _interopRequireDefault(_config);
-
-var MODE_DESCRIPTION = (_MODE_DESCRIPTION = {}, _defineProperty(_MODE_DESCRIPTION, _config2['default'].MODES.diff, "This is difference mode description"), _defineProperty(_MODE_DESCRIPTION, _config2['default'].MODES.temp, "This is temperature mode description"), _MODE_DESCRIPTION);
 
 var Legend = (function (_React$Component) {
     _inherits(Legend, _React$Component);
@@ -84980,12 +85085,7 @@ var Legend = (function (_React$Component) {
                         (0, _moment2['default'])(this.state.currentTime).format('DD/MM/YY, hh:mm:ss')
                     )
                 ),
-                _react2['default'].createElement(_playButtonReact2['default'], null),
-                _react2['default'].createElement(
-                    'p',
-                    null,
-                    MODE_DESCRIPTION[_storesAppStateStore2['default'].mode]
-                )
+                _react2['default'].createElement(_playButtonReact2['default'], null)
             );
         }
     }]);
