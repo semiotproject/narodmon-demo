@@ -6,6 +6,7 @@ import L from 'leaflet';
 import { drawTempPolygons, drawDiffPolygons } from '../voronoi.js';
 import AppStateStore from '../stores/app-state-store';
 import Legend from './legend.react';
+import Description from './description.react';
 import Navbar from './nav.react';
 
 const HEAT_RADIUS = 25;
@@ -101,7 +102,10 @@ export default class App extends React.Component {
             content = (
                 <div className="content">
                     <div id="map"></div>
-                    <Legend />
+                    <div id="right-container">
+                        <Legend />
+                        <Description />
+                    </div>
                     <Timeline />
                 </div>
             );

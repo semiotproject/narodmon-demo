@@ -6,11 +6,6 @@ import vis from 'vis';
 import moment from 'moment';
 import CONFIG from '../config';
 
-const MODE_DESCRIPTION = {
-    [CONFIG.MODES.diff]: "This is difference mode description",
-    [CONFIG.MODES.temp]: "This is temperature mode description"
-};
-
 export default class Legend extends React.Component {
 
     constructor(props) {
@@ -71,7 +66,6 @@ export default class Legend extends React.Component {
                     <p>Current&nbsp;viewing&nbsp;time:&nbsp;{moment(this.state.currentTime).format('DD/MM/YY, hh:mm:ss')}</p>
                 </div>
                 <PlayButton />
-                <p>{MODE_DESCRIPTION[AppStateStore.mode]}</p>
             </div>
         );
     }
