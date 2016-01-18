@@ -8,7 +8,7 @@ const state = {
     timeBounds: INITIAL_TIME_BOUNDS,
     showMapLabels: false,
     mode: MODES.diff,
-    city: CITIES.Moscow,
+    city: Object.keys(CITIES)[0],
     isPlaying: false
 };
 

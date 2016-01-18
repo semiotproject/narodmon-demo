@@ -1,11 +1,9 @@
 "use strict";
 
 import { EventEmitter } from 'events';
-import { loadLastObservations, parseObservations } from '../utils/analyzing-service';
+import { loadLastObservations, parseObservations, loadLocations } from '../utils/analyzing-service';
 import wamp from '../utils/wamp';
-// import { parseObservations } from '../utils/turtle';
 import CONFIG from '../config';
-import { loadLocations } from '../utils/sparql';
 import $ from 'jquery';
 
 const MAX_INTENSITY = 0.5;
@@ -20,9 +18,9 @@ class ObservationStore extends EventEmitter {
     get() {
         return this.observations;
     }
-    load() {
+    load(city) {
         const promise = $.Deferred();
-        this.loadSensors().done(() => {
+        this.loadLocations(city).done(() => {
             const { INITIAL_TIME_BOUNDS } = CONFIG;
             loadLastObservations(INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done((observations) => {
                 const promises = [];
@@ -38,10 +36,10 @@ class ObservationStore extends EventEmitter {
                 $.when(...promises).done(() => {
                     // finally, resolve basic promise
                     promise.resolve(this.observations);
-                    this.subscribe();
                 });
             });
         });
+        this.subscribe();
         return promise;
     }
     mergeObservations(obs) {
@@ -107,10 +105,10 @@ class ObservationStore extends EventEmitter {
         });
         return obs;
     }
-    loadSensors() {
+    loadLocations(city) {
         const promise = $.Deferred();
 
-        loadLocations().done((res) => {
+        loadLocations(city).done((res) => {
             this.sensors = {};
             res.results.bindings.map((b) => {
                 this.sensors[b.meter.value] = {

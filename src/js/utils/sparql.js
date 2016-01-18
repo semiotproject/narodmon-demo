@@ -24,7 +24,7 @@ function getTurtleResult(query) {
     return getQueryResult(query, "application/turtle");
 }
 
-export function loadLocations(sensors) {
+export function loadLocations(city) {
     return getSparqlJsonResult(`
         PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>
         PREFIX dul: <http://www.loa-cnr.it/ontologies/DUL.owl#>

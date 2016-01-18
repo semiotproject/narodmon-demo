@@ -19,6 +19,7 @@ export default class App extends React.Component {
         // instead of getInitialState in new React notation
         this.state = {
             currentSnapshot: null,
+            currentCity: AppStateStore.city,
             showMapLabels: AppStateStore.showMapLabels,
             mode: AppStateStore.mode,
             isLoading: true
@@ -40,19 +41,30 @@ export default class App extends React.Component {
                     mode: AppStateStore.mode
                 }, this.setHeatMap.bind(this));
             }
+            if (this.state.currentCity !== AppStateStore.city) {
+                this.setState({
+                    currentCity: AppStateStore.city
+                }, this.loadCity.bind(this, AppStateStore.city));
+            }
         };
     }
 
     componentDidMount() {
         ObservationStore.on('update', this.handleObservationStoreChange);
         AppStateStore.on('update', this.handleAppStateChange);
-        ObservationStore.load().done((obs) => {
+        this.loadCity(this.state.currentCity);
+    }
+    loadCity(city) {
+        console.info(`loading info for city ${city}..`);
+        ObservationStore.load(city).done((obs) => {
             AppStateStore.checkSnapshot();
             this.setState({
                 currentSnapshot: AppStateStore.currentSnapshot,
                 isLoading: false
             }, () => {
-                this.initMap();
+                if (!this._map) {
+                    this.initMap();
+                }
                 this.setObservations();
             });
         });
@@ -72,7 +84,7 @@ export default class App extends React.Component {
     }
 
     initMap() {
-        this._map = L.map("map").setView([55.754247, 37.621856], 16);
+        this._map = L.map("map").setView(CONFIG.CITIES[this.state.currentCity].center, 13);
 
         L.tileLayer(CONFIG.URLS.tiles, {
             attribution: '',
@@ -95,25 +107,23 @@ export default class App extends React.Component {
     }
 
     render() {
-        let content;
-        if (this.state.isLoading) {
-            content = <div className="preloader"></div>;
-        } else {
-            content = (
-                <div className="content">
-                    <div id="map"></div>
-                    <div id="right-container">
-                        <Legend />
-                        <Description />
-                    </div>
-                    <Timeline />
-                </div>
-            );
-        }
         return (
             <div>
                 <Navbar />
-                {content}
+                <div className={"content" + (this.state.isLoading ? " preloader" : "")}>
+                    <div id="map"></div>
+                    {
+                        !this.state.isLoading &&
+                            <div id="right-container">
+                                <Legend />
+                                <Description />
+                            </div>
+                    }
+                    {
+                        !this.state.isLoading &&
+                            <Timeline />
+                    }
+                </div>
             </div>
         );
     }

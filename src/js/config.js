@@ -21,8 +21,12 @@ export default {
         temp: 'TEMPERATURE_MODE'
     },
     CITIES: {
-        Moscow: "Moscow",
-        'Saint-Petersburg': 'Saint-Petersburg'
+        Moscow: {
+            center: [55.754247, 37.621856]
+        },
+        'Saint-Petersburg': {
+            center: [55.754247, 37.621856]
+        }
     },
     TOPICS: {
         observations: 'ru.semiot.alerts'

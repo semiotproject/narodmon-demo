@@ -57,8 +57,11 @@ export default class Legend extends React.Component {
                 <div className="legend-body">
                     <p>Current city:
                         <select ref="city" defaultValue={AppStateStore.city} onChange={this.handleCityChange}>
-                            <option value={CONFIG.CITIES.Moscow}>Moscow</option>
-                            <option value={CONFIG.CITIES['Saint-Petersburg']} disabled>Saint-Petersburg</option>
+                            {
+                                Object.keys(CONFIG.CITIES).map((c) => {
+                                    return <option key={c} value={c}>{c}</option>;
+                                })
+                            }
                         </select>
                     </p>
                     <p>Average temperature: {temp} {icon} ({avgDiff})</p>
