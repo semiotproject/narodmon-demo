@@ -84716,6 +84716,7 @@ var App = (function (_React$Component) {
         // instead of getInitialState in new React notation
         this.state = {
             currentSnapshot: null,
+            currentCity: _storesAppStateStore2['default'].city,
             showMapLabels: _storesAppStateStore2['default'].showMapLabels,
             mode: _storesAppStateStore2['default'].mode,
             isLoading: true
@@ -84737,23 +84738,36 @@ var App = (function (_React$Component) {
                     mode: _storesAppStateStore2['default'].mode
                 }, _this.setHeatMap.bind(_this));
             }
+            if (_this.state.currentCity !== _storesAppStateStore2['default'].city) {
+                _this.setState({
+                    currentCity: _storesAppStateStore2['default'].city
+                }, _this.loadCity.bind(_this, _storesAppStateStore2['default'].city));
+            }
         };
     }
 
     _createClass(App, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
-
             _storesObservationsStore2['default'].on('update', this.handleObservationStoreChange);
             _storesAppStateStore2['default'].on('update', this.handleAppStateChange);
-            _storesObservationsStore2['default'].load().done(function (obs) {
+            this.loadCity(this.state.currentCity);
+        }
+    }, {
+        key: 'loadCity',
+        value: function loadCity(city) {
+            var _this2 = this;
+
+            console.info('loading info for city ' + city + '..');
+            _storesObservationsStore2['default'].load(city).done(function (obs) {
                 _storesAppStateStore2['default'].checkSnapshot();
                 _this2.setState({
                     currentSnapshot: _storesAppStateStore2['default'].currentSnapshot,
                     isLoading: false
                 }, function () {
-                    _this2.initMap();
+                    if (!_this2._map) {
+                        _this2.initMap();
+                    }
                     _this2.setObservations();
                 });
             });
@@ -84779,7 +84793,7 @@ var App = (function (_React$Component) {
     }, {
         key: 'initMap',
         value: function initMap() {
-            this._map = _leaflet2['default'].map("map").setView([55.754247, 37.621856], 16);
+            this._map = _leaflet2['default'].map("map").setView(_config2['default'].CITIES[this.state.currentCity].center, 13);
 
             _leaflet2['default'].tileLayer(_config2['default'].URLS.tiles, {
                 attribution: '',
@@ -84802,28 +84816,22 @@ var App = (function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var content = undefined;
-            if (this.state.isLoading) {
-                content = _react2['default'].createElement('div', { className: 'preloader' });
-            } else {
-                content = _react2['default'].createElement(
+            return _react2['default'].createElement(
+                'div',
+                null,
+                _react2['default'].createElement(_navReact2['default'], null),
+                _react2['default'].createElement(
                     'div',
-                    { className: 'content' },
+                    { className: "content" + (this.state.isLoading ? " preloader" : "") },
                     _react2['default'].createElement('div', { id: 'map' }),
-                    _react2['default'].createElement(
+                    !this.state.isLoading && _react2['default'].createElement(
                         'div',
                         { id: 'right-container' },
                         _react2['default'].createElement(_legendReact2['default'], null),
                         _react2['default'].createElement(_descriptionReact2['default'], null)
                     ),
-                    _react2['default'].createElement(_timelineReact2['default'], null)
-                );
-            }
-            return _react2['default'].createElement(
-                'div',
-                null,
-                _react2['default'].createElement(_navReact2['default'], null),
-                content
+                    !this.state.isLoading && _react2['default'].createElement(_timelineReact2['default'], null)
+                )
             );
         }
     }]);
@@ -85049,16 +85057,13 @@ var Legend = (function (_React$Component) {
                         _react2['default'].createElement(
                             'select',
                             { ref: 'city', defaultValue: _storesAppStateStore2['default'].city, onChange: this.handleCityChange },
-                            _react2['default'].createElement(
-                                'option',
-                                { value: _config2['default'].CITIES.Moscow },
-                                'Moscow'
-                            ),
-                            _react2['default'].createElement(
-                                'option',
-                                { value: _config2['default'].CITIES['Saint-Petersburg'], disabled: true },
-                                'Saint-Petersburg'
-                            )
+                            Object.keys(_config2['default'].CITIES).map(function (c) {
+                                return _react2['default'].createElement(
+                                    'option',
+                                    { key: c, value: c },
+                                    c
+                                );
+                            })
                         )
                     ),
                     _react2['default'].createElement(
@@ -85461,8 +85466,12 @@ exports["default"] = {
         temp: 'TEMPERATURE_MODE'
     },
     CITIES: {
-        Moscow: "Moscow",
-        'Saint-Petersburg': 'Saint-Petersburg'
+        Moscow: {
+            center: [55.754247, 37.621856]
+        },
+        'Saint-Petersburg': {
+            center: [55.754247, 37.621856]
+        }
     },
     TOPICS: {
         observations: 'ru.semiot.alerts'
@@ -85527,7 +85536,7 @@ var state = {
     timeBounds: _config.INITIAL_TIME_BOUNDS,
     showMapLabels: false,
     mode: _config.MODES.diff,
-    city: _config.CITIES.Moscow,
+    city: Object.keys(_config.CITIES)[0],
     isPlaying: false
 };
 
@@ -85688,13 +85697,9 @@ var _utilsWamp = require('../utils/wamp');
 
 var _utilsWamp2 = _interopRequireDefault(_utilsWamp);
 
-// import { parseObservations } from '../utils/turtle';
-
 var _config = require('../config');
 
 var _config2 = _interopRequireDefault(_config);
-
-var _utilsSparql = require('../utils/sparql');
 
 var _jquery = require('jquery');
 
@@ -85721,11 +85726,11 @@ var ObservationStore = (function (_EventEmitter) {
         }
     }, {
         key: 'load',
-        value: function load() {
+        value: function load(city) {
             var _this = this;
 
             var promise = _jquery2['default'].Deferred();
-            this.loadSensors().done(function () {
+            this.loadLocations(city).done(function () {
                 var INITIAL_TIME_BOUNDS = _config2['default'].INITIAL_TIME_BOUNDS;
 
                 (0, _utilsAnalyzingService.loadLastObservations)(INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done(function (observations) {
@@ -85742,10 +85747,10 @@ var ObservationStore = (function (_EventEmitter) {
                     _jquery2['default'].when.apply(_jquery2['default'], promises).done(function () {
                         // finally, resolve basic promise
                         promise.resolve(_this.observations);
-                        _this.subscribe();
                     });
                 });
             });
+            this.subscribe();
             return promise;
         }
     }, {
@@ -85820,13 +85825,13 @@ var ObservationStore = (function (_EventEmitter) {
             return obs;
         }
     }, {
-        key: 'loadSensors',
-        value: function loadSensors() {
+        key: 'loadLocations',
+        value: function loadLocations(city) {
             var _this3 = this;
 
             var promise = _jquery2['default'].Deferred();
 
-            (0, _utilsSparql.loadLocations)().done(function (res) {
+            (0, _utilsAnalyzingService.loadLocations)(city).done(function (res) {
                 _this3.sensors = {};
                 res.results.bindings.map(function (b) {
                     _this3.sensors[b.meter.value] = {
@@ -85902,14 +85907,12 @@ var ObservationStore = (function (_EventEmitter) {
 exports['default'] = new ObservationStore();
 module.exports = exports['default'];
 
-},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../utils/analyzing-service":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/analyzing-service.js","../utils/sparql":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/sparql.js","../utils/wamp":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/wamp.js","events":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/events/events.js","jquery":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/jquery/dist/jquery.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/analyzing-service.js":[function(require,module,exports){
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","../utils/analyzing-service":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/analyzing-service.js","../utils/wamp":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/wamp.js","events":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/grunt-browserify/node_modules/browserify/node_modules/events/events.js","jquery":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/jquery/dist/jquery.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/analyzing-service.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
     value: true
 });
-exports.loadLastObservations = loadLastObservations;
-exports.parseObservations = parseObservations;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -85923,16 +85926,15 @@ var _config2 = _interopRequireDefault(_config);
 
 var _turtle = require('./turtle');
 
+var _sparql = require('./sparql');
+
 var _queryString = require('query-string');
 
 var _queryString2 = _interopRequireDefault(_queryString);
 
 function loadLastObservations(_from, to) {
-
     console.info('loading archive data from ' + new Date(_from) + ' to ' + new Date(to) + '...');
-
     var promise = _jquery2['default'].Deferred();
-
     _jquery2['default'].ajax({
         url: _config2['default'].URLS.obs_snapshot.format(_from, to),
         success: function success(data) {
@@ -85943,33 +85945,36 @@ function loadLastObservations(_from, to) {
             promise.resolve([]);
         }
     });
-
     return promise;
 }
-
 function parseObservations(obs) {
     var params = _queryString2['default'].parse(location.search);
     if (params.turtle === "true") {
         return (0, _turtle.parseObservations)(obs);
-    } else {
-        var promise = _jquery2['default'].Deferred();
-
-        // since we get JSON, no need to parseObservations explicitly; just parse numbers to float
-        promise.resolve(JSON.parse(obs).map(function (o) {
-            /*
-            o.avg = parseFloat(o.avg);
-            o.temp = parseFloat(o.temp);
-            o.diff = parseFloat(o.diff);
-            o.group = parseFloat(o.group);
-            */
-            return o;
-        }));
-
-        return promise;
     }
+    var promise = _jquery2['default'].Deferred();
+
+    // since we get JSON, no need to parseObservations explicitly; just parse numbers to float
+    promise.resolve(JSON.parse(obs).map(function (o) {
+        /*
+        o.avg = parseFloat(o.avg);
+        o.temp = parseFloat(o.temp);
+        o.diff = parseFloat(o.diff);
+        o.group = parseFloat(o.group);
+        */
+        return o;
+    }));
+
+    return promise;
+}
+function loadLocations(city) {
+    return (0, _sparql.loadLocations)(city);
 }
 
-},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","./turtle":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/turtle.js","jquery":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/jquery/dist/jquery.js","query-string":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/query-string/index.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/sparql.js":[function(require,module,exports){
+exports['default'] = { loadLocations: loadLocations, loadLastObservations: loadLastObservations, parseObservations: parseObservations };
+module.exports = exports['default'];
+
+},{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","./sparql":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/sparql.js","./turtle":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/turtle.js","jquery":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/jquery/dist/jquery.js","query-string":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/query-string/index.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/sparql.js":[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -86010,7 +86015,7 @@ function getTurtleResult(query) {
     return getQueryResult(query, "application/turtle");
 }
 
-function loadLocations(sensors) {
+function loadLocations(city) {
     return getSparqlJsonResult('\n        PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>\n        PREFIX dul: <http://www.loa-cnr.it/ontologies/DUL.owl#>\n        PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n        SELECT *\n        WHERE {\n          ?subject ssn:hasSubSystem ?meter;\n            dul:hasLocation/geo:lat ?lat;\n            dul:hasLocation/geo:long ?lng.\n        }\n    ');
 }
 
