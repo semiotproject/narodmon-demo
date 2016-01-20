@@ -85458,7 +85458,7 @@ exports["default"] = {
     URLS: {
         tiles: "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ",
         endpoint: FUSEKI_BASE,
-        obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/1/events?from={0}&to={1}"
+        obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/{0}/events?from={1}&to={2}"
     },
     INITIAL_TIME_BOUNDS: INITIAL_TIME_BOUNDS,
     MODES: {
@@ -85467,10 +85467,12 @@ exports["default"] = {
     },
     CITIES: {
         Moscow: {
+            queryId: 1,
             center: [55.754247, 37.621856]
         },
         'Saint-Petersburg': {
-            center: [55.754247, 37.621856]
+            queryId: 2,
+            center: [59.937545, 30.337841]
         }
     },
     TOPICS: {
@@ -85733,7 +85735,9 @@ var ObservationStore = (function (_EventEmitter) {
             this.loadLocations(city).done(function () {
                 var INITIAL_TIME_BOUNDS = _config2['default'].INITIAL_TIME_BOUNDS;
 
-                (0, _utilsAnalyzingService.loadLastObservations)(INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done(function (observations) {
+                var queryId = _config2['default'].CITIES[city].queryId;
+
+                (0, _utilsAnalyzingService.loadLastObservations)(queryId, INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done(function (observations) {
                     var promises = [];
                     observations.map(function (observation) {
                         var localPromise = _jquery2['default'].Deferred();
@@ -85932,11 +85936,11 @@ var _queryString = require('query-string');
 
 var _queryString2 = _interopRequireDefault(_queryString);
 
-function loadLastObservations(_from, to) {
+function loadLastObservations(queryId, _from, to) {
     console.info('loading archive data from ' + new Date(_from) + ' to ' + new Date(to) + '...');
     var promise = _jquery2['default'].Deferred();
     _jquery2['default'].ajax({
-        url: _config2['default'].URLS.obs_snapshot.format(_from, to),
+        url: _config2['default'].URLS.obs_snapshot.format(queryId, _from, to),
         success: function success(data) {
             promise.resolve(data);
         },
