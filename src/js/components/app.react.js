@@ -65,6 +65,7 @@ export default class App extends React.Component {
                 if (!this._map) {
                     this.initMap();
                 }
+                this.setMapCenter();
                 this.setObservations();
             });
         });
@@ -84,7 +85,7 @@ export default class App extends React.Component {
     }
 
     initMap() {
-        this._map = L.map("map").setView(CONFIG.CITIES[this.state.currentCity].center, 13);
+        this._map = L.map("map");
 
         L.tileLayer(CONFIG.URLS.tiles, {
             attribution: '',
@@ -94,6 +95,10 @@ export default class App extends React.Component {
         }).addTo(this._map);
 
         this._map.invalidateSize();
+    }
+
+    setMapCenter() {
+        this._map.setView(CONFIG.CITIES[this.state.currentCity].center, 13);
     }
 
     setHeatMap() {
