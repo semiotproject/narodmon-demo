@@ -84768,6 +84768,7 @@ var App = (function (_React$Component) {
                     if (!_this2._map) {
                         _this2.initMap();
                     }
+                    _this2.setMapCenter();
                     _this2.setObservations();
                 });
             });
@@ -84793,7 +84794,7 @@ var App = (function (_React$Component) {
     }, {
         key: 'initMap',
         value: function initMap() {
-            this._map = _leaflet2['default'].map("map").setView(_config2['default'].CITIES[this.state.currentCity].center, 13);
+            this._map = _leaflet2['default'].map("map");
 
             _leaflet2['default'].tileLayer(_config2['default'].URLS.tiles, {
                 attribution: '',
@@ -84803,6 +84804,11 @@ var App = (function (_React$Component) {
             }).addTo(this._map);
 
             this._map.invalidateSize();
+        }
+    }, {
+        key: 'setMapCenter',
+        value: function setMapCenter() {
+            this._map.setView(_config2['default'].CITIES[this.state.currentCity].center, 13);
         }
     }, {
         key: 'setHeatMap',
