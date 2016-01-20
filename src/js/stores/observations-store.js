@@ -22,7 +22,9 @@ class ObservationStore extends EventEmitter {
         const promise = $.Deferred();
         this.loadLocations(city).done(() => {
             const { INITIAL_TIME_BOUNDS } = CONFIG;
-            loadLastObservations(INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done((observations) => {
+            const queryId = CONFIG.CITIES[city].queryId;
+
+            loadLastObservations(queryId, INITIAL_TIME_BOUNDS[0], INITIAL_TIME_BOUNDS[1]).done((observations) => {
                 const promises = [];
                 observations.map((observation) => {
                     const localPromise = $.Deferred();

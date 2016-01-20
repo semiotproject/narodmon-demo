@@ -13,7 +13,7 @@ export default {
     URLS: {
         tiles: "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ",
         endpoint: FUSEKI_BASE,
-        obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/1/events?from={0}&to={1}"
+        obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/{0}/events?from={1}&to={2}"
     },
     INITIAL_TIME_BOUNDS,
     MODES: {
@@ -22,10 +22,12 @@ export default {
     },
     CITIES: {
         Moscow: {
+            queryId: 1,
             center: [55.754247, 37.621856]
         },
         'Saint-Petersburg': {
-            center: [55.754247, 37.621856]
+            queryId: 2,
+            center: [59.937545, 30.337841]
         }
     },
     TOPICS: {

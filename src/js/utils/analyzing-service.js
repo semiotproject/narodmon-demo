@@ -4,11 +4,11 @@ import { parseObservations as parseObservationsAsTurtle } from './turtle';
 import { loadLocations as loadLocationsFromSparql } from './sparql';
 import queryString from 'query-string';
 
-function loadLastObservations(_from, to) {
+function loadLastObservations(queryId, _from, to) {
     console.info(`loading archive data from ${new Date(_from)} to ${new Date(to)}...`);
     const promise = $.Deferred();
     $.ajax({
-        url: CONFIG.URLS.obs_snapshot.format(_from, to),
+        url: CONFIG.URLS.obs_snapshot.format(queryId, _from, to),
         success(data) {
             promise.resolve(data);
         },
