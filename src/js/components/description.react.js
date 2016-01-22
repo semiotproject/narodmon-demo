@@ -6,13 +6,13 @@ const MODE_DESCRIPTION = {
     [CONFIG.MODES.diff]: (
         <div>
             <h4>Difference mode</h4>
-            <p>This is difference mode description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quod dignissimos perspiciatis, eum eligendi iusto iste quisquam obcaecati doloremque sequi saepe minus deleniti repudiandae quaerat culpa doloribus rem minima. Dolores?</p>
+            <p>Thinking of a city generally, it is often desirable to observe some parameters in dynamics; for example, in case of big cities, in what areas does the parameter changes faster than in other? Such derivative of the parameter is demonstrated in this work by constructing the map of air temperature changed, indicating, in which area temperature changed the most from the analyzed average difference for captured temperature snapshot</p>
         </div>
     ),
     [CONFIG.MODES.temp]: (
         <div>
             <h4>Temperature mode</h4>
-            <p>This is temperature mode description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia quo ipsum odio cum sit fuga magni vero dolorem tempore voluptatum aut perspiciatis ab sint aperiam est unde sequi assumenda, beatae.</p>
+            <p>Assuming we have a snapshot of temperature, we might want to identify the relative difference of each area temperature from the current average. Constructing the map of "relativelly colder" and "relativelly warmer" and "time-travelling" view of previous snapshots may be helpful to create understanding of particular city areas' temperature so-called "microtrends"</p>
         </div>
     )
 };

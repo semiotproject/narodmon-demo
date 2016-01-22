@@ -143,7 +143,7 @@ export function drawTempPolygons(map, points, showLabels) {
                 return 0;
             }
             // console.log(Math.abs(d.intensity) + 0.01);
-            return Math.abs(d.temp - d.avgTemp) / 20;
+            return Math.abs(d.temp - d.avgTemp) / 15;
         },
         label(d) {
             if (!d) {
