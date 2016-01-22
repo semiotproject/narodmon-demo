@@ -84892,7 +84892,7 @@ var MODE_DESCRIPTION = (_MODE_DESCRIPTION = {}, _defineProperty(_MODE_DESCRIPTIO
     _react2['default'].createElement(
         'p',
         null,
-        'This is difference mode description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt quod dignissimos perspiciatis, eum eligendi iusto iste quisquam obcaecati doloremque sequi saepe minus deleniti repudiandae quaerat culpa doloribus rem minima. Dolores?'
+        'Thinking of a city generally, it is often desirable to observe some parameters in dynamics; for example, in case of big cities, in what areas does the parameter changes faster than in other? Such derivative of the parameter is demonstrated in this work by constructing the map of air temperature changed, indicating, in which area temperature changed the most from the analyzed average difference for captured temperature snapshot'
     )
 )), _defineProperty(_MODE_DESCRIPTION, _config2['default'].MODES.temp, _react2['default'].createElement(
     'div',
@@ -84905,7 +84905,7 @@ var MODE_DESCRIPTION = (_MODE_DESCRIPTION = {}, _defineProperty(_MODE_DESCRIPTIO
     _react2['default'].createElement(
         'p',
         null,
-        'This is temperature mode description. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia quo ipsum odio cum sit fuga magni vero dolorem tempore voluptatum aut perspiciatis ab sint aperiam est unde sequi assumenda, beatae.'
+        'Assuming we have a snapshot of temperature, we might want to identify the relative difference of each area temperature from the current average. Constructing the map of "relativelly colder" and "relativelly warmer" and "time-travelling" view of previous snapshots may be helpful to create understanding of particular city areas\' temperature so-called "microtrends"'
     )
 )), _MODE_DESCRIPTION);
 
@@ -86295,7 +86295,7 @@ function drawTempPolygons(map, points, showLabels) {
                 return 0;
             }
             // console.log(Math.abs(d.intensity) + 0.01);
-            return Math.abs(d.temp - d.avgTemp) / 20;
+            return Math.abs(d.temp - d.avgTemp) / 15;
         },
         label: function label(d) {
             if (!d) {
