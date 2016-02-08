@@ -11,7 +11,7 @@ const INITIAL_TIME_BOUNDS = [
 
 export default {
     URLS: {
-        tiles: "http://b.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",
+        tiles: "http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}",
         endpoint: FUSEKI_BASE,
         obs_snapshot: ANALYZING_SERVICE_BASE + "api/query/{0}/events?from={1}&to={2}"
     },
