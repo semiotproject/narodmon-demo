@@ -85458,7 +85458,7 @@ var FUSEKI_BASE = "http://demo-1.semiot.ru:3030/ds/query";
 var ANALYZING_SERVICE_BASE = "http://demo-1.semiot.ru:8085/";
 
 var params = _queryString2["default"].parse(location.search);
-var INITIAL_TIME_BOUNDS = [params.from ? parseInt(params.from) : Date.now() - 1 * 3600 * 1000, params.to ? parseInt(params.to) : Date.now() + 10 * 1000];
+var INITIAL_TIME_BOUNDS = [params.from ? parseInt(params.from) : Date.now() - 12 * 3600 * 1000, params.to ? parseInt(params.to) : Date.now() + 10 * 1000];
 
 exports["default"] = {
     URLS: {
