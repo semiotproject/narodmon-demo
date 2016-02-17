@@ -5,7 +5,7 @@ const ANALYZING_SERVICE_BASE = `http://demo-1.semiot.ru:8085/`;
 
 const params = queryString.parse(location.search);
 const INITIAL_TIME_BOUNDS = [
-    params.from ? parseInt(params.from) : Date.now() - 1 * 3600 * 1000,
+    params.from ? parseInt(params.from) : Date.now() - 12 * 3600 * 1000,
     params.to ? parseInt(params.to) : Date.now() + 10 * 1000
 ];
 
