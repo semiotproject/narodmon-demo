@@ -85549,7 +85549,7 @@ var state = {
 };
 
 // every ten minutes
-var PLAY_UPDATE_INTERVAL = 1000 * 60 * 5;
+var PLAY_UPDATE_INTERVAL = 1000 * 60 * 20;
 
 var PLAY_UPDATE_PERIOD = 1000;
 
