@@ -85724,7 +85724,6 @@ var ObservationStore = (function (_EventEmitter) {
         _classCallCheck(this, ObservationStore);
 
         _get(Object.getPrototypeOf(ObservationStore.prototype), 'constructor', this).call(this);
-        this.observations = {};
     }
 
     _createClass(ObservationStore, [{
@@ -85737,6 +85736,7 @@ var ObservationStore = (function (_EventEmitter) {
         value: function load(city) {
             var _this = this;
 
+            this.observations = {};
             var promise = _jquery2['default'].Deferred();
             this.loadLocations(city).done(function () {
                 var INITIAL_TIME_BOUNDS = _config2['default'].INITIAL_TIME_BOUNDS;
