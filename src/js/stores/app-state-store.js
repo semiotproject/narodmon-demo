@@ -13,7 +13,7 @@ const state = {
 };
 
 // every ten minutes
-const PLAY_UPDATE_INTERVAL = 1000 * 60 * 5;
+const PLAY_UPDATE_INTERVAL = 1000 * 60 * 20;
 
 const PLAY_UPDATE_PERIOD = 1000;
 
