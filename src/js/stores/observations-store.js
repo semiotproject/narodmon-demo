@@ -13,12 +13,12 @@ const MIN_INTENSITY = 0.1;
 class ObservationStore extends EventEmitter {
     constructor() {
         super();
-        this.observations = {};
     }
     get() {
         return this.observations;
     }
     load(city) {
+        this.observations = {};
         const promise = $.Deferred();
         this.loadLocations(city).done(() => {
             const { INITIAL_TIME_BOUNDS } = CONFIG;
