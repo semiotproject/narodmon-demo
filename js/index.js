@@ -86026,7 +86026,7 @@ function getTurtleResult(query) {
 }
 
 function loadLocations(city) {
-    return getSparqlJsonResult('\n        PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>\n        PREFIX dul: <http://www.loa-cnr.it/ontologies/DUL.owl#>\n        PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n        SELECT *\n        WHERE {\n          ?subject ssn:hasSubSystem ?meter;\n            dul:hasLocation/geo:lat ?lat;\n            dul:hasLocation/geo:long ?lng.\n        }\n    ');
+    return getSparqlJsonResult('\n        PREFIX ssn: <http://purl.oclc.org/NET/ssnx/ssn#>\n        PREFIX dul: <http://www.loa-cnr.it/ontologies/DUL.owl#>\n        PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>\n        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\n        SELECT *\n        WHERE {\n          ?subject ssn:hasSubSystem ?meter;\n            geo:location/geo:lat ?lat;\n            geo:location/geo:long ?lng.\n        }\n    ');
 }
 
 },{"../config":"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/config.js","jquery":"/home/user/jenkins/workspace/semiot_temp_change_demo/node_modules/jquery/dist/jquery.js"}],"/home/user/jenkins/workspace/semiot_temp_change_demo/src/js/utils/turtle.js":[function(require,module,exports){
