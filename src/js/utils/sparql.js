@@ -34,8 +34,8 @@ export function loadLocations(city) {
         SELECT *
         WHERE {
           ?subject ssn:hasSubSystem ?meter;
-            dul:hasLocation/geo:lat ?lat;
-            dul:hasLocation/geo:long ?lng.
+            geo:location/geo:lat ?lat;
+            geo:location/geo:long ?lng.
         }
     `);
 }
